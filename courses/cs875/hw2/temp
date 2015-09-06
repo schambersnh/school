@@ -1,8 +1,0 @@
-SELECT P1.ssn, P2.ssn FROM passenger P1, passenger P2 WHERE
-P1.ssn NOT IN(SELECT ssn FROM crew) AND P2.ssn NOT IN(SELECT ssn FROM crew)
-AND EXISTS(
-        SELECT * FROM reservation R1 NATURAL JOIN departure WHERE ssn=P1.ssn
-        AND R1.airline NOT IN(Select airline FROM reservation NATURAL JOIN departure WHERE ssn=P2.ssn)
-        AND R1.flightnbr NOT IN(Select airline FROM reservation NATURAL JOIN departure WHERE ssn=P2.ssn)
-        AND R1.segnbr NOT IN(Select airline FROM reservation NATURAL JOIN departure WHERE ssn=P2.ssn)
-    );

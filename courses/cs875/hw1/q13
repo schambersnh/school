@@ -1,1 +1,0 @@
-\project_{Fname, Lname}(EMPLOYEE \join \rename_{Ssn} \project_{Super_Ssn} EMPLOYEE) \diff \project_{Fname, Lname}(EMPLOYEE \join_{Ssn=Essn} DEPENDENT);

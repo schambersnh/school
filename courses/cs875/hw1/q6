@@ -1,1 +1,0 @@
-\project_{Lname}(\select_{Bdate <= '1949-01-01'}(EMPLOYEE));

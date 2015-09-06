@@ -1,3 +1,0 @@
-\project_{Pno}(\select_{Lname='Smith'} EMPLOYEE \join_{Ssn=Essn} WORKS_ON)
-\union
-\project_{Pno}(\select_{Lname='Smith'}(WORKS_ON \join_{Pno=Pnumber} PROJECT \join_{Dnum=Dnumber} DEPARTMENT \join_{Mgr_ssn=Ssn} EMPLOYEE));

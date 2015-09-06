@@ -1,1 +1,0 @@
-\project_{Fname, Lname}(EMPLOYEE \join_{Super_Ssn=Ssn3} \rename_{Ssn3}(\project_{Ssn}\select_{Super_ssn='888665555'}(EMPLOYEE \join_{Ssn=Ssn2} \rename_{Ssn2}\project_{Super_ssn}(EMPLOYEE))));

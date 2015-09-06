@@ -1,8 +1,0 @@
-Output schema: (Lname text, Address text)
------
-Wallace|291 Berry, Bellaire, TX
------
-Total number of rows: 1
-
-Bye!
-

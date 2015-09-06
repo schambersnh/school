@@ -1,9 +1,0 @@
-Output schema: (Pnumber integer, Dnum integer, Lname text, Address text, BDATE text)
------
-10|4|Wallace|291 Berry, Bellaire, TX|1941-06-20
-30|4|Wallace|291 Berry, Bellaire, TX|1941-06-20
------
-Total number of rows: 2
-
-Bye!
-

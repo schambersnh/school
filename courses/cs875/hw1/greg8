@@ -1,9 +1,0 @@
-Output schema: (Fname text, Lname text)
------
-John|Smith
-Joyce|English
------
-Total number of rows: 2
-
-Bye!
-

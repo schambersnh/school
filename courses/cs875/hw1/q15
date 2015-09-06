@@ -1,4 +1,0 @@
-\project_{Pname, Fname, Lname}(
-    (EMPLOYEE \join_{Ssn=Essn} \select_{hours>10.0} WORKS_ON)
-        \join_{Pno=Pnumber}
-            (\select_{Pname='Newbenefits' or Pname='Reorganization'} PROJECT));

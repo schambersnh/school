@@ -1,1 +1,0 @@
-\project_{Fname, Lname, Address}(\select_{Dname='Research'}(DEPARTMENT) \join_{Dnumber=Dno} EMPLOYEE);
