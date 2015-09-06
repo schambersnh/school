@@ -1,0 +1,12 @@
+cs415: Introduction to Programming I
+cs416: Introduction to Programming II
+cs515: Data structures
+cs520: Assmebly Language and Machine Oriented Programming
+cs619: Introduction to Object Oriented Design 
+cs720: Operating Systems Programming
+cs775: Databases
+cs821: Linux Kernel Design
+cs825: Computer Networking
+cs830: AI
+cs875: Databases
+cs925: Advanced Computer Networking
