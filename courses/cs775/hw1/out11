@@ -1,0 +1,11 @@
+Output schema: (Dname text, Pname text)
+-----
+Administration|Computerization
+Administration|Newbenefits
+Headquarters|Reorganization
+Research|ProductZ
+-----
+Total number of rows: 4
+
+Bye!
+

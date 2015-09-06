@@ -1,0 +1,150 @@
+/**
+ * Digraph - a class that encapsulates the basic functionality of
+ * a directed graph.
+ *         Skeleton code for digraph lab
+ * Features to be added (in addition to completing existing methods):
+ *    1. Collection to hold the nodes in the graph
+ *    2. Collection to hold the edges in the graph
+ *    3. Methods to access the nodes and edges; 
+ *       a. you might want to access an individual node 
+ *          or edge  by index
+ *       b. you might want to access the entire collection of nodes 
+ *          and/or edges.
+ * 
+ * 
+ * Additional features to consider for a general purpose Digraph class
+ *    (but NOT for this lab).
+ *    4. You might want to have some alternative convenience methods, such as
+ *       a. adding an Edge given 2 Nodes
+ *       b. adding an Edge given 2 node ids (implying adding the nodes if needed)
+ *       c. other things?
+ *    
+ * @author rdb
+ * 10/31/10 - derived from code created by Jonathan Brown 
+ *            
+ */
+import java.util.*;
+
+public class Digraph
+{
+   //----------------------- instance variables -------------------------------
+   HashMap<String,Node> myHash;
+   ArrayList<Edge> myEdge;
+   //----------------------- constructor -------------------------------
+   public Digraph()
+   {
+     myHash = new HashMap<String,Node>();
+     myEdge = new ArrayList<Edge>();
+   }
+   //----------------------- getAddNode( String ) ----------------------
+   /**
+    * If the parameter is an id for an existing node, return that node
+    * else add a node with that id to the graph
+    */
+   public Node getAddNode( String id )
+   {
+      Node myNode = new Node(id);
+      if(getNode(id) != null)
+      {
+        System.err.println("Node already definied. Not adding...");
+      }
+      else
+      {
+      addNode(myNode);
+      }
+      //System.out.println( "Digraph.getAddNode: " + id );
+      return null;
+   }   
+   //----------------------- addNode( String ) ----------------------------------
+   /**
+    * Add a node to the graph given a node id
+    */
+   public void addNode( String id )
+   {
+      System.out.println( "Digraph.addNode( String ): " + id );
+   }   
+   //----------------------- addNode( Node ) ----------------------------------
+   /**
+    * Add a node to the graph; don't add if a node with the same id already
+    * exists in the graph -- give an error, but continue.
+    */
+   public void addNode( Node n )
+   {
+      if (myHash.get(n.getId()) != null)
+      {
+        System.err.println("Node already definied. Not adding...");
+      }
+      else
+      {
+        myHash.put(n.getId(), n);
+      }
+      System.out.println( "Digraph.addNode( Node ): " + n );
+   }   
+   //----------------------- addEdge( String, String ) ------------------------------
+   /**
+    * Add an edge to the graph, given node ids for the edge
+    */
+   public void addEdge( String idFrom, String idTo )
+   {
+      Node fromNode = getAddNode(idFrom);
+      Node toNode = getAddNode(idTo);
+      fromNode.addEdge(toNode);
+      Edge edgeFromTo = new Edge(fromNode, toNode);
+      System.out.println(edgeFromTo);
+      myEdge.add(edgeFromTo);
+     // System.out.println( "Edge from " + idFrom + " to " + idTo );
+   }   
+   //----------------------- Node getNode( String ) -----------------------
+   /**
+    * Get a node with specified id from the graph; return null if no such
+    * node exists.
+    */
+   public Node getNode( String id )
+   {
+      return myHash.get(id);
+   }   
+   //----------------------- int size() ------------------------------
+   /**
+    * Return # nodes in the graph
+    */
+   public int size()
+   {
+      return 0;
+   } 
+   //---------------------- toString() --------------------------------
+   /**
+    * Create a brief textual representation of the Digraph
+    * Print out the number of nodes and number of edges
+    */
+   public String toString()
+   {
+      return "Number of Nodes: " + myHash.size();
+   }
+   //---------------------- longString() --------------------------------
+   /**
+    * Create a longer representation of the Digraph:
+    *    Print 1 line for each node:
+    * 
+    *    nodeId:  node1 node2 .... nodek 
+    * 
+    * where node1, node2, ... , nodek are nodes that are an end node
+    *     for an edge that starts at nodeId.
+    */
+   public String longString()
+   {
+      
+      String s = "";
+      
+      for(int i = 0; i < myHash.size(); i++)
+      {
+        s += " " + myHash.values().toArray()[i].toString();
+      }
+      s+= "\nThere are: " + myEdge.size() + " edges on the graph";
+      return s;
+   }
+   //+++++++++++++++++++++++ main +++++++++++++++++++++++++++++++++++++++++++++
+   public static void main( String [ ] args ) 
+   {
+      GraphLab.main( args );
+   }
+}

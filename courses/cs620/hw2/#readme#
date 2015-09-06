@@ -1,0 +1,29 @@
+Program Execution:
+You can type "make myhistory" or "make myshell" to compile the two separate files. These create executables that run the programs.
+
+Program Design:
+
+This program is designed to encapsulate a basic shell. The user will be able to 
+input commands, similar to typing them into a terminal. It can be exited with the "quit" command.
+
+Main Functionalities:
+1. get a command from the user in an infinite loop
+2. parse out empty space and null terminate the string
+3. execute the command (fork, execvp, wait)
+4. History Command
+
+Does not support:
+1. Pipes (|)
+2. Redirection (< or >)
+3. Internal Commands (cd)
+
+The main program sits in an infinite loop until the user types "quit". In this infinite loop, it does the following:
+1. Gets a command from the user and null terminates it.
+2. Passes in the line that the user entered and a variable to contain the command line arguments to the "format" function. Format
+then parses out any space and saves each space delimited argument into the command line arguments into a variable named "arguments".
+3. Passes the arguments into the "execute" method, where a child is spawned. The child calls execvp with those arguments, wiping out its 
+memory and executing the command. The parent waits for this to be done by the child.
+
+***NOTE: If history is entered, the child instead executes the history command,q which is written code not in the linux library. The child then
+calls "exit(0) to 'kill itself'.
+

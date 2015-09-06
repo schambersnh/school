@@ -1,0 +1,26 @@
+/** 
+ * ATV Class
+ * Builds an ATV
+ *
+ * Stephen Chambers
+ * 9/21/10
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+
+public class HalloweenATV extends ATV
+
+{
+  public HalloweenATV(itn x, int y)
+  {
+    super(x,y);
+    body.setColor(Color.BLACK);
+    wheel.setColor(Color.ORANGE);
+    wheel2.setColor(Color.ORANGE);
+    inFlag.setColor(Color.ORANGE);
+    flag.setFillColor(Color.BLACK);
+    
+  }
+  
+}

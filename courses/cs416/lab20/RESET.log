@@ -1,0 +1,452 @@
+-------------------------------4/19/11 9:48 AM-------------------------------
+
+**** Split
+**** FindAll
+**** Find
+-------------------------------4/19/11 9:56 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Find
+**** Find
+**** Split
+**** FindAll
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Regex --> CL\S*. <--
+**** Find
+**** Regex --> CL\S* <--
+**** Find
+**** Regex --> CL\S*. <--
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+-------------------------------4/19/11 9:57 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> CL\S*. <--
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Regex --> \((\d+),(\d+)\) <--
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+-------------------------------4/19/11 10:01 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> CL\S*. <--
+**** Find
+**** Find
+**** FindAll
+-------------------------------4/19/11 10:05 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> : <--
+**** Split
+-------------------------------4/19/11 10:12 AM-------------------------------
+
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+-------------------------------4/19/11 10:13 AM-------------------------------
+
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+-------------------------------4/19/11 10:13 AM-------------------------------
+
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** File --> headers.txt <--
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Find
+**** Find
+**** Regex --> cl <--
+**** Find
+**** Find
+**** FindAll
+**** Find
+**** FindAll
+**** Find
+**** FindAll
+**** Find
+-------------------------------4/19/11 10:15 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> cl <--
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** Find
+**** FindAll
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex -->              cl <--
+**** Find
+**** FindAll
+**** FindAll
+**** FindAll
+**** FindAll
+-------------------------------4/19/11 10:16 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex -->          cl <--
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Find
+**** FindAll
+**** FindAll
+**** FindAll
+**** FindAll
+-------------------------------4/19/11 10:16 AM-------------------------------
+
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** File --> headers.txt <--
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> #.*?CL <--
+**** Find
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Find
+-------------------------------4/19/11 10:18 AM-------------------------------
+
+**** File --> headers.txt <--
+-------------------------------4/19/11 10:19 AM-------------------------------
+
+**** Regex --> CL\S*. <--
+**** File --> headers.txt <--
+**** FindAll
+-------------------------------4/19/11 10:20 AM-------------------------------
+
+-------------------------------4/19/11 10:21 AM-------------------------------
+
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** File --> headers.txt <--
+**** Regex --> cl <--
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+-------------------------------4/19/11 10:21 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> #.*?CL <--
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Find
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Find
+-------------------------------4/19/11 10:23 AM-------------------------------
+
+**** Regex --> cl(.*) <--
+**** File --> headers.txt <--
+**** Groups
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase Comments
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Regex --> Flags: MLine NoCase 
+**** Groups
+**** Regex --> CL <--
+**** Groups
+-------------------------------4/19/11 10:24 AM-------------------------------
+
+-------------------------------4/19/11 10:26 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> #.*?CL <--
+**** Groups
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Groups
+**** Regex --> CL\S*. <--
+**** Groups
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+**** Regex --> Flags: MLine DotAll 
+-------------------------------4/19/11 10:28 AM-------------------------------
+
+**** Regex --> \((\d+).(\d+)\) <--
+**** File --> headers.txt <--
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+-------------------------------4/19/11 10:32 AM-------------------------------
+
+**** File --> headers.txt <--
+**** Regex --> \((\d+),(\d+)\) <--
+**** Find
+**** Groups
+**** Find
+**** Groups
+**** Regex --> Flags: MLine 
+**** Regex --> Flags: MLine 
+-------------------------------5/3/11 11:17 AM-------------------------------
+

@@ -1,0 +1,36 @@
+/**
+ * LeftButton.java -- F08
+ *
+ */
+import wheelsunh.users.*;
+import java.awt.Point;
+import java.awt.Color;
+
+public class MoveButton extends DrawButton
+{
+    //-------------------- instance variables ------------------------------
+   protected Snake snake1;
+   private Ellipse leftButton;
+    
+    //---------------------- Constructor -------------------------------------
+    /**
+     * 
+     */
+    public MoveButton ( int x, int y, Snake s ) 
+    {
+        super()
+    }
+    
+    public void mousePressed(java.awt.event.MouseEvent e)
+    {
+      snake1.move();
+    }
+ 
+    //---------------- Testing Main ---------------------------
+    public static void main( String a[] )
+    {
+        Frame f = new Frame();
+        Snake mySnake = new Snake( 150, 150 );
+        MoveButton myMoveButton = new MoveButton(300, 300, mySnake);
+    }    
+}

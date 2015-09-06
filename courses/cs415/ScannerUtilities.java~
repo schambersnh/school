@@ -1,0 +1,34 @@
+/**
+ * ScannerUtilities: Some useful static methods associated with Scanners.
+ */
+
+import java.util.*;
+
+public class ScannerUtilities
+{
+   /**
+    * tokenize: Read all tokens in the scanner, return an ArrayList<Object>
+    *                with the tokens in order. 
+    *      You should recognize the following token types:
+    *            byte
+    *            short
+    *            int
+    *            float
+    *            boolean
+    *      and create objects of type:
+    *            Byte
+    *            Short
+    *            Integer
+    *            Float
+    *            Boolean
+    *      All other tokens are returned as String.
+    */
+   public static ArrayList<Object> tokenize( Scanner scan )
+   {
+      ArrayList<Object> tokens = new ArrayList<Object>();
+         
+      ////////////////// insert your code here /////////////////////////
+           
+      return tokens;
+   }      
+}

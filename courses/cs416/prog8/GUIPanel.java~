@@ -1,0 +1,198 @@
+/**
+ * GUIPanel for VectorField assignment
+ * 
+ * Michael du Breuil
+ * Summer 2010
+ * 
+ * Edited by rdb
+ * April 2011
+ */
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+public class GUIPanel extends JFrame 
+{   
+   //--------------- class variables ----------------------------------
+   public static int maxMaxDepth = 6;
+   
+   //--------------- instance variables --------------------------------
+   private VectorField  field;
+   private QuadTreeRake rake;
+   
+   //------------------ constructor -------------------------------------
+   public GUIPanel( VectorField field ) 
+   {
+      super( "Control Panel" );
+      JPanel panel = new JPanel( new FlowLayout());
+      this.field = field;
+      this.rake  = field.getRake();
+      
+      JPanel sliders = new JPanel();
+      sliders.setLayout( new GridLayout( 4, 1 ));
+      sliders.add( new NumParticleSlider( panel, rake ));
+      sliders.add( new VectorSizeSlider( panel, rake ));
+      sliders.add( new LifetimeSlider( panel, rake ));
+      sliders.add( new DeviationSlider( panel ));
+      panel.add( sliders );
+      
+      JPanel buttonPanel = new JPanel( new GridLayout( 2, 3 ));
+      buttonPanel.add( showHideButton( "Field" ));
+      buttonPanel.add( showHideButton( "Particles" ));
+      buttonPanel.add( showHideButton( "Tree" ));
+      buttonPanel.add( showHideButton( "2-tone" ));
+      buttonPanel.add( showHideButton( "End mark" ));
+      LabeledSpinner depthSpinner = 
+         new LabeledSpinner( "Tree depth", 0, maxMaxDepth, 4 );
+      depthSpinner.addChangeListener( new DepthListener() );
+      buttonPanel.add( depthSpinner );
+      panel.add( buttonPanel );
+      
+      this.add( panel );
+      
+      //this.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
+      this.pack();
+      this.setSize( new Dimension( 550, 300 ));
+   }
+   //--------------- showHideButton( String ) --------------------------
+   /**
+    * Create a toggle button to show/hide a feature
+    */
+   private JRadioButton showHideButton( String feature )
+   {
+      JRadioButton showButton = new JRadioButton( "Show " + feature );
+      //showButton.setMnemonic( KeyEvent.VK_B );
+      showButton.setActionCommand( feature );
+      showButton.setSelected( true );
+      showButton.addActionListener( new RadioListener());
+      return showButton;
+   }
+   
+   //+++++++++++++++++++++++ VectorSizeSlider class ++++++++++++++++++++
+   /**
+    * private inner class to update the vector scale factor with a slider
+    */
+   private class VectorSizeSlider extends ParameterSlider 
+   {
+      private QuadTreeRake quadTreeRake;
+      //---------------- constructor --------------------------------------
+      public VectorSizeSlider( JPanel parent, QuadTreeRake quadTreeRake ) 
+      {
+         super( "Vector scale factor", 0, 100, 25 );
+         this.quadTreeRake = quadTreeRake;
+      }
+      //------------------- valueChanged( int ) -----------------------
+      public void valueChanged( int newValue ) 
+      {
+         if( newValue < 1 )
+            newValue = 1;
+         field.setVectorScale( newValue );
+      }
+   }
+   //+++++++++++++++++++++++ LifetimeSlider class ++++++++++++++++++++
+   /**
+    * private inner class to update the lifetime parameter
+    */
+   private class LifetimeSlider extends ParameterSlider 
+   {
+      private QuadTreeRake quadTreeRake;
+      //---------------- constructor --------------------------------------
+      public LifetimeSlider( JPanel parent, QuadTreeRake quadTreeRake ) 
+      {
+         super( "Lifetime", 0, 100, 25 );
+         this.quadTreeRake = quadTreeRake;
+      }
+      //------------------- valueChanged( int ) -----------------------
+      public void valueChanged( int newValue ) 
+      {
+         if( newValue < 2 )
+            newValue = 2;
+         quadTreeRake.setLifetime( newValue );
+      }
+   }
+   //+++++++++++++++++++++++ NumParticleSlider class ++++++++++++++++++++
+   /**
+    * private inner class to update the # particles parameter
+    */
+   private class NumParticleSlider extends ParameterSlider 
+   {
+      private QuadTreeRake quadTreeRake;
+      //---------------- constructor --------------------------------------
+      public NumParticleSlider( JPanel parent, QuadTreeRake quadTreeRake ) 
+      {
+         super( "#Particles", 0, 5000, 1000 );
+         this.quadTreeRake = quadTreeRake;
+      }
+      //------------------- valueChanged( int ) -----------------------
+      public void valueChanged( int newValue ) 
+      {
+         if( newValue < 2 )
+            newValue = 2;
+         quadTreeRake.setNumParticles( newValue );
+      }
+   }
+   //+++++++++++++++++++++++ Deviation inner class ++++++++++++++++++++
+   /**
+    * private inner class to update the std deviation parameter
+    */
+   private class DeviationSlider extends ParameterSlider 
+   {
+      //---------------- constructor --------------------------------------
+      public DeviationSlider( JPanel parent ) 
+      {
+         super( "Min Std Dev %", 50, 100, 75 );
+         slider.setMajorTickSpacing( 10 );
+         slider.setMinorTickSpacing( 5 );
+         slider.repaint();
+      }
+      //------------------- valueChanged(int) -----------------------
+      public void valueChanged( int newValue ) 
+      {
+         if ( newValue < 1 )
+            newValue = 1; 
+         
+         double val = newValue / 100.0;
+         field.setPerCentMinStdDev( val );
+         //System.out.println( "% MinSD: " + val );
+      }
+   }
+   
+   //+++++++++++++++++++++++ RadioListener inner class ++++++++++++++++++++
+   /**
+    * private inner class to handle button presses
+    */
+   private class RadioListener implements ActionListener 
+   {      
+      public void actionPerformed( ActionEvent e ) 
+      {
+         if( e.getActionCommand().equals( "Tree" )) 
+            field.showTree = !field.showTree;
+         else if( e.getActionCommand().equals( "Field" ))
+            field.showField = !field.showField;
+         else if( e.getActionCommand().equals( "Particles" ))
+            field.showParticles = !field.showParticles;
+         else if( e.getActionCommand().equals( "2-tone" ))
+            Vector2D.dualTone = !Vector2D.dualTone;
+         else if( e.getActionCommand().equals( "End mark" ))
+            Vector2D.showEnd = !Vector2D.showEnd;
+      }
+   }
+   //+++++++++++++++++++++++++++ DepthListener class +++++++++++++++++++++++++
+   /**
+    * responds to a Spinner that sets the max recursion depth. The value
+    * is assigned to a VectorField class variable, maxDepth.
+    */
+   public class DepthListener implements ChangeListener
+   {
+      //------------------- stateChanged -----------------------------
+      public void stateChanged( ChangeEvent ev )
+      {
+         JSpinner spinner = (JSpinner) ev.getSource();
+         Number spinValue = (Number) spinner.getValue();
+         field.setMaxDepth( spinValue.intValue() );
+      }
+   }
+   
+}

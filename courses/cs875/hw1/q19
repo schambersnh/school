@@ -1,0 +1,1 @@
+\project_{Fname}(\select_{Pno='2'}(EMPLOYEE \join_{Ssn=Essn} WORKS_ON)) \union \project_{Fname}\select_{Dno='1'}(EMPLOYEE);

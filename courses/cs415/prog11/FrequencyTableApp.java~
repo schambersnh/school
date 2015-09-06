@@ -1,0 +1,213 @@
+import java.util.Scanner;
+import java.io.*;
+import java.util.Vector;
+
+public class FrequencyTableApp
+{
+  Scanner keyBoard, myScan, myFileScan;
+  String command = "", argument, input;
+  Vector<FrequencyLine> table;
+  File inFile;
+  BufferedWriter p;
+  
+  public FrequencyTableApp()
+  {
+    while(!command.equals("quit"))
+    {
+      keyBoard = new Scanner(System.in);
+      input = keyBoard.nextLine();
+      
+      myScan = new Scanner(input);
+      command = myScan.next();
+      argument = myScan.next();
+      if(command.equals("r"))
+      {
+        doR(argument);
+      }
+      else if(command.equals("p"))
+      {
+        doP(argument);
+      }
+      else if(command.equals("f"))
+      {
+        doF(argument);
+      }
+      
+      else if(command.equals("s"))
+      {
+        doS(argument);
+      }
+      else if(command.equals("l"))
+      {
+        doL(argument);
+      }
+      
+    }
+  }
+  
+  
+  
+  public void doR(String filename)
+  {
+    table = new Vector<FrequencyLine>();
+    table.clear();
+    String next;
+    boolean duplicate = false;
+    inFile = new File(filename);
+    Scanner myFileScan;
+    
+    try
+    {
+      myFileScan = new Scanner(inFile);
+      myFileScan.useDelimiter("[\\s\\Q,!()?;/\".\\E]");
+      while(myFileScan.hasNext())
+      {
+        next = myFileScan.next();
+        
+        
+        if(next.length() >= 4)
+        {
+          for(int i = 0; i < table.size(); i++)
+          {
+            if(table.get( i ).getWord().equals( next ) )
+            {
+              table.get( i ).incCount();
+              duplicate = true;
+            }   
+          }
+          
+          if( !duplicate)
+          {
+            int i = 0;
+            while( i < table.size() && next.compareTo( table.get( i ).getWord()) >= 0)
+              i++;
+            table.add (i, new FrequencyLine( next ) );
+            
+          }
+          duplicate = false;
+        }
+        
+      }
+      
+      
+      
+    }
+    catch(IOException e)
+    {
+      System.err.println( e.getMessage() );
+      return;
+    }
+    System.out.println("File read successfully.");
+    
+    
+    
+  }
+  public void doP(String letter)
+  {
+    try
+    {
+      for(int i = 0; i < table.size(); i++)
+      {
+        if(table.get(i).getWord().startsWith(letter))
+        {
+          System.out.print(table.get( i ));
+        }
+      }
+    }
+    catch(NullPointerException e)
+    {
+      System.out.println("Read a file first!");
+    }
+  }
+  
+  public void doF(String word)
+  {
+    try
+    {
+      for(int i = 0; i < table.size(); i++)
+      {
+        if(table.get(i).getWord().equals(word))
+        {
+          System.out.print(table.get( i ));
+        }
+      }
+    }
+    catch(NullPointerException e)
+    {
+      System.out.println("Read a file first!");
+    }
+  }
+  
+  public void doS(String filename)
+  {
+    try
+    {
+      
+      p = new BufferedWriter( new FileWriter( filename ) );
+      for(int i = 0; i < table.size(); i++)
+      {
+        p.write(table.get(i).toString());
+      }
+      
+    }
+    
+    catch(IOException e)
+    {
+      e.getMessage();
+    }
+    catch(NullPointerException e)
+    {
+      System.out.println("Read a file first!");
+    }
+    
+    System.out.println("File Written Successfully.");
+  }
+  
+  public void doL(String filename)
+  {
+    table.clear();
+    String next;
+    
+    inFile = new File(filename);
+    Scanner myFileScan;
+    
+    try
+    {
+      
+      myFileScan = new Scanner(inFile);
+      while(myFileScan.hasNext())
+      {
+        next = myFileScan.nextLine();
+        
+        if(next.split(" ").length == 2)
+        {
+          table.add(new FrequencyLine(next));
+        }
+        else
+        {
+          System.out.println("Error");
+        }
+       
+       
+        
+      }
+      
+    }
+    catch (IOException e)
+    {
+      e.getMessage();
+    }
+    catch(NullPointerException e)
+    {
+      System.out.println("Read the file first!");
+    }
+    for(int i = 0; i < table.size(); i++)
+    {
+      System.out.println(table.toString());
+    }
+  }
+    public static void main(String [] args)
+    {
+      FrequencyTableApp test = new FrequencyTableApp();
+    }
+  }

@@ -1,0 +1,252 @@
+/**
+ * Chapter 7: EventsPanel.java
+ * Creates the panel to be placed inside the Lag3 window.
+ * Used( with modifications ) in all programs later in this book.
+ * Version 3 of 3
+ *
+ * 1/30/08: rdb
+ *    Renamed (old name was BallApp) and added JFrame parameter to constructor
+ *    Pass JFrame to BouncingBall
+ */
+import java.awt.*;
+import java.awt.geom.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class EventsPanel extends JPanel 
+                         implements Animated, MouseListener
+{
+   //------------------------ instance variables ---------------------
+   private final int FRAME_INTERVAL = 100;  // 100 msec per frame
+
+   private Container _parent;
+   
+   private BouncingBall _ball;
+   
+   // animation/gui variables
+   ArrayList<Animated>  _movers;
+   ArrayList<AShape>    _ashapes;   // objects that need to be displayed
+   Point _saveMouse;
+   ArrayList<Draggable> _draggers;
+   ArrayList<Draggable> _dragging;
+   
+   //--------------------- EventsPanel -----------------------------
+   public EventsPanel( Container parent ) 
+   {
+      super();
+      setLayout( null );   //Very important method call!!
+      
+      _parent = parent;
+      
+      this.setBackground( Color.white );
+      
+      // create an ArrayList containing all objects that need updating
+      //  on each frame.
+      _movers   = new ArrayList<Animated>();
+      
+      // create an ArrayList for all objects that need to have their
+      //  display methods executed in paintComponent
+      _ashapes  = new ArrayList<AShape>();
+ 
+      BouncingBall ball = new BouncingBall( this, Color.RED );  
+      ball.setLocation( 75, 75 );
+      ball.setSize( 60, 60 );
+      ball.setMove( 5, 9 );
+      _movers.add( ball );
+      _ashapes.add( ball );
+      
+      BouncingBall myBall = new BouncingBall(this, Color.BLUE );
+      ball.setLocation( 105, 75 );
+      ball.setSize( 80, 80 );
+      ball.setMove( 7, 10 );
+      _movers.add( myBall );
+      _ashapes.add( myBall );
+      
+      JBouncingBall myJBall = new JBouncingBall( this, Color.GREEN );
+      ball.setSize( 100, 100 );
+      ball.setMove( 15, 15 );
+      _movers.add( myJBall );
+      this.add( myJBall );
+      
+      JPlayer myJPlayer = new JPlayer( Color.ORANGE, 50, 50 );
+      myJPlayer.setMove( 8, 8 );
+      _movers.add( myJPlayer );
+      this.add( myJPlayer );
+      
+      
+      AEllipse ae = new AEllipse( 100, 100 );
+      ae.setColor( Color.CYAN );
+      _ashapes.add( ae );
+      
+      ae = new AEllipse( 120, 100 );
+      ae.setColor( Color.MAGENTA );
+      _ashapes.add( ae );
+      
+      _dragging = new ArrayList<Draggable>();
+      _draggers = new ArrayList<Draggable>();
+    
+      // create and start up the FrameTimer
+      FrameTimer timer = new FrameTimer( FRAME_INTERVAL, this );
+      timer.start();
+      addMouseListener( this );
+   }
+   
+   //++++++++++++++++++++++ Animated interface +++++++++++++++++++++++++
+   private boolean      _animated; // not really used for the panel
+   //---------------------- newFrame() ----------------------------------
+   public boolean isAnimated()
+   {
+      return _animated;
+   }
+   //---------------------- setAnimated( boolean ) --------------------
+   public void setAnimated( boolean onOff )
+   {
+      _animated = onOff;
+   }
+   //---------------------- newFrame() -------------------------------
+   public void newFrame() 
+   {
+      for ( int i = 0; i < _movers.size(); i++ )
+         _movers.get( i ).newFrame();
+           
+      this.repaint();
+   }
+   
+   //++++++++++++++++++ MouseListener methods +++++++++++++++++++++++++++
+   // You need to implement mousePressed and mouseDragged; 
+   // the others must be there but will remain "empty".
+   //
+   private Point   _saveLoc;   // instance variable needed for dragging
+   //------------------- mousePressed( MouseEvent ) ----------------------
+   /**
+    * When completed, this method will take one of 2 actions:
+    *   if the mouse event location is inside one or more draggable objects,
+    *      it will initiate dragging of those objects
+    *   else
+    *      it will generate a new BouncingBall object at the mouse location
+    */
+   public void mousePressed( MouseEvent me )
+   {  
+      ///////////////////////////////////////////////////////////////
+      // 
+      // 1. First, add code to create a new BouncingBall at the mouse position. 
+      //    The step increments for the ball's motion should be
+      //            xLoc % 21 - 10, yLoc % 21 - 10
+      //    The size (both width and height) should be determined by the
+      //    formula:
+      //            10 + ( xLoc + yLoc ) % 20
+      //    The color should be set to YELLOW.
+      //
+      // 2. Later, add a test of the mouse position:
+      //
+      //    Invoke the findSelectedDraggers method; it takes an ArrayList of
+      //       Draggable objects and a Point that is the mouse position.
+      //       It returns a list of Draggable objects that contain the point.
+      //       Both lists need to be instance variables, not local variables.
+      //    If the returned list is not empty (its size > 0)
+      //       _saveLoc = mousePosition (will be used in mouseDragged method)
+      //    else
+      //       execute the code you wrote in step 1 above.
+      //////////////////////////////////////////////////////////////////
+     _saveMouse = me.getPoint();
+     
+      int x = 125;
+      int y = 125;
+      int size = 10 + ( x + y ) % 20;
+      int dx = x % 21-10;
+      int dy = y %21-10;
+      
+      
+      BouncingBall ball = new BouncingBall( this, Color.YELLOW );  
+      ball.setLocation( x, y );
+      ball.setSize( size, size );
+      ball.setMove( dx, dy );
+      _movers.add( ball );
+      _ashapes.add( ball );
+   
+   }
+   //------------- unused MouseListener methods -----------------
+   public void mouseEntered( MouseEvent me ) {}
+   public void mouseExited( MouseEvent me ) {}
+   public void mouseMoved( MouseEvent me ) {}
+   public void mouseReleased( MouseEvent me ){}
+   //+++++++++++++++++++++ end MouseListener methods ++++++++++++++++++++++
+   
+   //-------------- findSelectedDraggers( ArrayList, Point ) --------------
+   /**
+    * First argument: ArrayList<Draggable>  objects that can be dragged
+    * Second argument: Point mousePosition
+    * 
+    * this routine tests the mouse position against draggable W-objects
+    * to see if the point is inside the bounds of the each object.
+    * It returns an ArrayList of all the objects that enclose the
+    * mouse position.
+    */
+   private ArrayList<Draggable> 
+           findSelectedDraggers( ArrayList<Draggable> draggers, Point p )
+   {
+      ArrayList<Draggable> selected = new ArrayList<Draggable>();
+      Iterator<Draggable> iter = draggers.iterator();
+      while( iter.hasNext() )
+      {
+         Draggable d = iter.next();
+         if ( d.isDraggable() && d.contains( p ))
+            selected.add( d );
+      }
+      return selected;
+   }
+    
+   //+++++++++++++++ MouseMotionListener methods ++++++++++++++++++++++++++
+   //------------------- mouseDragged( MouseEvent ) -----------------  
+   public void mouseDragged( MouseEvent me )
+   { 
+      ////////////////////////////////////////////////////////////////////
+      // 0. if _saveLoc is null, return  
+      // 1. get the mouse location; use me.getPoint()
+      // 2. compute dx, dy as differences between this location and _saveLoc
+      // 3. loop through "dragging" array
+      //       foreach entry
+      //           call its moveBy method with dx, dy as arguments
+      //////////////////////////////////////////////////////////////////////
+      /*int currentX = me.getPoint().x;
+      int currentY = me.getPoint().y;
+      
+      int diffX = currentX - _saveMouse.x;
+      int diffY = currentY - _saveMouse.y;
+      
+      for(int i = 0; i < _dragging.size(); i++)
+      {
+        moveBy(diffX, diffY);
+      }
+      */
+      
+   }
+   //------------------- mouseClicked( MouseEvent ) -----------------  
+   public void mouseClicked( MouseEvent me ){} 
+   //+++++++++++++++++++ end MouseMotionListener methods ++++++++++++++++++++
+ 
+   //--------------------- paintComponent( Graphics ) --------------------
+   /**
+    * Need this if we intermix A-objects with the J-objects
+    *   need to explicitly draw the A-class objects
+    */
+   public void paintComponent( Graphics aBrush ) 
+   {
+      super.paintComponent( aBrush );
+      Graphics2D brush2D = ( Graphics2D ) aBrush;
+      
+      Iterator<AShape> iter = _ashapes.iterator();
+      while ( iter.hasNext() )
+         iter.next().display( brush2D ); 
+   }
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   //------------------ main -------------------------------
+   /**
+    * Convenience main for testing the lab code.
+    */
+   public static void main( String [ ] args ) 
+   {
+      SwingEventsApp app = new SwingEventsApp( "SwingEventsApp" );
+   }
+}

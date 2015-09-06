@@ -1,0 +1,127 @@
+import java.awt.Point;
+import java.awt.Color;
+import wheelsunh.users.*;
+
+public class MissionATV extends ATV implements Deployable
+{
+  //----------------------------Instance Variables----------------------------
+  private double power= 100.0, dist;
+  private double x, y, currentX, currentY;
+  private double step;
+  private Point startPoint, endPoint, tempPoint;
+  private double deltaX, deltaY;
+  private Line line1;
+  
+  
+  public MissionATV(int x, int y)
+  {
+    super(x, y);
+  }
+  // set the starting point for a new mission
+  public void setStartPoint( java.awt.Point p )
+  {
+    startPoint = p;
+    setLocation((int)startPoint.x, (int)startPoint.y);
+  }
+  
+  // set the initial amount of energy for a deployable object
+  public void setPower( double n )
+  {
+    power = n;
+  }
+  
+  // set the next waypoint for the mission
+  public void setNextPoint( java.awt.Point p )
+  {
+    endPoint = p;
+  
+  }
+  
+  // set the step size for the ATV
+  public void setStepSize( double size )
+  {
+    step = size;
+  }
+  
+  // step toward the next waypoint and return whether the Deployable
+  // has reached it
+  public boolean move()
+  {
+    Display disp = new Display(10, 50, power);
+    deltaX = startPoint.x - endPoint.x;
+    deltaY = startPoint.y - endPoint.y;
+    
+    
+    //Calculate the Distance to the Next Waypoint
+    dist = Math.sqrt(Math.pow(deltaX, 2) - Math.pow(deltaY, 2));
+    System.out.println("Distance: " + dist);
+    
+    //Draw a Line from the Start Point to the End Point
+    line1 = new Line(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+    
+    //If the deltaY is less then 0 (uphill) set the Color of the line to Red
+    //If deltaY is greater then 0 (downhill), set the color to Green
+    
+    if ( deltaY <= 0 ) //uphill
+    {
+      line1.setColor(Color.RED);
+    }
+    else //downhill
+    {
+      line1.setColor(Color.GREEN);
+    }
+    
+    //If out of power, change the ATV to white and end the mission
+    if ( power <= 0 )
+    {  
+      setColor(Color.WHITE);
+      return false;
+    }
+    else
+    {
+      //move one step
+      
+      if ( dist >= step ) // still a long way to go
+      {
+        x = getXLocation() + (step/dist) * (deltaX);
+        System.out.println("Going to: " + x);
+        y = getYLocation() + (step/dist)*  (deltaY);
+        System.out.println("Going to: " + y);
+        
+        currentX = getXLocation();
+        currentY = getYLocation();
+        
+        if ( deltaY <= 0 ) // going uphill
+        {
+          //reduce fuel
+            power -= y - currentY;    
+        }
+        else
+        {
+          // increase fuel 
+          
+          /*
+           * Power Decreasing, only calling add power
+           * */
+           System.out.println("Adding power");
+          power += (1.0/4.0)* (currentY - y);
+          
+        }
+        disp.setValue(power);
+        System.out.println("X: " + x + "\nY: " + y + "\nPower: " + power);
+        setLocation((int)x, (int)y);
+        return false;
+        
+      }
+      else
+      {
+        setLocation(endPoint.x, endPoint.y);
+        setPower(100.0);
+        return true;
+      }
+      
+    } 
+    
+  }
+  
+}

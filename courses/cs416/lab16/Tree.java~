@@ -1,0 +1,22 @@
+public class Tree 
+{
+   //-------------------- instance variables ---------------------
+   private Node   _root;
+   private int    _size;
+   
+   //-------------------- constructors --------------------------
+   /**
+    * Construct an empty tree with no nodes
+    */
+   public Tree()
+   {
+      _root = null;
+   }
+   /**
+    * Construct a tree with a root 
+    */
+   public Tree( int rootData )
+   {
+      _root = new Node( rootData );
+   }
+}

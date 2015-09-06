@@ -1,0 +1,211 @@
+/**
+ * CrapsApp.java
+ * Stephen Chambers
+ * 10/27/10
+*/
+
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.awt.Point;
+import java.util.Random;
+
+public class CrapsApp extends ShapeGroup
+{
+  //---------------- instance variables ------------------------------
+  protected Rectangle rectMoney, betRect;
+  protected Dice myDice1, myDice2;
+  protected int cash = 100, bet = 15, myDice1Val, myDice2Val;
+  protected Point endPoint;
+  protected TextBox betText, outcome;
+  protected Color myColor;  
+  
+  //----------------------------------------------------------------------------
+   /*
+   * 
+   */
+  public CrapsApp()
+  {
+    rectMoney = new Rectangle( 100, 250 );
+    rectMoney.setSize( cash, 10 );
+    rectMoney.setFrameColor( Color.BLACK );
+    rectMoney.setFillColor( Color.WHITE );
+    
+    betText = new TextBox( 100, 300 );
+    betText.setText( "Bet " + bet + " / " + cash  );
+    
+    betRect = new Rectangle( 100, 250 );
+    betRect.setSize( bet, 10 );
+    betRect.setFillColor( Color.RED );
+    betRect.setFrameColor( Color.BLACK );
+    add( betRect );
+    add( rectMoney );
+    
+   
+    
+   
+    
+    
+    
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   
+   * 
+   */
+  public void roll()
+  {
+    myDice1 = new Dice (50, 100);
+    myDice2 = new Dice (110, 100);
+    myDice1Val = myDice1.getNumDie();
+    myDice2Val = myDice2.getNumDie();
+    System.out.println( "Die 1's value: " + myDice1Val );
+    System.out.println( "Die 2's value: " + myDice2Val );
+    check( myDice1Val, myDice2Val, bet );
+  }
+
+  public int check( int numDie1, int numDie2, int bet )
+  {
+    if( numDie1 + numDie2 == 2 )//payoff 3:1
+    {
+      cash += bet * 3;      
+      setColor( Color.GREEN );
+      checkCash();
+      outcome.setText( "You Scored 2! Won: " + bet * 3 );
+     
+    }
+    else if( numDie1 + numDie2 == 3 || numDie1 + numDie2 == 4 )//payoff 1:1
+    {
+      cash += bet;     
+      setColor( Color.GREEN );
+      checkCash();
+      outcome.setText( "You Scored 3 or 4! Won: " + bet );
+      
+    }
+    else if( numDie1 + numDie2 == 10 || numDie1 + numDie2 == 11 )//payoff 2:1
+    {
+      cash += bet * 2;     
+      setColor( Color.GREEN );
+      checkCash();
+      outcome.setText( "You Scored 10 or 11! Won: " + bet * 2 );
+      
+    }
+    else if( numDie1 + numDie2 == 12 )//payoff 5:1
+    {
+      cash += bet * 5;      
+      setColor( Color.GREEN );
+      checkCash();
+      outcome.setText( "You Scored 12! Won: " + bet * 5 );
+    }
+    else//lose bet
+    {
+      cash -= bet;      
+      setColor( Color.RED );
+      checkCash();
+      outcome.setText( "You lost. Lost: " + bet );
+    }
+    return cash;
+  }
+ 
+  public void mouseReleased( java.awt.event.MouseEvent me )
+  {
+    
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * This method just stores the point of the bet for the slider to determine
+   * the user's bet.
+   * 
+   */
+  public void mousePressed( java.awt.event.MouseEvent me )
+  {
+    endPoint = me.getPoint();
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+
+   * 
+   */
+  public void mouseDragged( java.awt.event.MouseEvent me )
+  {
+    Point point = me.getPoint();
+    int diffX = point.x - endPoint.x;
+    bet = bet + diffX;
+    if( bet <= cash && bet >= 0 )
+    {
+      betRect.setSize( bet, 10 );      
+      betText.setText( "Bet " + bet + " / " + cash  );      
+    }
+    else if( bet < 0 )
+    {
+      bet = 0;
+      betText.setText( "Bet " + bet + " / " + cash  );      
+    }
+    else
+    {
+      bet = cash;
+      betRect.setSize( bet, 10 );
+      betText.setText( "Bet " + bet + " / " + cash );      
+    }    
+    endPoint = point;
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   */
+  public void checkCash()
+  {
+    if( cash <= 0 )
+    {
+      cash = 0;
+      bet = 0;
+      betText.setText( "Bet " + bet + " / " + cash  );
+      betRect.setSize( bet, 10 );
+      rectMoney.setSize( cash, 10 );      
+    }
+    else if( bet > cash )
+    {
+      bet = cash;
+      betRect.setSize( bet, 10 );
+      betText.setText( "Bet " + bet + " / " + cash  );
+      rectMoney.setSize( cash, 10 );
+    }
+    else
+    {
+      betRect.setSize( bet, 10 );
+      betText.setText( "Bet " + bet + " / " + cash  );
+      rectMoney.setSize( cash, 10 );
+    }
+    
+  }  
+ 
+  //----------------------------------------------------------------------------
+  /**
+   *
+   * 
+   */
+  public void setColor( Color myColor )
+  {
+    myDice1.setColor( myColor );
+    myDice2.setColor( myColor );
+  }
+  
+  //----------------------------------------------------------------------------
+
+  
+  //----------------------------------------------------------------------------
+  /**
+   * 
+   * 
+   */
+  public static void main( String[ ] args )
+  {      
+    new Frame(  );
+    CrapsApp app = new CrapsApp( ); 
+    RollButton button = new RollButton( 50, 175, app );
+    button.setSize( 50, 25 );    
+  }  
+  
+}

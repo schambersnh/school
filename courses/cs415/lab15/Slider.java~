@@ -1,0 +1,28 @@
+public class Slider
+{
+  private Rectangle rect1, rect2;
+  Point lastMousePosition;
+  public Slider(int x, int y)
+  {
+    rect1 = new Rectangle(x, y);
+    rect1.setSize(100, 10);
+    rect1.setColor(Color.WHITE);
+    
+    rect2.setSize(100, 10);
+    rect2.setColor(Color.RED);
+    
+    
+  }
+  public void mouseDragged(MouseEvent me)
+  {
+    Point currentPoint = me.getPoint(); 
+    int diffX = currentPoint.x - lastMousePosition.x; 
+    int diffY = currentPoint.y - lastMousePosition.y; 
+    setLocation( getLocation().x + diffX, getLocation().y + diffY ); 
+    lastMousePosition = currentPoint;
+  }
+  public void mousePressed(MouseEvent me)
+  {
+    lastMousePosition = me.getPoint();
+  }
+}

@@ -1,0 +1,100 @@
+/*Stephen Chambers
+This program is designed to take in 16-bit unicode and convert it to UTF-8
+*/
+#include <stdio.h>
+int main()
+{
+  //Ensure the file is set up correctly
+  unsigned int b1, b2, uni, offset;
+  offset = 0;
+  b1 = getchar();
+  if(b1 == EOF)
+  {
+    fprintf(stderr, "Empty file at offset %d\n", offset);
+    return 0;
+  }
+  else
+  {
+  offset++;
+  }
+  b2 = getchar();
+  
+  if(b2 == EOF)
+  {
+    fprintf(stderr, "Odd number of bytes detected at offset %d\n. Exiting program", offset);
+    return 0;
+  }
+  else
+  {
+  offset++;
+  }
+  
+  //Loop until EOF
+  while(b2 != EOF)
+  {
+    uni = (b1 << 8) | b2;
+
+    if(uni >= 0x0000 && uni <= 0x007F)
+    {
+      //case 1
+	putchar(uni);
+    }
+    else if(uni >= 0x0080 && uni <= 0x07FF)
+    {
+      //case 2
+      unsigned int utf1, utf2;
+      utf1 = uni;
+      utf1 = (utf1 >> 6) | 0x00C0;
+
+      utf2 = uni;
+      utf2 = (utf2 & 0x003F) | 0x0080;
+
+      putchar(utf1);
+      putchar(utf2);
+
+    }
+
+    else if(uni >= 0x0800 && uni <= 0xFFFF)
+    {
+      //case 3
+      unsigned int u1, u2, u3;
+      u1 = uni;
+      u1 = (u1 >> 12) | 0x00E0;
+
+      u2 = uni;
+      u2 = (u2 >> 6) & 0x003F;
+      u2 = u2 | 0x008F;
+
+      u3 = uni;
+      u3 = (u3 & 0x003F) | 0x0080;
+     
+      putchar(u1);
+      putchar(u2);
+      putchar(u3);
+    }
+    //get new characters
+    b1 = getchar();
+    b2 = getchar();
+    if(b1 == EOF && b2 == EOF)
+    {
+    return 0;
+    
+    }
+    else if(b1 == EOF)
+    {
+    fprintf(stderr, "Early EOF detected at offset %d. Exiting program.\n", offset);
+    return 0;
+    }
+    else if(b2 == EOF)
+    {
+      fprintf(stderr, "Odd number of bytes detected at offset %d\n. Exiting program", offset);
+      return 0;
+    }
+    else
+    {
+    offset++;
+    offset++;
+    }
+  }
+  
+}

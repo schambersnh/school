@@ -1,0 +1,301 @@
+Script started on Fri 06 Sep 2013 05:03:39 PM EDT
+bash-4.2$ whoami
+smx227
+bash-4.2$ echo "My second linux command"
+My second linux command
+bash-4.2$ mkdir cs620
+bash-4.2$ cd cs620/
+bash-4.2$ cat > temp.txt
+Linux is so much funbash-4.2$ 
+bash-4.2$ vi temp.txt 
+[?1h=[1;24r[m[m[0m[H[J[24;1H"temp.txt" [noeol] 1L, 20C[1;1HLinux is so much fun
+[1m~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~[1;1H[24;1H-- INSERT --[0m[24;13H[K[1;1HCLinux is so much funCSLinux is so much funCS6Linux is so much funCS62Linux is so much funCS620Linux is so much funCS620[1;6H[K[2;1HLinux is so much fun[24;1H[K[2;1H[24;1H:wq"temp.txt" 2L, 27C written[?1l>
+bash-4.2$ ps -a
+  PID TTY          TIME CMD
+ 1956 pts/7    00:00:09 geany
+ 1962 pts/7    00:00:00 gnome-pty-helpe
+ 2551 pts/20   00:00:00 ssh
+10887 pts/8    00:00:04 geany
+10891 pts/8    00:00:00 dbus-launch
+10895 pts/8    00:00:00 gnome-pty-helpe
+11569 pts/35   00:00:00 vim
+11570 pts/27   00:00:00 vim
+14181 pts/28   00:00:00 bash
+14670 pts/34   00:00:00 script
+14672 pts/34   00:00:00 script
+15034 pts/19   00:00:00 bash
+16470 pts/33   00:00:00 script
+16472 pts/33   00:00:00 script
+16492 pts/37   00:00:00 vi
+16498 pts/0    00:00:00 gdb
+16505 pts/0    00:00:00 a.out
+16511 pts/25   00:00:00 ps
+28983 pts/42   00:00:00 ssh
+29548 pts/46   00:00:00 vim
+30876 pts/7    00:00:00 dbus-launch
+30883 pts/7    00:00:00 thunar
+bash-4.2$ ls -l
+total 4
+-rw------- 1 smx227 ncsu 27 Sep  6 17:06 temp.txt
+bash-4.2$ ls -l | grep *.txt
+-rw------- 1 smx227 ncsu 27 Sep  6 17:06 temp.txt
+bash-4.2$ cat temp.txt 
+CS620
+Linux is so much fun
+bash-4.2$ date
+Fri Sep  6 17:07:49 EDT 2013
+bash-4.2$ ls -l | cit[K[Kut -cli-
+cut: invalid byte, character or field list
+Try 'cut --help' for more information.
+bash-4.2$ ls -l | cut -c11
+
+ 
+bash-4.2$ man [K[K[K[Kls -l | cut-c11-
+bash: cut-c11-: command not found
+bash-4.2$ ls -l | cut-c11- -c11-
+
+ 1 smx227 ncsu 27 Sep  6 17:06 temp.txt
+bash-4.2$ ls -l ge[Krep -I "cs" temp.txt
+ls: cannot access grep: No such file or directory
+-rw------- 1 smx227 ncsu 27 Sep  6 17:06 temp.txt
+bash-4.2$ ls
+temp.txt
+bash-4.2$ ls -l grep -I [K[Ki "cs" temp.txt 
+ls: cannot access grep: No such file or directory
+ls: cannot access cs: No such file or directory
+104595488 -rw------- 1 smx227 ncsu 27 Sep  6 17:06 temp.txt
+bash-4.2$ ls -l grep -i "cs" temp.txt [K -l grep -I "cs" temp.txt|grep -I "cs" temp.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C grep -I "cs" temp.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+bash-4.2$ man ci[Kut
+[?1h=CUT(1)                           User Commands                          CUT(1)[m
+[m
+[1mNAME[0m[m
+       cut - remove sections from each line of files[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mcut[0m [4mOPTION[m... [[4mFILE[m]...[m
+[m
+[1mDESCRIPTION[0m[m
+       Print selected parts of lines from each FILE to standard output.[m
+[m
+       Mandatory  arguments  to  long  options are mandatory for short options[m
+       too.[m
+[m
+       [1m-b[0m, [1m--bytes[0m=[4mLIST[m[m
+              select only these bytes[m
+[m
+       [1m-c[0m, [1m--characters[0m=[4mLIST[m[m
+              select only these characters[m
+[m
+       [1m-d[0m, [1m--delimiter[0m=[4mDELIM[m[m
+              use DELIM instead of TAB for field delimiter[m
+[m
+[7m Manual page cut(1) line 1 (press h for help or q to quit)[m[K[K       [1m-f[0m, [1m--fields[0m=[4mLIST[m[m
+[7m Manual page cut(1) line 2 (press h for help or q to quit)[m[K[K              select only these fields;  also print any line that contains  no[m
+[7m Manual page cut(1) line 5 (press h for help or q to quit)[m[K[K              delimiter character, unless the [1m-s[0m option is specified[m
+[7m Manual page cut(1) line 6 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 7 (press h for help or q to quit)[m[K[K       [1m-n[0m     with [1m-b[0m: don't split multibyte characters[m
+[7m Manual page cut(1) line 8 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 9 (press h for help or q to quit)[m[K[K       [1m--complement[0m[m
+[7m Manual page cut(1) line 10 (press h for help or q to quit)[m[K[K              complement the set of selected bytes, characters or fields[m
+[7m Manual page cut(1) line 11 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 12 (press h for help or q to quit)[m[K[K       [1m-s[0m, [1m--only-delimited[0m[m
+[7m Manual page cut(1) line 13 (press h for help or q to quit)[m[K[K              do not print lines not containing delimiters[m
+[7m Manual page cut(1) line 14 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 15 (press h for help or q to quit)[m[K[K       [1m--output-delimiter[0m=[4mSTRING[m[m
+[7m Manual page cut(1) line 16 (press h for help or q to quit)[m[K[K              use  STRING  as  the  output delimiter the default is to use the[m
+[7m Manual page cut(1) line 17 (press h for help or q to quit)[m[K[K              input delimiter[m
+[7m Manual page cut(1) line 18 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 19 (press h for help or q to quit)[m[K[K       [1m--help[0m display this help and exit[m
+[7m Manual page cut(1) line 20 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 21 (press h for help or q to quit)[m[K[K       [1m--version[0m[m
+[7m Manual page cut(1) line 22 (press h for help or q to quit)[m[K[K              output version information and exit[m
+[7m Manual page cut(1) line 23 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 24 (press h for help or q to quit)[m[K[K       Use one, and only one of [1m-b[0m, [1m-c[0m or [1m-f[0m.  Each LIST is  made  up  of  one[m
+[7m Manual page cut(1) line 25 (press h for help or q to quit)[m[K[K       range,  or  many ranges separated by commas.  Selected input is written[m
+[7m Manual page cut(1) line 26 (press h for help or q to quit)[m[K[K       in the same order that it is read, and is written exactly  once.   Each[m
+[7m Manual page cut(1) line 27 (press h for help or q to quit)[m[K[K       range is one of:[m
+[7m Manual page cut(1) line 28 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 29 (press h for help or q to quit)[m[K[K       N      N'th byte, character or field, counted from 1[m
+[7m Manual page cut(1) line 30 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 31 (press h for help or q to quit)[m[K[K       N-     from N'th byte, character or field, to end of line[m
+[7m Manual page cut(1) line 32 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 33 (press h for help or q to quit)[m[K[K       N-M    from N'th to M'th (included) byte, character or field[m
+[7m Manual page cut(1) line 34 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 35 (press h for help or q to quit)[m[K[K       [1m-M[0m     from first to M'th (included) byte, character or field[m
+[7m Manual page cut(1) line 36 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 37 (press h for help or q to quit)[m[K[K       With no FILE, or when FILE is -, read standard input.[m
+[7m Manual page cut(1) line 38 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 39 (press h for help or q to quit)[m[K[K[1mAUTHOR[0m[m
+[7m Manual page cut(1) line 40 (press h for help or q to quit)[m[K[K       Written by David M. Ihnat, David MacKenzie, and Jim Meyering.[m
+[7m Manual page cut(1) line 41 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 42 (press h for help or q to quit)[m[K[K[1mREPORTING[0m [1mBUGS[0m[m
+[7m Manual page cut(1) line 43 (press h for help or q to quit)[m[K[K       Report cut bugs to bug-coreutils@gnu.org[m
+[7m Manual page cut(1) line 44 (press h for help or q to quit)[m[K[K       GNU coreutils home page: <http://www.gnu.org/software/coreutils/>[m
+[7m Manual page cut(1) line 45 (press h for help or q to quit)[m[K[K       General help using GNU software: <http://www.gnu.org/gethelp/>[m
+[7m Manual page cut(1) line 46 (press h for help or q to quit)[m[K[K       Report cut translation bugs to <http://translationproject.org/team/>[m
+[7m Manual page cut(1) line 47 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 48 (press h for help or q to quit)[m[K[K[1mCOPYRIGHT[0m[m
+[7m Manual page cut(1) line 49 (press h for help or q to quit)[m[K[K       Copyright  ©  2012  Free Software Foundation, Inc.  License GPLv3+: GNU[m
+[7m Manual page cut(1) line 50 (press h for help or q to quit)[m[K[K       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.[m
+[7m Manual page cut(1) line 51 (press h for help or q to quit)[m[K[K       This is free software: you are free  to  change  and  redistribute  it.[m
+[7m Manual page cut(1) line 52 (press h for help or q to quit)[m[K[K       There is NO WARRANTY, to the extent permitted by law.[m
+[7m Manual page cut(1) line 53 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 54 (press h for help or q to quit)[m[K[K[1mSEE[0m [1mALSO[0m[m
+[7m Manual page cut(1) line 55 (press h for help or q to quit)[m[K[K       The  full  documentation for [1mcut[0m is maintained as a Texinfo manual.  If[m
+[7m Manual page cut(1) line 56 (press h for help or q to quit)[m[K[K       the [1minfo[0m and [1mcut[0m programs are properly installed at your site, the com‐[m
+[7m Manual page cut(1) line 57 (press h for help or q to quit)[m[K[K       mand[m
+[7m Manual page cut(1) line 58 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 59 (press h for help or q to quit)[m[K[K              [1minfo[0m [1mcoreutils[0m [1m'cut[0m [1minvocation'[0m[m
+[7m Manual page cut(1) line 60 (press h for help or q to quit)[m[K[K[m
+[7m Manual page cut(1) line 61 (press h for help or q to quit)[m[K[K       should give you access to the complete manual.[m
+[7m Manual page cut(1) line 62 (press h for help or q to quit)[m[K[K[?1l>bash-4.2$ find .
+.
+./temp.txt
+bash-4.2$ whereis open
+open: /bin/open /usr/bin/open /usr/share/man/man3p/open.3p.gz /usr/share/man/man3/open.3pm.gz /usr/share/man/man2/open.2.gz
+bash-4.2$ which -a echo
+/usr/bin/echo
+bash-4.2$ ps aux | wc -l
+486
+bash-4.2$ ps aux | more
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0  55160  5316 ?        Ss   Aug14   0:25 /usr/lib/system
+d/systemd --switched-root --system --deserialize 23
+root         2  0.0  0.0      0     0 ?        S    Aug14   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    Aug14   0:03 [ksoftirqd/0]
+root         5  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/0:0H]
+root         7  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/u:0H]
+root         8  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/0]
+root         9  0.0  0.0      0     0 ?        S    Aug14   0:00 [rcu_bh]
+root        10  0.0  0.0      0     0 ?        S    Aug14   3:11 [rcu_sched]
+root        11  0.0  0.0      0     0 ?        S    Aug14   0:08 [watchdog/0]
+root        12  0.0  0.0      0     0 ?        S    Aug14   0:17 [watchdog/1]
+root        13  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/1]
+root        14  0.0  0.0      0     0 ?        S    Aug14   0:01 [ksoftirqd/1]
+root        16  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/1:0H]
+root        17  0.0  0.0      0     0 ?        S    Aug14   0:05 [watchdog/2]
+root        18  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/2]
+root        19  0.0  0.0      0     0 ?        S    Aug14   0:01 [ksoftirqd/2]
+root        21  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/2:0H]
+root        22  0.0  0.0      0     0 ?        S    Aug14   0:15 [watchdog/3]
+root        23  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/3]
+root        24  0.0  0.0      0     0 ?        S    Aug14   0:01 [ksoftirqd/3]
+root        26  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/3:0H]
+[7m--More--[mroot        27  0.0  0.0      0     0 ?        S    Aug14   0:12 [watchdog/4]
+[7m--More--[mroot        28  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/4]
+[7m--More--[mroot        29  0.0  0.0      0     0 ?        S    Aug14   0:01 [ksoftirqd/4]
+[7m--More--[mroot        31  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/4:0H]
+[7m--More--[mroot        32  0.0  0.0      0     0 ?        S    Aug14   0:14 [watchdog/5]
+[7m--More--[mroot        33  0.0  0.0      0     0 ?        S    Aug14   0:01 [migration/5]
+[7m--More--[mroot        34  0.0  0.0      0     0 ?        S    Aug14   0:01 [ksoftirqd/5]
+[7m--More--[mroot        36  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/5:0H]
+[7m--More--[mroot        37  0.0  0.0      0     0 ?        S    Aug14   0:23 [watchdog/6]
+[7m--More--[mroot        38  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/6]
+[7m--More--[mroot        39  0.0  0.0      0     0 ?        S    Aug14   0:01 [ksoftirqd/6]
+[7m--More--[mroot        41  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/6:0H]
+[7m--More--[mroot        42  0.0  0.0      0     0 ?        S    Aug14   0:06 [watchdog/7]
+[7m--More--[mroot        43  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/7]
+[7m--More--[mroot        44  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/7]
+[7m--More--[mroot        46  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/7:0H]
+[7m--More--[mroot        47  0.0  0.0      0     0 ?        S    Aug14   1:02 [watchdog/8]
+[7m--More--[mroot        48  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/8]
+[7m--More--[mroot        49  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/8]
+[7m--More--[mroot        51  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/8:0H]
+[7m--More--[mroot        52  0.0  0.0      0     0 ?        S    Aug14   1:00 [watchdog/9]
+[7m--More--[mroot        53  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/9]
+[7m--More--[mroot        54  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/9]
+[7m--More--[mroot        56  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/9:0H]
+[7m--More--[mroot        57  0.0  0.0      0     0 ?        S    Aug14   0:41 [watchdog/10]
+[7m--More--[mroot        58  0.0  0.0      0     0 ?        S    Aug14   0:01 [migration/10]
+[7m--More--[mroot        59  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/10]
+[7m--More--[mroot        61  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/10:0H]
+[7m--More--[mroot        62  0.0  0.0      0     0 ?        S    Aug14   0:48 [watchdog/11]
+[7m--More--[mroot        63  0.0  0.0      0     0 ?        S    Aug14   0:01 [migration/11]
+[7m--More--[mroot        64  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/11]
+[7m--More--[mroot        66  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/11:0H]
+[7m--More--[mroot        67  0.0  0.0      0     0 ?        S    Aug14   0:42 [watchdog/12]
+[7m--More--[mroot        68  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/12]
+[7m--More--[mroot        69  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/12]
+[7m--More--[mroot        71  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/12:0H]
+[7m--More--[mroot        72  0.0  0.0      0     0 ?        S    Aug14   0:12 [watchdog/13]
+[7m--More--[mroot        73  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/13]
+[7m--More--[mroot        74  0.0  0.0      0     0 ?        S    Aug14   1:46 [ksoftirqd/13]
+[7m--More--[mroot        76  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/13:0H]
+[7m--More--[mroot        77  0.0  0.0      0     0 ?        S    Aug14   1:11 [watchdog/14]
+[7m--More--[mroot        78  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/14]
+[7m--More--[mroot        79  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/14]
+[7m--More--[mroot        81  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/14:0H]
+[7m--More--[mroot        82  0.0  0.0      0     0 ?        S    Aug14   1:07 [watchdog/15]
+[7m--More--[mroot        83  0.0  0.0      0     0 ?        S    Aug14   0:00 [migration/15]
+[7m--More--[mroot        84  0.0  0.0      0     0 ?        S    Aug14   0:00 [ksoftirqd/15]
+[7m--More--[mroot        86  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kworker/15:0H]
+[7m--More--[mroot        87  0.0  0.0      0     0 ?        S<   Aug14   0:00 [khelper]
+[7m--More--[mroot        88  0.0  0.0      0     0 ?        S    Aug14   0:00 [kdevtmpfs]
+[7m--More--[mroot        89  0.0  0.0      0     0 ?        S<   Aug14   0:00 [netns]
+[7m--More--[mroot        90  0.0  0.0      0     0 ?        S    Aug14   0:00 [bdi-default]
+[7m--More--[mroot        91  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kintegrityd]
+[7m--More--[mroot        92  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kblockd]
+[7m--More--[mroot        93  0.0  0.0      0     0 ?        S<   Aug14   0:00 [ata_sff]
+[7m--More--[mroot        94  0.0  0.0      0     0 ?        S    Aug14   1:35 [khubd]
+[7m--More--[mroot        95  0.0  0.0      0     0 ?        S<   Aug14   0:00 [md]
+[7m--More--[mroot       123  0.0  0.0      0     0 ?        S    Aug14   0:13 [kswapd0]
+[7m--More--[mroot       124  0.0  0.0      0     0 ?        S    Aug14   0:09 [kswapd1]
+[7m--More--[mroot       125  0.0  0.0      0     0 ?        SN   Aug14   0:00 [ksmd]
+[7m--More--[mroot       126  0.0  0.0      0     0 ?        SN   Aug14   0:07 [khugepaged]
+[7m--More--[mroot       127  0.0  0.0      0     0 ?        S    Aug14   0:00 [fsnotify_mark]
+[7m--More--[mroot       128  0.0  0.0      0     0 ?        S<   Aug14   0:00 [crypto]
+[7m--More--[mroot       136  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kthrotld]
+[7m--More--[mroot       141  0.0  0.0      0     0 ?        S    Aug14   0:00 [scsi_eh_0]
+[7m--More--[mroot       142  0.0  0.0      0     0 ?        S    Aug14   0:00 [scsi_eh_1]
+[7m--More--[mroot       144  0.0  0.0      0     0 ?        S<   Aug14   0:00 [kpsmoused]
+[7m--More--[mroot       146  0.0  0.0      0     0 ?        S<   Aug14   0:00 [deferwq]
+[7m--More--[mroot       159  0.0  0.0      0     0 ?        S    Aug14   0:23 [kauditd]
+[7m--More--[mroot       288  0.0  0.0      0     0 ?        S    Aug14   0:00 [scsi_eh_2]
+[7m--More--[mroot       289  0.0  0.0      0     0 ?        S<   Aug14   0:00 [fw_event0]
+[7m--More--[mroot       306  0.0  0.0      0     0 ?        S<   Aug14   0:00 [ttm_swap]
+[7m--More--[mroot       313  0.0  0.0      0     0 ?        S<   Aug14   0:00 [poll_0_status]
+[7m--More--[mroot       335  0.0  0.0      0     0 ?        S<   Aug14   0:01 [kworker/0:1H]
+[7m--More--[m[Kbash-4.2$ ls &
+[1] 18330
+bash-4.2$ temp.txt
+
+[1]+  Done                    ls
+bash-4.2$ jobs
+bash-4.2$ ls &
+[1] 18338
+bash-4.2$ temp.txt
+jobs
+[1]+  Done                    ls
+bash-4.2$ ping 127.0.0.1
+ping: icmp open socket: Operation not permitted
+bash-4.2$ ping google.com
+ping: icmp open socket: Operation not permitted
+bash-4.2$ chmod[K[K[Kmod 777 temp.txt 
+bash-4.2$ m temp.txt [K[K[K[K[K[K[K[K[K[K[Krm temp.txt 
+bash-4.2$ cd ..
+bash-4.2$ rmdir cs620/
+bash-4.2$ ei[Kxit
+exit
+
+Script done on Fri 06 Sep 2013 05:19:16 PM EDT

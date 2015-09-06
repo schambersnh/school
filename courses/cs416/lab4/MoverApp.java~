@@ -1,0 +1,84 @@
+/**
+ * MoverApp.java -- Based on the canonical "main" program, SwingApp,
+ *                  for a Swing application, SwingApp with GUI widgets
+ *                  and a draw panel for graphics output.
+ * 
+ * This is a bouncing JSnowMan
+ *
+ * 1/31/09 rdb: 
+ *      renamed MovePanel to MoverGUI: it has expanded responsibilities
+ * 9/8/10 rdb:
+ *      revised to specify GUI panel size based on estimate of top frame size;
+ *         these values can determined precisely.
+ */
+import java.awt.*;
+import java.awt.geom.*;
+import javax.swing.*;
+
+public class MoverApp extends JFrame 
+{
+   public MoverApp( String title, String[] args ) 
+   {
+      super( title );
+      int width = 700;
+      int height = 500;
+      int topFrameH = 20;  // estimate of the space used for top border frame
+      
+      this.setSize( width, height );
+      this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+      
+      ////////////////////////////////////////////////////
+      // Add processing of command line arguments here.
+      ////////////////////!////////////////////////////////
+            
+      MoverGUI appGUI = new MoverGUI( width, height - topFrameH );
+      
+      this.add( appGUI );
+      this.setVisible( true );
+   }
+
+   //++++++++++++++++++++++ class methods ++++++++++++++++++++++++++++
+   //------------- getArg( String[], int, int ) ----------------------
+   /**
+    * This is a utility method for accessing one of the command line
+    * string arguments and converting it to an int. It accepts the 
+    * entire array of arguments in String form, an integer indicating 
+    * which is to be converted to an int and a default value to be 
+    * returned if this argument was not on the command line, or if 
+    * the specified String is not a valid integer representation.
+    */
+   private static int getArg( String[ ] args, int which, int defaultVal )
+   {
+      try
+      {
+         // The Integer class has a class method that will convert a String
+         //   to an int -- if it is a valid representation of an  integer. 
+         return Integer.parseInt( args[ which ] );
+      }
+      catch ( ArrayIndexOutOfBoundsException oob )
+      {
+         // If there is no args[ which ] element, Java "throws" an exception.
+         // This code "catches" the exception and handles it gracefull.
+         // In this case, it is not an error. The parameter is optional
+         // and there is a specified default value that is returned.
+      }
+      catch ( NumberFormatException nfe )
+      {
+         // If the string is not a valid representation of an integer
+         // (such as 4Qd3), Integer.parseInt throws a "NumberFormatException".
+         // Again, this code catches the exception, gives an error message
+         // and uses the default value.
+         
+         System.err.println( "Error: improper command line argument " 
+                            + which + " = " + args[ which ] 
+                            + ".  Should be an integer; using default value: "
+                            + defaultVal );
+      }  
+      return defaultVal;
+   }
+   //------------------------------- main -------------------------------
+   public static void main( String [] args ) 
+   {
+      MoverApp app = new MoverApp( "MoverApp demo", args );
+   }
+}

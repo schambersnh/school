@@ -1,0 +1,1 @@
+\project_{Fname, Lname}(\select_{Fname=Dependent_name}(EMPLOYEE \join_{Ssn=Essn} DEPENDENT));

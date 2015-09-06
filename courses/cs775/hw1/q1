@@ -1,0 +1,1 @@
+\project_{Pnumber, Dname, Lname, Address, Bdate}(\select_{Plocation='Stafford'} Project \join_{Dnum=Dnumber} Department \join_{Mgr_ssn=Ssn} Employee);

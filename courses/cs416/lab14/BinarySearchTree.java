@@ -1,0 +1,433 @@
+/**
+ * BinarySearchTree -- this class uses a private inner class for
+ *      tree nodes. (Although in this version it is public so I can 
+ *      do a prefix walk in DisplayPanel.)
+ *
+ * @author rdb
+ * April 2, 2008
+ * 
+ * Modified: April 6
+ *      added iterator and node deletion code.
+ * 
+ * rdb March 2011: height(), nodeDepth(), setBalance(), rebuild()
+ */
+
+import java.util.*;
+import java.io.*;
+
+public class BinarySearchTree 
+{
+   //-------------------- instance variables ---------------------
+   private Node   _root;
+   private int    _size;
+   
+   //-------------------- constructors --------------------------
+   /**
+    * Construct an empty tree with no nodes
+    */
+   public BinarySearchTree()
+   {
+      _root = null;
+      _size = 0;
+   }
+   /**
+    * Construct a tree with a root 
+    */
+   public BinarySearchTree( Data rootData )
+   {
+      _root = new Node( rootData );
+      _size = 1;
+   }
+   //-------------------- height() ----------------------------------
+   /**
+    * The height of the tree is the depth of the deepest node.
+    * depth is the number of links to follow to get from the root to the leaf.
+    * So, a tree with only a root has a height of 0. By convention, a tree
+    * with no nodes has a height of -1.
+    */
+   public int height()
+   {
+      return height( _root );  // invoke the private helper function
+   }
+   //------------------- height( Node ) ----------------------
+   /**
+    * The height of a node of the tree is the maximum number of steps
+    * to reach a leaf from this node. So, a tree with only a root has
+    * a height of 0.
+    */
+   private int height( Node n )
+   {
+      if ( n == null )
+         return -1;
+      else
+      {
+        if(n.left == null && n.right == null)
+        {
+          return 0;
+        }
+        else
+        {
+          return Math.max(height(n.left) , height(n.right)) + 1;
+        }
+         //////////////////////////////////////////////////////////////
+         // replace the line below with code that returns the maximum
+         //    height of its 2 children plus one.
+         /////////////////////////////////////////////////////////////
+         
+         
+         
+         
+         
+
+      }
+   }
+   //-------------------- nodeDepth( String ) -------------------------
+   /**
+    * return the depth of the node whose key matches the passed string.
+    */
+   public int nodeDepth( String key )
+   {
+      return  nodeDepth( _root, key, 0 );  // use helper for recursion
+   }
+   
+   //---------------- nodeDepth( Node, String, int ) -------------------
+   /**
+    * If the key of this node's data object matches the String, return
+    * this node's depth, which is the value of the d parameter.
+    * If the keys don't match recurse to both children and return the max
+    * value returned by them. Both recursions need to use a depth that
+    * is one more than this one.
+    * 
+    * If n is null, we didn't find the key, return -1.
+    */
+   private int nodeDepth( Node n, String key, int d )
+   {
+      ///////////////////////////////////////////////////////////////
+      // If n is null return -1.
+      // Compare the key to the node's key. If they are equal, this is
+      //   the desired node return its depth, which is d.
+      // If the key is less than this node's key recurse down the left
+      //   branch, incrementing d
+      // else recurse down the right branch, incrementing d.
+      //////////////////////////////////////////////////////////////////
+      if (n == null)
+      {
+        return -1;
+      }
+      else
+      {
+        int compare = key.compareTo(n.data.key);
+        if (compare == 0)
+        {
+          return d;
+        }
+        else if(compare < 0)
+        {
+          return nodeDepth(n.left, key, d + 1);
+        }
+        else
+        {
+          return nodeDepth(n.right, key, d + 1);
+        }
+      }
+      
+   }  
+   
+   //-------------------- setBalance( ) -------------------------
+   /**
+    * set the value field of every node to the abs( leftcount - rightcount )
+    * return the size of the tree.
+    */
+   public int setBalance( )
+   {     
+      if ( _root == null )
+         return 0;
+      else
+         return setBalance( _root );
+   }
+   //-------------------- setBalance( Node ) -------------------------
+   /**
+    * set the value field of every node in the subtree rooted by n
+    *      to the abs( leftcount - rightcount ), return the size of the
+    *      subtree rooted at the node.
+    */
+   public int setBalance( Node n )
+   {
+      //////////////////////////////////////////////////////////////////
+      //
+      // setBalance does 2 related, but distinct tasks
+      // 1. it computes a measure of node balance and stores it into data.value
+      //    the measure is Math.abs( leftTreeSize - rightTreeSize ).
+      //    it gets the leftTreeSize and rightTreeSize by recursively 
+      //    calling setBalance() on its left and right nodes.
+      //
+      // 2. it returns the size of the subtree rooted at this node.
+      //
+      // Don't forget to think about what the base case is!!!
+      ///////////////////////////////////////////////////////////////////
+     if(n == null)
+     {
+       return 0;
+     }
+      int leftSize = setBalance(n.left);
+      int rightSize = setBalance(n.right);
+      n.data.value = Math.abs(leftSize - rightSize);
+      return leftSize + rightSize + 1;
+
+   }   
+   
+   //------------------ rebuild() ---------------
+   /**
+    * Traverse the tree using inOrder traversal to generate a
+    * Vector of Data elements; rebuild the tree (set the root to null
+    * and then add the Data elements back in by extracting the Data
+    * objects from the array using a binary search "like" traversal
+    * of the array.
+    *
+    */
+   public void rebuild( )
+   {
+      Vector<Data> v = new Vector<Data>();
+      toVector( _root, v );
+      System.out.println( "Vector<Data>: " + v.toString() );
+      _root = null;
+      _size = 0;
+      addVector( v, 0, v.size() - 1 );
+   }
+   //--------------- toVector( Node, Vector ) --------------------------
+   /**
+    * Add the subtree rooted at node to the vector using an infix walk
+    * 
+    */
+   private void toVector( Node n, Vector<Data> v )
+   {
+      if ( n == null )
+         return;
+      else
+      {
+        toVector(n.left, v);
+        v.add(n.data);
+        toVector(n.right, v);
+      }
+      //////////////////////////////////////////////////////////////////
+      //  Infix walk: add the left branch to the vector (by calling toVector)
+      //              add this node's data value to the vector
+      //              add the right branch to the vector (by calling toVector)
+      /////////////////////////////////////////////////////////////////////
+      
+      
+      
+      
+      
+      
+   }
+   //--------------- addVectorToTree( Vector, start, end ) --------------
+   /**
+    * Add the portion of the vector from start to end (inclusive) to the tree
+    * 
+    * First add the mid point of the region between start and end,
+    * Then add the portion before the mid point, by recursing.
+    * Then add the portion after the mid point, by recursing.
+    */
+   private void addVector( Vector<Data> v, int start, int end ) 
+   {
+      /////////////////////////////////////////////////////////////////
+      // if end and start haven't crossed over
+      //    add the mid point to the tree
+      //    recurse on the portion before the mid
+      //    recurse on the portion after the mid
+      ////////////////////////////////////////////////////////////////
+      if(start <= end)
+      {
+        int mid = (end+start)/2;
+        add(v.get(mid));
+        addVector(v, start, mid - 1);
+        addVector(v, mid + 1, end);
+      }
+
+      
+      
+      
+      
+   } 
+   
+   //////////////////////////////////////////////////////////////////
+   // MAKE NO CHANGES BELOW HERE
+   //////////////////////////////////////////////////////////////////
+     
+   //--------------------- root() ----------------------------------
+   /**
+    * return the root of the tree; this is package access so that DisplayPanel
+    * can do a prefix walk of the tree. Would be better to have multiple
+    * iterators.
+    */
+   BinarySearchTree.Node root()
+   {
+      return _root;
+   }
+   //------------------ inOrderPrint( PrintStream ) ---------------
+   /**
+    * Traverse the tree in in-order fashion to print the nodes of the tree
+    * to the PrintStream parameter.
+    * This method uses the private utility method to print a subtree rooted
+    * at a particular node.
+    */
+   public void inOrderPrint( )
+   {
+      inOrderPrint( System.out, _root );
+      System.out.println();
+   }
+   //------------------ inOrderPrint( PrintStream, node ) ---------------
+   /**
+    * Print the subtree rooted at "node" in in-order fashion.
+    */
+   private void inOrderPrint( PrintStream out, Node n )
+   {
+      if ( n != null )
+      {
+         inOrderPrint( out, n.left );
+         out.print( " " + n.data + " ");
+         inOrderPrint( out, n.right );
+      }
+   }
+      
+   //------------------ preOrderPrint( PrintStream ) ---------------
+   /**
+    * Traverse the tree in in-order fashion to print the nodes of the tree
+    * to the PrintStream parameter.
+    * This method uses the private utility method to print a subtree rooted
+    * at a particular node.
+    */
+   public void preOrderPrint(  )
+   {
+      preOrderPrint( System.out, _root );
+      System.out.println();
+   }
+   //------------------ preOrderPrint( PrintStream, node ) ---------------
+   /**
+    * Print the subtree rooted at "node" in in-order fashion.
+    */
+   private void preOrderPrint( PrintStream out, Node n )
+   {
+      if ( n != null )
+      {
+         out.print( " " + n.data + " ");
+         preOrderPrint( out, n.left );
+         preOrderPrint( out, n.right );
+      }
+   }
+   //--------------------- add -----------------------------------
+   /**
+    * add a node to the tree in its proper position determined by the
+    * "key" field of the Data object. This method uses the addNode 
+    * recursive utility method.
+    */
+   public void add( Data data )
+   {
+      Node newNode = new Node( data );
+      if ( _root == null )
+         _root = newNode;
+      else
+         addNode( _root, newNode );
+      _size++;
+   }
+ 
+   //------------------ addNode( Node, Node ) -----------------------
+   /**
+    * a recursive method to add a new Node (2nd argument) to the subtree
+    * rooted at the first argument.
+    */
+   private void addNode( Node parent, Node newOne )
+   {
+      int cmp = newOne.data.compareTo( parent.data );
+      if ( cmp < 0 )
+      {
+         if ( parent.left != null )
+            addNode( parent.left, newOne );
+         else 
+         {
+            parent.left = newOne;
+            newOne.parent = parent;
+         }
+      }
+      else if ( cmp == 0 )
+         System.err.println( "== key found: ignoring new one" );
+      else
+      {
+         if ( parent.right != null )
+            addNode( parent.right, newOne );
+         else 
+         {
+            parent.right = newOne;
+            newOne.parent = parent;
+         }
+      }
+   }
+   
+   //-------------------------- size() -------------------------
+   /**
+    * return tree size
+    */
+   public int size()
+   {
+      return _size;
+   }
+   //-------------------------- toString() -------------------------
+   /**
+    * Generate a string representation of the tree.
+    */
+   public String toString()
+   {
+      return toString( _root, "  ", "  " ) ;        
+   }
+   
+   /**
+    * recursively generate a string representation for a Node of a tree.
+    * indent is increased for increasing depth.
+    * branch is a short character string that prefixes each node indicating
+    *        whether this node is a left (L) or right (R) child of its parent.
+    */
+   private String toString( Node n, String indent, String branch )
+   {
+      String s = "";
+      if ( n != null )
+      {
+         String prefix = indent.substring( 0, indent.length() - 2 ) + branch;
+         s += prefix + n.data.toString() + "\n";
+         if ( n.left != null )
+            s += toString( n.left, indent + "  ", "L " );
+         if ( n.right != null )
+            s += toString( n.right, indent + "  ", "R " );
+      }
+      return s;
+   }
+   //+++++++++++++++++++++++ inner class Node ++++++++++++++++++++++
+   /**
+    * The Node class does not have to be seen outside this class, so
+    * it is private.
+    */
+   public class Node
+   {
+      //-------------- instance variables ---------------------------
+      public Data data;
+      public Node left;
+      public Node right;
+      public Node parent;
+      
+      //--------------- constructor --------------------------------
+      public Node( Data d )
+      {
+         data = d;
+         left = null;
+         right = null;
+         parent = null;
+      }
+   }
+   //--------------------- main -----------------------------------------
+   public static void main( String[] args )
+   {
+      TreeRecursion.main( args );
+   }
+}
+        
+        

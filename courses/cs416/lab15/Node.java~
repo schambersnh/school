@@ -1,0 +1,16 @@
+/**
+ * BSTNode - a node in a binary search tree
+ */
+public class Node
+{
+   public Node left   = null;
+   public Node right  = null;
+   public Node parent = null;
+   public int  data   = 0;
+   
+   //------------------ BSTNode constructor ---------------------
+   public Node( int i )
+   {
+      this.data = i;
+   }
+}

@@ -1,0 +1,171 @@
+/**
+ * QNode - a node in a quadtree
+ */
+import java.util.*;
+import java.awt.*;
+import java.awt.geom.*;
+
+public class QNode 
+{
+  // --------------- class variables --------------------------
+  // You are free to use other colors
+  private static final Color[] colors = { Color.WHITE, Color.GREEN,
+    Color.BLUE, Color.LIGHT_GRAY, Color.CYAN, Color.MAGENTA,
+    Color.ORANGE, Color.PINK, Color.YELLOW };   
+  
+  // --------------- instance variables --------------------------
+  private Rectangle bounds = null;    // array bounds of data for this region
+  private double    stdDeviation;
+  private QNode[] kids;
+  Vector<Particle> particles;
+  private int count = 0;
+  //VectorField field = new VectorField();
+  
+  // ---------------- constructors --------------------------------
+  /**
+   * VERY IMPORTANT: The bounds that define the region define an upper left
+   *   corner in array coordinates and a width and height of array coordinates
+   *   Neighboring regions share points in the vector array. This information
+   *      may not be needed in this class: it depends where you do the 
+   *      recursion to build the tree. 
+   *   E.g. given an array that is 8 x 8 the upper left quadrant is defined
+   *        at (0,0) with w,h = (4,4). This includes columns, 0 through 4.
+   *        It's right neighbor must start at column 4: sy location (0,4)
+   */
+  public QNode( Rectangle rect ) 
+  {
+    bounds = rect;
+    kids = new QNode[4];
+    particles = new Vector<Particle>();
+  }
+  //-------------- treeSize() -----------------------------------
+  /**
+   * This is a convenient debugging feature. Implement it recursively
+   * and use it. 
+   */
+  public int treeSize() 
+  {
+    return 0;
+  }
+  
+  //----------------- contains( Particle ) -----------------------
+  public boolean contains( Particle particle ) 
+  {
+    return true;
+  }
+  //------------------- getStdDev() -----------------------------------
+  public double getStdDev()
+  {
+    return 0;
+  }
+  //--------------------------add(QNode root, Particle p)-----------------
+  public boolean add(QNode root, Particle p)
+  {
+    if ( root.kids[0] == null && root.contains( p ))
+    {
+      root.particles.add( p );
+      return true;
+    }
+    else if ( root.kids[0] != null )
+    {
+      for ( int i = 0; i < kids.length; i++ )
+      {
+        if ( add( kids[ i ], p ))
+          return true;
+      }
+    }
+    return false;
+  }
+  public void initializeParticles()
+  {
+    for(int i = 0; i < particles.size(); i++)
+    {
+      
+    }
+  }
+  
+  //------------------- calculateStdDeviation() -----------------------
+  /**
+   * calculate the standard deviation of vectors in the region
+   */
+  public double calculateStdDeviation() 
+  {
+    double mean = 0;
+    stdDeviation = 0;
+    if ( bounds != null ) 
+    {
+      double[] angles = new double[ bounds.width * bounds.height ];
+      int k = 0;
+      for ( int y = bounds.y; y < bounds.y + bounds.height; y++ ) 
+      {
+        for ( int x = bounds.x; x < bounds.x + bounds.width; x++ ) 
+        {
+          angles[ k ] = VectorField.getVector( y, x ).getAngle();
+          mean += angles[ k ];
+          k++;
+        }
+      }
+      mean /= ( bounds.width * bounds.height );
+      double differenceSquared = 0;
+      for ( int i = 0; i < angles.length; i++ ) 
+      {
+        differenceSquared += Math.pow( angles[ i ] - mean, 2 );
+      }
+      stdDeviation = Math.sqrt( differenceSquared / angles.length );
+    }
+    return stdDeviation;
+  }
+  //------------------------------divide(int, int, double)----------------------------
+  public void divide(int maxD, int curDepth, double minStdDev)
+  {
+    int w = (int)bounds.getWidth();
+    int h = (int)bounds.getHeight();
+    int count = 0;
+    
+    for(int x = (int)bounds.getX(); x <= bounds.x + w/2; x += w/2)
+    {
+      for(int y = (int)bounds.getY(); y <= bounds.y + h/2; y += h/2)
+      {
+        Rectangle temp = new Rectangle(x, y, w/2, h/2);
+        QNode myNode = new QNode(temp);
+        kids[count] = myNode;
+        if(maxD != curDepth && this.calculateStdDeviation() > minStdDev)
+        {
+          kids[count].divide(maxD, curDepth + 1, minStdDev);
+        }
+         count++;
+      }
+    }
+  }
+  //--------------------------------draw()-------------------------------------
+  public void draw(Graphics g)
+  {
+    if(this.kids[0] == null)
+    {
+      g.setColor(colors[count]);
+      g.drawRect(bounds.x * VectorField.displayScale -2, 
+                 bounds.y * VectorField.displayScale -2, 
+                 bounds.width * VectorField.displayScale, 
+                 bounds.height * VectorField.displayScale);
+      if(count == 8)
+      {
+        count = 0;
+      }
+      else
+      {
+        count++;
+      }
+    }
+    else
+    {
+      for(int i = 0; i < 4; i++)
+      {
+        kids[i].draw(g);
+      }
+    }
+  }
+  public static void main(String[] args)
+  {
+    FlowQuad.main(args);
+  }
+}

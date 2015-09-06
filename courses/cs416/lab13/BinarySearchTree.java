@@ -1,0 +1,301 @@
+/**
+ * BinarySearchTree -- this class uses a private inner class for
+ *      tree nodes. The following methods of BinarySearchTree
+ *      need to be completed:
+ *              Data find( String key )
+ *              Data maxFind( Node )
+ *              void preOrderPrint( PrintStream, Node )
+ *              void inOrderPrint( PrintStream, Node )
+ *
+ * @author rdb
+ * Created  April 2, 2008
+ * Modified March 25, 2009
+ */
+
+import java.util.*;
+import java.io.*;
+
+public class BinarySearchTree //implements Iterable
+{
+  //-------------------- instance variables ---------------------
+  private Node   _root;
+  private int    _size;
+  private int   max = 0;
+  
+  //-------------------- constructors --------------------------
+  /**
+   * Construct an empty tree with no nodes
+   */
+  public BinarySearchTree()
+  {
+    _root = null;
+  }
+  /**
+   * Construct a tree with a root 
+   */
+  public BinarySearchTree( Data rootData )
+  {
+    _root = new Node( rootData );
+  }
+  //-------------------- maxFind() --------------------------------
+  /**
+   * find the node in the tree that has the  maximum value field.
+   * Remember the tree is organized by "key", not "value", so you need
+   * to traverse the entire tree. It doesn't really matter what traversal
+   * you do. However, it make sense to define a  method that finds the max
+   * value in a subtree and recursively call that for each child of a node.
+   */
+  public Data maxFind()
+  {
+    return maxFind( _root );
+  }
+  //-------------------- maxFind( Node ) ----------------------------
+  /**
+   * find maximum value in a subtree. Each invocation finds the max of the left
+   * subtree, the max of the right subtree and returns the node with the
+   * max of those 2 values and the value of this node.
+   */
+  private Data maxFind( Node n )
+  {
+    //////////////////////////////////////////////////////////////////
+    // This method should return the max Data object from the subtree
+    // whose root is "n".
+    // it needs to compare the value of n's Data object with the max
+    // Data objects returned from the left and right branches and return
+    // the one with the larges value.
+    /////////////////////////////////////////////////////////////////
+    
+ if ( n == null )
+      return null;
+ 
+    if ( n.left != null && n.data.value < n.left.data.value ) 
+      return maxFind(  n.left );
+    else if ( n.right != null && n.data.value < n.right.data.value )
+      return maxFind( n.right );
+    else 
+      return n.data;
+  }   
+  //------------------ inOrderPrint( PrintStream ) ---------------
+  /**
+   * Traverse the tree in in-order fashion to print the nodes of the tree
+   * to the PrintStream parameter.
+   * This method uses the private utility method to print a subtree rooted
+   * at a particular node.
+   */
+  public void inOrderPrint( PrintStream out )
+  {
+    inOrderPrint( out, _root );
+    out.println();
+  }
+  //------------------ inOrderPrint( PrintStream, node ) ---------------
+  /**
+   * Print the subtree rooted at "node" in in-order fashion.
+   */
+  private void inOrderPrint( PrintStream out, Node n )
+  {
+    /////////////////////////////////////////////////////////////////////
+    // print the node's Data object after printing the left subtree and
+    // before printing the right subtree
+    ////////////////////////////////////////////////////////////////////
+    
+    if ( n == null )
+    {
+      return;
+    }
+    else
+    {
+      inOrderPrint(out, n.left );
+      out.print(n.data);
+      inOrderPrint(out, n.right );
+    } 
+    
+  }
+  
+  //------------------ preOrderPrint( PrintStream ) ---------------
+  /**
+   * Traverse the tree in in-order fashion to print the nodes of the tree
+   * to the PrintStream parameter.
+   * This method uses the private utility method to print a subtree rooted
+   * at a particular node.
+   */
+  public void preOrderPrint( PrintStream out )
+  {
+    preOrderPrint( out, _root );
+    out.println();
+  }
+  //------------------ preOrderPrint( PrintStream, node ) ---------------
+  /**
+   * Print the subtree rooted at "node" in in-order fashion.
+   */
+  private void preOrderPrint( PrintStream out, Node n )
+  {
+    /////////////////////////////////////////////////////////////////////
+    // print the node's Data object before printing the left and
+    // right subtrees
+    ////////////////////////////////////////////////////////////////////
+    
+    if ( n == null )
+    {
+      return;
+    }
+    else
+    {
+      out.print(n.data);
+      inOrderPrint(out, n.left );
+      inOrderPrint(out, n.right );
+    } 
+
+  }
+  
+  //-------------------- find( String ) -------------------------
+  /**
+   * Given a key value, search the tree to find the node that has
+   * that key value, if it exists.
+   * 
+   * Return the Data object from the node or null
+   */
+  public Data find( String key )
+  {
+    return find( key, _root );
+  }
+  //------------------ find( String, Node ) ----------------------
+  /**
+   * Recursion is done in this method
+   *   return the Data object with the specified key 
+   *   if it is in the subtree rooted at Node n.
+   */
+  private Data find( String searchKey, Node n )
+  {
+    ///////////////////////////////////////////////////////////
+    // If the searchKey equals the node's data key, return its Data object
+    // Otherwise if the searchKey < node's key, recurse down
+    //   the left subtree, else recurse down the right subtree
+    //
+    // Don't forget you have to check for null references somewhere --
+    //   that's the sign that the searchKey isn't in the tree
+    ///////////////////////////////////////////////////////////
+    
+    
+    if ( n == null )
+      return null;
+    int compare = searchKey.compareTo( n.data.key );
+    if ( compare < 0 ) 
+      return find( searchKey, n.left );
+    else if ( compare > 0 )
+      return find( searchKey, n.right );
+    else 
+      return n.data;
+
+  }
+  
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //
+  //                No need to change code below here
+  //
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
+  //--------------------- add -----------------------------------
+  /**
+   * add a node to the tree in its proper position determined by the
+   * "key" field of the Data object. This method uses the addNode 
+   * recursive utility method.
+   */
+  public void add( Data data )
+  {
+    Node newNode = new Node( data );
+    if ( _root == null )
+      _root = newNode;
+    else
+      addNode( _root, newNode );
+    _size++;
+  }
+  //------------------ addNode( Node, Node ) -----------------------
+  /**
+   * a recursive method to add a new Node (2nd argument) to the subtree
+   * rooted at the first argument.
+   */
+  private void addNode( Node parent, Node newOne )
+  {
+    if ( newOne.data.compareTo( parent.data ) < 0 )
+    {
+      if ( parent.left == null )
+        parent.left = newOne;
+      else 
+        addNode( parent.left, newOne );
+    }
+    else
+    {
+      if ( parent.right == null )
+        parent.right = newOne;
+      else 
+        addNode( parent.right, newOne );
+    }
+  }
+  
+  //-------------------------- size() -------------------------
+  /**
+   * return tree size
+   */
+  public int size()
+  {
+    return _size;
+  }
+  //-------------------------- toString() -------------------------
+  /**
+   * Generate a string representation of the tree.
+   */
+  public String toString()
+  {
+    return toString( _root, "  ", "  " ) ;        
+  }
+  
+  /**
+   * recursively generate a string representation for a Node of a tree.
+   * indent is increased for increasing depth.
+   * branch is a short character string that prefixes each node indicating
+   *        whether this node is a left (L) or right (R) child of its parent.
+   */
+  private String toString( Node n, String indent, String branch )
+  {
+    String s = "";
+    if ( n != null )
+    {
+      String prefix = indent.substring( 0, indent.length() - 2 ) + branch;
+      s += prefix + n.data.toString() + "\n";
+      if ( n.left != null )
+        s += toString( n.left, indent + "  ", "L " );
+      if ( n.right != null )
+        s += toString( n.right, indent + "  ", "R " );
+    }
+    return s;
+  }
+  //+++++++++++++++++++++++ inner class Node ++++++++++++++++++++++
+  /**
+   * The Node class does not have to be seen outside this class, so
+   * it is private.
+   */
+  private class Node
+  {
+    //-------------- instance variables ---------------------------
+    public Data data;
+    public Node left;
+    public Node right;
+    
+    //--------------- constructor --------------------------------
+    public Node( Data d )
+    {
+      data = d;
+      left = null;
+      right = null;
+    }
+  }
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //-------------------------- main -------------------------------------
+  /**
+   * For convenience when using from DrJava,  main invokes BSTpractice
+   */
+  public static void main( String[] args )
+  {
+    new BSTpractice( "BST Tree tasks", args );
+  }
+}

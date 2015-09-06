@@ -1,0 +1,52 @@
+/**
+ * Tile.java - 
+ *    A Tile extends the wheels Rectangle class, so it has all the 
+ *       functionality of a Rectangle.
+ *    We add to the Rectangle functionality: the ability to respond to
+ *       mouse press and mouse release events.
+ * 
+ * @author rdb
+ */
+import java.awt.Color;
+import java.awt.event.*;
+import wheelsunh.users.*;
+
+public class Tile extends Rectangle
+{
+   //------------------------ instance variables --------------------------
+   //------------------------- Constructors -------------------------------
+   /**
+    * Position tile at x,y; tile color is gray; tize is size 25x25 
+    */
+   public Tile( int x, int y )
+   {
+      /////////////// add code here ////////////////
+   }
+   
+   //------------------------- mousePressed ------------------------------
+   /**
+    * make border black on mouse down event
+    */
+   public void mousePressed( MouseEvent e )
+   {
+      /////////////// add code here ////////////////
+   }
+   
+   //-------------------------- mouseReleased ----------------------------
+   /**
+    * make border gray on mouse up event
+    */
+   public void mouseReleased( MouseEvent e )
+   {
+      /////////////// add code here ////////////////
+   }
+   
+   //--------------------------- main -----------------------------------
+   /*
+    * Unit test method for Tile class
+    */
+   public static void main( String args[] )
+   {
+      /////////////// add testing code here ////////////////
+   }
+} 

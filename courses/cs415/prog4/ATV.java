@@ -1,0 +1,179 @@
+/** 
+ * ATV Class
+ * Displays a rectangle for building an ATV.
+ *
+ * Stephen Chambers
+ * 9/21/10
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+
+public class ATV
+
+
+{
+    
+    //---------------- instance variables ------------------------------
+    
+
+    private Rectangle body;
+    private Ellipse wheel, wheel2;
+    private Line line1;
+    private Rectangle flag;
+    private Ellipse inFlag;
+    private int x1, y1, x2, y2;
+    private int padX = 100, padY = 80;
+    
+
+    
+    
+    // -----------------------------------------------------------------
+    /** Constructor accepting no parameters
+      */
+    public ATV()
+    {
+   
+        // Creates body of the ATV1
+        body = new wheelsunh.users.Rectangle(x1 + 50, y1 - 35);
+        body.setFillColor(Color.RED);
+        body.setSize(padX, padY-30);
+        
+        //Creates the two wheels of the ATV1
+        wheel = new wheelsunh.users.Ellipse(x1 + 50,y1 + 15);
+        wheel.setFillColor(java.awt.Color.GREEN);
+        wheel.setSize(padX - 70, padY- 50);
+        
+        wheel2 = new wheelsunh.users.Ellipse(x1 + 115,y1 + 15);
+        wheel2.setFillColor(java.awt.Color.GREEN);
+        wheel2.setSize(padX - 70, padY - 50);
+        
+        //Creates the Flagpole of ATV1
+        line1 = new wheelsunh.users.Line(x1 + 120, y1 - 58, x1+ 120, y1-38);
+        line1.setThickness(5);
+        line1.setColor(java.awt.Color.BLACK);
+        
+        //Creates the Outisde of the flag of ATV1
+        flag = new wheelsunh.users.Rectangle(x1 + 123, y1 - 60);
+        flag.setFillColor(java.awt.Color.WHITE);
+        flag.setFrameColor(java.awt.Color.BLACK);
+        flag.setSize(padX - 75, padY - 65);
+        
+        //Creates the circle inside of the flag of ATV1
+        inFlag = new wheelsunh.users.Ellipse(x1 + 130, y1 - 57);
+        inFlag.setSize(padX - 90, padY - 70);
+        
+        setLocation(0,0);
+     
+    }
+    //--------------------------------------------------------------------
+    //Constructor accepting only a color
+    public ATV(Color myColor)
+    {
+     
+        // Creates body of the ATV1
+        body = new wheelsunh.users.Rectangle(x1 + 50, y1 - 35);
+        body.setFillColor(myColor);
+        body.setSize(padX, padY-30);
+        
+        //Creates the two wheels of the ATV1
+        wheel = new wheelsunh.users.Ellipse(x1 + 50,y1 + 15);
+        wheel.setFillColor(java.awt.Color.GREEN);
+        wheel.setSize(padX - 70, padY- 50);
+        
+        wheel2 = new wheelsunh.users.Ellipse(x1 + 115,y1 + 15);
+        wheel2.setFillColor(java.awt.Color.GREEN);
+        wheel2.setSize(padX - 70, padY - 50);
+        
+        //Creates the Flagpole of ATV1
+        line1 = new wheelsunh.users.Line(x1 + 120, y1 - 58, x1+ 120, y1-38);
+        line1.setThickness(5);
+        line1.setColor(java.awt.Color.BLACK);
+        
+        //Creates the Outisde of the flag of ATV1
+        flag = new wheelsunh.users.Rectangle(x1 + 123, y1 - 60);
+        flag.setFillColor(java.awt.Color.WHITE);
+        flag.setFrameColor(java.awt.Color.BLACK);
+        flag.setSize(padX - 75, padY - 65);
+        
+        //Creates the circle inside of the flag of ATV1
+        inFlag = new wheelsunh.users.Ellipse(x1 + 130, y1 - 57);
+        inFlag.setSize(padX - 90, padY - 70);
+        
+        setLocation(0,0);
+     
+    }
+    //-----------------------------------------------------------------
+    //Constructor accepting the location and color of the ATV
+    public ATV(int x1, int y1 )
+    {
+       // Creates body of the ATV1
+        body = new wheelsunh.users.Rectangle(x1 + 50, y1 - 35);
+        body.setFillColor(Color.RED);
+        body.setSize(padX, padY-30);
+        
+        //Creates the two wheels of the ATV1
+        wheel = new wheelsunh.users.Ellipse(x1 + 50,y1 + 15);
+        wheel.setFillColor(java.awt.Color.GREEN);
+        wheel.setSize(padX - 70, padY- 50);
+        
+        wheel2 = new wheelsunh.users.Ellipse(x1 + 115,y1 + 15);
+        wheel2.setFillColor(java.awt.Color.GREEN);
+        wheel2.setSize(padX - 70, padY - 50);
+        
+        //Creates the Flagpole of ATV1
+        line1 = new wheelsunh.users.Line(x1 + 120, y1 - 58, x1+ 120, y1-38);
+        line1.setThickness(5);
+        line1.setColor(java.awt.Color.BLACK);
+        
+        //Creates the Outisde of the flag of ATV1
+        flag = new wheelsunh.users.Rectangle(x1 + 123, y1 - 60);
+        flag.setFillColor(java.awt.Color.WHITE);
+        flag.setFrameColor(java.awt.Color.BLACK);
+        flag.setSize(padX - 75, padY - 65);
+        
+        //Creates the circle inside of the flag of ATV1
+        inFlag = new wheelsunh.users.Ellipse(x1 + 130, y1 - 57);
+        inFlag.setSize(padX - 90, padY - 70);
+   } 
+    //-----------------------------------------------------------------
+    //Set the Location of the ATV
+    public void setLocation(int x1, int y1)
+   {
+      body.setLocation(x1, y1);
+      wheel.setLocation(x1,y1 + 50); //x1 +(50-50) y1 +(15 - (-35))
+      wheel2.setLocation(x1 + 65,y1 + 50);
+      line1.setLocation(x1 + 70, y1 - 23);
+      flag.setLocation(x1 + 73, y1 - 25);
+      inFlag.setLocation(x1 + 80, y1 - 22);
+   }
+    //-------------------------------------------------------------------
+    //Set the Color of the ATV
+    public void setColor(Color myColor)
+    {
+      body.setColor(myColor);
+    }
+    //-------------------------------------------------------------------
+    //Get the Color of the ATV body
+    public Color getColor()
+    {
+      return body.getColor();
+    }
+    //-------------------------------------------------------------------
+    //Get the X location of the body of the ATV
+    public int getXLocation()
+    {
+      return body.getXLocation();
+    }
+    //-------------------------------------------------------------------
+    //Get the Y location of the body of the ATV
+    public int getYLocation()
+    {
+      return body.getYLocation();
+    }
+    //
+    //-------------------------------------------------------------------
+    public void moveForward(int move)
+    {
+      setLocation(getXLocation(), getYLocation() - move);
+    }
+}//End of Class 

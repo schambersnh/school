@@ -1,0 +1,37 @@
+/**
+ * RollButton.java
+ * Creates a Roll Button that Generates Two Dice
+ * 
+ * @Author Stephen Chambers
+ * 10/27/10
+ * */
+import java.awt.Color;
+import wheelsunh.users.*;
+
+public class RollButton extends TextBox
+{
+  public static int numDie1, numDie2;
+  //------------------------Constructor-------------------------------------
+  public RollButton(int x, int y)
+  {
+    setLocation(x, y);
+    setText("Roll");
+    setFillColor(Color.RED);
+    setSize(40, 25);
+  }
+  
+  //Generates Two Random Dice
+  public void roll()
+  {
+    Dice myDice1 = new Dice(getXLocation() - 40, getYLocation() - 100);
+    numDie1 = myDice1.getNumDie();
+    //System.out.println(numDie1);
+    Dice myDice2 = new Dice(getXLocation()+ 20, getYLocation() -100);
+    numDie2 = myDice2.getNumDie();
+  }
+  //'Rolls' the Dice when the button is Clicked
+  public void mousePressed(java.awt.event.MouseEvent e)
+  {
+    roll();
+  }
+} //End of Class

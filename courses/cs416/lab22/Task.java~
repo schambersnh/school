@@ -1,0 +1,59 @@
+/**
+ * Task - Represent the tasks in a system; each task has a unique String 
+ *        identifier and a specified service time.
+ * 
+ * @author rdb
+ * 11/18/10
+ */
+///////////////////////////////////////////////////////////////////////
+// 1. This class needs to specify that it implements Runnable
+///////////////////////////////////////////////////////////////////////
+public class Task 
+{
+   //------------------- instance variables ------------------------
+   public  int     serviceTime;  // time to complete task in milliseconds
+   public  String taskName;       // id for task
+   private boolean done;         // true when task completed
+   
+   //------------------- constructor ------------------------------
+   public Task( String id, int time )
+   {
+      serviceTime = time;
+      taskName      = id;
+      done        = false;
+   }
+   //-------------------- run ---------------------------------
+   public void run()
+   {
+      if ( done ) 
+         System.err.println( "Task.run(): task already done: " + taskName );
+      else 
+         // simulate the execution time by sleeping as long as the serviceTime
+         sleep( serviceTime ); 
+      done = true;
+   }
+   //----------------------- toString() -------------------------------
+   /**
+    * return a string with the task name and its service time
+    */
+   public String toString()
+   {
+      return taskName + " " + serviceTime;
+   }
+   
+   //---------------------- sleep( int ) ------------------------------
+   /**
+    * Put the program (thread, actually) to sleep for the specified milliseconds
+    */
+   public static void sleep( int milliseconds ) 
+   {
+      try
+      {
+         Thread.sleep( milliseconds );
+      }
+      catch ( java.lang.InterruptedException e ) 
+      {  
+         System.err.println( "sleep interrupted by whom? " + e.getMessage() );
+      }
+   }
+}

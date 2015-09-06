@@ -1,0 +1,189 @@
+/**
+ * Chapter 7: MoverGUI.java
+ * Creates the panel to be placed inside the SwingApp window.
+ *
+ * 1/30/08: rdb
+ *    Renamed (old name was BallApp)
+ * 01/28/09: rdb
+ *    Revised to use null Layout
+ * 
+ * modifed by Stephen Chambers for Lab 5 on 2/8/2011
+ */
+import java.awt.*;
+import java.awt.geom.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class MoverGUI extends JPanel implements Animated 
+{
+  //------------ package static variables for command line args -------
+  static int     dxInitialMove = 4;
+  static int     dyInitialMove = 4;
+  //------------------------- instance variables -----------------------
+  private JSnowMan _snowman;
+  
+  private FrameTimer _timer;
+  private final int INTERVAL = 100;
+  
+  //------------------------- constructor ----------------------------
+  public MoverGUI( int w, int h ) 
+  {
+    super();
+    setLayout( new BorderLayout() );    // make sure no layout manager tries to 
+    //   layout the objects added to this JPanel.
+    JPanel panel = new JPanel();
+    
+    panel.setSize( w, h );
+    panel.setLayout( null );
+    add( panel );
+    
+    buildGUI();    // add the GUI components for this app
+    buildDisplay( panel );        // build the initial display for the app
+    
+    this.setBackground( Color.white );
+    
+    _timer = new FrameTimer( INTERVAL, this );
+    _timer.start();
+  }
+  //-----------------------  buildGUI() --------------------------
+  /**
+   * encapsulate code that builds GUI components for the program.
+   */
+  private void buildGUI( )
+  {
+    add( new JButton( "East" ), BorderLayout.EAST );
+    add( new JButton( "North" ), BorderLayout.NORTH );
+    add( new JButton( "West" ), BorderLayout.WEST );
+    
+    // Put several buttons in the South
+    String labels[] = { "Start", "Stop", "Faster", "Slower", "Reset" };
+    JPanel southPanel = new JPanel();
+    for ( int i = 0; i < labels.length; i++ )
+    {
+      JButton button = new JButton( labels[ i ] );
+      button. addActionListener( new MyButtonListener( i ));
+      southPanel.add( button );
+    }
+    add( southPanel, BorderLayout.SOUTH );
+  } 
+  //-----------------------  buildDisplay() --------------------------
+  /**
+   * encapsulate code that builds display components for startup.
+   */
+  private void buildDisplay( JPanel panel )
+  {
+    // for now just have 1 snow man
+    _snowman = new JSnowMan( 50, 80 );
+    _snowman.setMove( dxInitialMove, dyInitialMove ); 
+    panel.add( _snowman );
+  }
+  //++++++++++++++++++++++ MyButtonListener ++++++++++++++++++++++++++
+  // public inner class for button event handler:
+  public class MyButtonListener implements ActionListener
+  {
+    int _btnId;  // which button is associated with this ActionListener
+    public MyButtonListener( int btnId )
+    {
+      _btnId = btnId;   // save the id for the actionPerfomed invocation
+    }
+    public void actionPerformed( ActionEvent ev )
+    {
+      float dx, dy;
+      float ddx, ddy;
+      switch (_btnId)
+      {
+        case 0:
+          System.out.println( "Start" );
+          _timer.start();
+          break;
+        case 1: 
+          System.out.println( "Stop" );
+          _timer.stop();
+          break;
+        case 2:          
+          dx = _snowman.getMoveX();
+          dy = _snowman.getMoveY();
+          ddx = (float)dx;
+          ddy = (float)dy;
+          
+          ddx += ( ddx * .20 );
+          ddy += ( ddy * .20 );
+          
+          
+          
+          _snowman.setMove(ddx, ddy);
+          
+          System.out.println( "Faster by " + dx + " " +  dy );
+          
+          break;
+        case 3:   
+          
+          dx = _snowman.getMoveX();
+          dy = _snowman.getMoveY();
+          ddx = dx;
+          ddy = dy;
+          
+          ddx -= ( ddx * .20 );
+          ddy -= ( ddy * .20 );
+          
+          dx = Math.round(ddx);
+          dy = Math.round(ddy);
+          
+          //  if((dx > 3 || dx < -3) && (dy > 3 || dy< -3))
+          //  {
+          _snowman.setMove(ddx, ddy);
+          System.out.println( "Slower by " + dx + " " +  dy );
+          /*  }
+             else
+             {
+              System.out.println("Cannot move snowman any slower....");
+             }
+           */ 
+          
+          break;       
+        case 4:   
+          System.out.println( "Reset" );
+          dx = MoverGUI.dxInitialMove;
+          dy = MoverGUI.dyInitialMove;
+          _snowman.setMove(dx, dy);
+          break;
+          
+      }
+      //////////////////////////////////////////////////////////////
+      // add code here to test _btnId and do what needs to be
+      //   done for each button. 
+      // As an inner class, code here has access to all instance
+      //   variables and methods of the outer class.
+      //////////////////////////////////////////////////////////////
+    }
+  }
+  
+  //++++++++++++++++++++++++ Animated interface methods +++++++++++++++++++++
+  private boolean _animated = true;  // instance variable
+  //---------------------- isAnimated() ----------------------------------
+  public boolean isAnimated()
+  {
+    return _animated;
+  }
+  //---------------------- setAnimated( boolean ) --------------------
+  public void setAnimated( boolean onOff )
+  {
+    _animated = onOff;
+  }
+  //-------------------------- newFrame() --------------------------------
+  /**
+   * implements Animated interface. On each time event, 
+   * move each component
+   */
+  public void newFrame() 
+  {
+    _snowman.newFrame();
+    this.repaint();
+  }   
+  //+++++++++++++++++++ application starter ++++++++++++++++++++
+  //-------------------------- main ----------------------------
+  public static void main( String[] args )
+  {
+    MoverApp app = new MoverApp( "MoverApp from DrawPanel", args );
+  }  
+}

@@ -1,0 +1,1 @@
+\project_{Lname, Fname}((\project_{Mgr_ssn}(DEPARTMENT) \intersect \project_{Essn}(DEPENDENT)) \join EMPLOYEE);

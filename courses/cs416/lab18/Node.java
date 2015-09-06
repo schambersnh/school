@@ -1,0 +1,86 @@
+/**
+ * Node -- Represent a node in a directed graph
+ *         Skeleton code for digraph lab
+ * 
+ * Features to be added (in addition to completing existing methods):
+ *    1. a collection in which to store all the edges that start at this node
+ *    2. public methods that return edges; you might want to return one
+ *       edge at a time and/or the entire collection
+ *
+ * @author rdb 
+ * 10/31/10
+ */
+import java.util.*;
+
+public class Node
+{
+   //----------------- instance variables ----------------------------
+   String _id;
+   ArrayList<Edge> myNodeEdge;
+   //----------------- Constructors ----------------------------------
+   /**
+    * Creates a node with the given id
+    */
+   public Node( String id )     
+   {
+     _id = id;
+     myNodeEdge = new ArrayList<Edge>();
+   }
+   //----------------------------- getId() -----------------------------
+   /**
+    * Returns the name of this room
+    */
+   public String getId()
+   {
+      return _id;
+   }
+   
+   //----------------------------- addEdge( Node ) ------------------------
+   /**
+    * add an edge from this node to the parameter node
+    */
+   public void addEdge( Node toNode )
+   {
+     Edge nodeEdge = new Edge(this, toNode);
+     myNodeEdge.add(nodeEdge);
+   }
+   
+   //----------------------- toString() ----------------------------------
+   /**
+    * Returns the id of this room
+    */
+   public String toString()
+   {
+      return "Node ID: " + _id;
+   }
+   
+   //----------------------- longString() ----------------------------------
+   /**
+    * Returns the extended information about the node:
+    *      nodeId:  end1 end2 ... endk
+    * where 
+    *      endk are the ids of nodes that are at ends of edges from this node
+    */
+   public String longString()
+   {
+     // this in a string expression invokes this.toString()
+     
+      String s = "";  
+      for(int i = 0; i < myNodeEdge.size(); i++)
+      {
+          s += myNodeEdge.get(i).getEnd().getId();
+      }
+      return this + ":" + s;
+   }
+      
+   //------------------------- main -----------------------------------------
+   /**
+    * unit test code 
+    */
+   public static void main( String[] args )
+   {
+      Node test = new Node( "A" );
+      System.out.println( "getId() = " + test.getId() + "\ntoString= " + test 
+                          + "\nlongString= " + test.longString() );
+   }
+}

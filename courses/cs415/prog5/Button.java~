@@ -1,0 +1,16 @@
+public class Button extends TextBox
+{
+
+  public Button(int x, int y)
+  {
+   setLocation(x, y);
+  }
+ 
+  public void mousePressed(java.awt.event.MouseEvent e)
+  {
+    
+  }
+  
+  
+  
+}

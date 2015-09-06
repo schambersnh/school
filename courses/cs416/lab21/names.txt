@@ -1,0 +1,11 @@
+This is a simple file that contains some names in Lastname, Firstname order
+along with other things as well as Smith, John.
+
+There is nothing to prevent Jones, Linda from finding Anderson, Frank before
+the meeting started.
+
+How about a name that crosses line boundaries as in Masters,  
+John. Depending on the task specification, this may or may not be found.
+
+Of course, this approach is far from stable, since it would swap addresses
+also, such as Durham, New Hampshire.

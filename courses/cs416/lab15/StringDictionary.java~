@@ -1,0 +1,319 @@
+/**
+ * StringDictionary
+ */
+import java.util.*;
+
+public class StringDictionary  
+{
+  //---------------- class variables -----------------------------------
+  
+  //---------------- instance variables --------------------------------
+  private BSTNode   _root;
+  private BSTNode   _next;
+  private int       _size;
+  
+  //--------------------- constructor ----------------------------------
+  public StringDictionary()
+  {
+    _root = null;
+    _next = null;
+    _size = 0;
+  }
+  //----------------- getTree() --------------------------------
+  /**
+   * return the root of the tree as a BSTNode
+   */
+  public BSTNode getTree()
+  {
+    return _root;
+  }
+  //----------------- clear() --------------------------------
+  /**
+   * remove all entries from the tree
+   */
+  public void clear()
+  {
+    _root = null;
+    _next = null;
+    _size = 0;
+  }
+  
+  //--------------------- first() --------------------------------------
+  /**
+   * return first element in the tree (the lowest in sort order)
+   */
+  public String first( )
+  {    
+    if ( _root == null )
+      return null;
+    //////////////////////////////////////////////////////////////////
+    // a. The first node to be returned while traversing a BST is the 
+    //   left most descendant of the root of the tree. 
+    // Implement getLeftMost( _root ), assign its result to a 
+    //   local BSTNode variable
+    /////////////////////////////////////////////////////////////////
+    BSTNode leftNode = getLeftMost( _root );
+    String leftData = leftNode.data;
+    
+    /////////////////////////////////////////////////////////////////
+    // b. Before returning the data from the first node, need to
+    //   set the _next instance variable to reference the "next" node
+    //   to return. Do this in the method "setNext", call that method, and
+    //   assign the result to the _next instance variable.
+    ////////////////////////////////////////////////////////////////
+    setNext(leftNode);
+    
+    ////////////////////////////////////////////////////////////////
+    // c. return the data field from the first node (saved above in a local
+    //    variable
+    ///////////////////////////////////////////////////////////////////
+    
+    return leftData;
+  }
+  //--------------------- getLeftMost( BSTNode ) --------------------------
+  /**
+   * get the left most descendant of the node, which is itself if it has
+   * no descendants.
+   */
+  private BSTNode getLeftMost( BSTNode node )
+  {
+    /////////////////////////////////////////////////////////////////////
+    // Return the left most descendant of this node. That is, follow left
+    //   links until a node has a null left subtree. 
+    //   Return that node.
+    /////////////////////////////////////////////////////////////////////
+    if(node.left == null)
+    {
+      return node;
+    }
+    else
+    {
+      return getLeftMost(node.left);
+      
+    }
+    
+    
+    
+  }
+  //--------------------- setNext( BSTNode ) --------------------------
+  /**
+   * get the next node in sorted order after the current one
+   *    set _next instance variable to this value.
+   * This will be the right child's leftmost -- if we have a right child
+   * or we have to look for an ancestor.
+   */
+  private void setNext( BSTNode node )
+  {
+    ////////////////////////////////////////////////////////////////
+    // If there is a right child, its leftmost descendant should become _next
+    // else need to find the closest ancestor node that is not yet 
+    //     finished. Do that by calling "getUnfinishedAncester( node )
+    /////////////////////////////////////////////////////////////////////
+    if(node.right!= null)
+    {
+      _next = getLeftMost(node.right);
+    }
+    else
+    {
+      _next = getUnfinishedAncestor( node );
+      
+    }
+    
+    
+    
+  }
+  //----------------- getUnfinishedAncestor( BSTNode ) -----------------
+  /**
+   * Find the nearest ancestor that has not been processed -- a node that
+   *    reached this node along a left branch (or we get to the root).
+   */
+  private BSTNode getUnfinishedAncestor( BSTNode node )
+  {
+    // If this node is a right child, its parent is done and we need to get
+    //   an unfinished ancestor of the parent (sounds like recursion!)
+    // Otherwise this node is a left child of its parent and the parent still
+    //   needs to be "processed", so parent becomes the next node. 
+    // Of course, you also need to check whether you've reached the root,
+    //   i.e., that's when node.parent is null, and the node is done, so
+    //   the traversal is done and we return null.
+    
+     if(node.parent == null)
+    {
+      return null;
+    }
+    if(node.parent.right == node)
+    {
+      getUnfinishedAncestor(node.parent);
+    }
+    else
+    {
+      _next = node.parent;
+      System.out.println(_next.data);
+    }
+   
+    
+    
+    
+    
+    return _next;
+  }
+  //--------------------- next() --------------------------------------
+  /**
+   * return next element in tree
+   */
+  public String next( )
+  {  
+    if ( _next == null )
+      return null;
+    else
+    {
+      BSTNode myNext = _next;
+      setNext(_next);
+      return myNext.data;
+    }
+    ////////////////////////////////////////////////////////////////////
+    // If there is a defined _next node, return its string field, but 
+    //    not before re-setting the _next variable to the node after it.
+    //    -- by calling setNext
+    ///////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+
+  }
+  //--------------------- add( Data ) -----------------------------------
+  /**
+   * add an object before next; that's what add( int, String) does
+   */
+  public void add( String item )
+  {  
+    BSTNode node = new BSTNode( item );
+    if ( _root == null ) 
+      _root = node;
+    else
+      add( _root, node );
+  }
+  //--------------------- add( BSTNode, BSTNode ) ------------------------
+  /**
+   * add a new node to the subtree rooted at cur
+   */
+  public void add( BSTNode cur, BSTNode newNode )
+  {  
+    int cmp = cur.data.compareTo( newNode.data );
+    if ( cmp > 0 ) 
+    {
+      if ( cur.left != null )
+        add( cur.left, newNode );
+      else
+      {
+        cur.left = newNode;
+        newNode.parent = cur;
+        _size++;
+      }
+    }
+    else if ( cmp < 0 ) 
+    {
+      if ( cur.right != null )
+        add( cur.right, newNode );
+      else
+      {
+        cur.right = newNode;
+        newNode.parent = cur;
+        _size++;
+      }
+    }
+    else
+      System.err.println( "Duplicate nodes not allowed; not adding " +
+                         newNode.data );
+  }
+  //--------------------- find( String ) --------------------------------
+  /**
+   * return Data if key is found in dictionary
+   */
+  public String find( String key )
+  { 
+    return find( _root, key );
+  }
+  //--------------------- find( BSTNode, String ) ----------------------
+  /**
+   * return Data if key is found in dictionary
+   */
+  public String find( BSTNode root, String key )
+  { 
+    if ( root == null )
+      return null;
+    int cmp = root.data.compareTo( key );
+    if ( cmp == 0 )
+      return root.data;
+    else if ( cmp > 0 )
+      return find( root.left, key );
+    else 
+      return find( root.right, key );
+  }
+  
+  //--------------------- size() --------------------------------------
+  /**
+   * return size
+   */
+  public int size()
+  {  
+    return _size;
+  }
+  //--------------------- isEmpty() --------------------------------------
+  /**
+   * return true if StringDictionary is empty
+   */
+  public boolean isEmpty()
+  {      
+    return _root == null;
+  }
+  
+  //---------------------- toString() ----------------------------------
+  /**
+   * make a string from dictionary, but don't print it all! 
+   *    limit the number of entries printed to the number
+   *    defined by maxPrint. 
+   */
+  public String toString()
+  {         
+    return toString( _root );
+  }
+  //---------------------- toString( BSTNode) ----------------------------
+  /**
+   * make a string from dictionary 
+   */
+  private String toString( BSTNode root )
+  {  
+    if ( root == null )
+      return "";
+    
+    return toString( root.left ) + root.data + ", " + toString( root.right );
+  }
+  //--------------------- main ----------------------------------
+  public static void main( String[] args )
+  {
+    // For convenience in DrJava, this main invokes StringDictionaryApp
+    //new DictionaryApp( "DictionaryApp", args );
+    
+    StringDictionary dict = new StringDictionary();
+    String           ans = null;
+    String           keys = "mhbaeczyrgjqsdft";
+    
+    for ( int k = 0; k < keys.length(); k++ )
+      dict.add( keys.substring( k, k + 1 ));
+    
+    ans = dict.first();
+    while ( ans != null )
+    {
+      System.out.print( ans + ", " );
+      ans = dict.next();
+    }
+    System.out.println();
+    
+    System.out.println( "Searching for s: " + dict.find( "s" ));
+    System.out.println( "Searching for m: " + dict.find( "m" ));
+    System.out.println( "Searching for x: " + dict.find( "x" ));
+  }
+}

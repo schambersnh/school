@@ -1,0 +1,60 @@
+/**
+ * Node - a node in a tree
+ */
+import java.util.*;
+public class Node
+{
+   public Node parent = null;
+   public ArrayList<Node> children;
+   public int  data   = 0;
+   public State state;
+   public int score = 0; 
+   public Node bestScore;
+   public static int nodeCount;
+   public static int pauseCount;
+   //------------------ Node constructor ---------------------
+   public Node( int i, State s )
+   {
+      this.data = i;
+      this.state = new State(s);
+      children = new ArrayList<Node>();
+
+   }
+   public void addChild( Node n )
+   {
+     children.add(n);
+   }
+   public void makeChildren()
+   {
+     //if(!Game.pauseAtLeaf)
+    // {
+     ArrayList<Integer> plays = this.state.getPlays();
+     for(int i = 0; i < plays.size(); i++)
+     {
+       nodeCount++;
+       pauseCount++;
+       this.addChild(new Node(plays.get(i), this.state));
+       children.get(i).state.play(children.get(i));
+       children.get(i).makeChildren();
+     }
+     if(this.children.size() == 0)
+     {
+       this.score = this.state.getResults();
+      // System.out.println(this.score);
+     }
+     else
+     {
+       this.score = this.children.get(0).score;
+       bestScore = children.get(0);
+       for(int i = 0; i < children.size(); i++)
+       {
+         if(children.get(i).score > this.score)
+         {
+           this.score = children.get(i).score;
+           bestScore = children.get(i);
+         }
+       }
+     }
+    // }
+   }
+}

@@ -1,0 +1,88 @@
+/** 
+ * Earth.java
+ * Shows the different seasons of Earth from space
+ *
+ * Stephen Chambers
+ * 10/05/10
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+
+public class Earth extends ShapeGroup implements Seasonal, Draggable
+  
+  
+{
+  
+  //---------------- instance variables ------------------------------
+  private Ellipse sun;
+  private Ellipse myEarth;
+  //------------------------------------------------------------------
+  
+ public Earth(int x, int y)
+ {
+   myEarth = new Ellipse( x , y );
+   myEarth.setColor(Color.BLUE);
+   myEarth.setSize( 30 , 30 );
+   add(myEarth);
+   
+   sun = new Ellipse( x-10, y + 10 );
+   sun.setColor(Color.YELLOW);
+   sun.setSize(20, 20);
+   add(sun);
+ }
+ 
+ public void mouseDragged( MouseEvent me )
+  {
+    currentX = me.getPoint().x;
+    currentY = me.getPoint().y;
+    
+    int diffX = currentX - lastX;
+    int diffY = currentY - lastY; 
+    
+    setLocation( getLocation().x + diffX, getLocation().y + diffY ); 
+    lastX = currentX;
+    lastY = currentY;
+  }
+  
+  //-------------------------------------------------------------------------
+  /**
+   * 
+   */
+  public void mouseReleased( MouseEvent me )
+  {
+     setLocation(origX, origY);
+    
+  }
+  
+  
+  
+  /*
+   * Seasonal methods changing the ATV
+   * 
+   * 
+   * 
+   * */
+  public void winter()
+  {
+    
+  }
+  /////////////////////////////////////////////////////////////////////////
+  public void summer()
+  {
+   
+   
+    
+  }
+  /////////////////////////////////////////////////////////////////////////
+  public void spring()
+  {
+  
+ 
+  }
+  /////////////////////////////////////////////////////////////////////////    
+  public void fall()
+  {
+  
+}
+ 

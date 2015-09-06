@@ -1,0 +1,145 @@
+-------------------------------4/14/11 9:47 AM-------------------------------
+
+-------------------------------4/14/11 9:48 AM-------------------------------
+
+**** Input --> dog, cat, bear, girl, boy <--
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> ,\ <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Regex --> , <--Flags: MLine 
+**** Split
+**** FindAll match count: 4
+**** Regex --> ,  <--Flags: MLine 
+**** Split
+**** Input --> word, another; more, words; all: with, one: of; the, seperators <--
+**** Regex --> , <--Flags: MLine 
+**** Split
+**** FindAll match count: 4
+**** Input --> dog|cat|bear| <--
+**** Regex --> , <--Flags: MLine 
+**** Split
+**** FindAll match count: 0
+**** Split
+**** Find
+**** Input --> I am sitting in the computer lab learning about expressions <--
+**** Input --> null <--
+**** Input --> I am playing with a Dog. The dog is cool <--
+**** Regex --> |dog <--Flags: MLine 
+**** Regex --> dog <--Flags: MLine 
+**** Split
+**** FindAll match count: 1
+**** Input --> new pattern with dog Dog times at the end* <--
+**** Regex --> dog* <--Flags: MLine 
+**** Split
+**** FindAll match count: 1
+**** Split
+**** Split
+**** Split
+**** Regex --> a* <--Flags: MLine 
+**** Split
+**** FindAll match count: 43
+**** Split
+**** Regex --> a+ <--Flags: MLine 
+**** Split
+**** FindAll match count: 2
+**** Split
+**** File --> short.csv <--
+**** Regex --> , <--Flags: MLine 
+**** Split
+**** FindAll match count: 117
+**** Input --> dog, dog dog, dog, dog <--
+**** Regex --> , <--Flags: MLine 
+**** Split
+**** FindAll match count: 3
+**** File --> short.csv <--
+**** Regex --> ,46.1,0.53 <--Flags: MLine 
+**** FindAll match count: 11
+**** Regex --> ",46.1,0.53" <--Flags: MLine 
+**** FindAll match count: 0
+**** Regex --> ",46.1,0.53 <--Flags: MLine 
+**** FindAll match count: 11
+**** Regex --> ",46.1,0.53 <--Flags: MLine 
+**** Regex --> ",46.1,0.53 <--Flags: MLine 
+**** Regex --> |AC159291.3| <--Flags: MLine 
+**** FindAll match count: 1607
+**** Regex --> \|AC159291.3\| <--Flags: MLine 
+**** FindAll match count: 1
+**** FindAll match count: 1
+**** Regex --> \|AC <--Flags: MLine 
+**** FindAll match count: 13
+**** Regex --> \|A 8\| <--Flags: MLine 
+**** FindAll match count: 0
+**** Regex --> \|A8\| <--Flags: MLine 
+**** FindAll match count: 0
+-------------------------------4/14/11 10:13 AM-------------------------------
+
+**** File --> short.csv <--
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** FindAll match count: 0
+**** FindAll match count: 0
+**** FindAll match count: 0
+**** FindAll match count: 0
+**** FindAll match count: 0
+**** FindAll match count: 0
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A8+\| <--Flags: MLine 
+**** Regex --> \|A.*8.*\| <--Flags: MLine 
+**** FindAll match count: 13
+**** Regex --> .*e-.* <--Flags: MLine 
+**** FindAll match count: 1
+**** Regex --> .*gb.*Mus <--Flags: MLine 
+**** FindAll match count: 5
+**** File --> headers.txt <--
+**** Split
+**** FindAll match count: 0
+**** Regex --> : <--Flags: MLine 
+**** Split
+**** FindAll match count: 59
+**** Split
+**** Regex --> :.*:3:.* <--Flags: MLine 
+**** Split
+**** FindAll match count: 0
+**** Regex --> .*:3:.* <--Flags: MLine 
+**** FindAll match count: 4
+**** Regex --> .*\(.*\) <--Flags: MLine 
+**** FindAll match count: 30
+**** Regex --> .*\(.*\).*\(.*\) <--Flags: MLine 
+**** FindAll match count: 4
+**** File --> dna-seq.txt <--
+**** Regex --> >.* <--Flags: MLine 
+**** FindAll match count: 2
+**** Regex --> .*(AT)+.*(C|G)+.*(AT)* <--Flags: MLine 
+**** FindAll match count: 29
+**** Regex --> (ATG).*(TAG|TGA) <--Flags: MLine 
+**** FindAll match count: 8
+**** Regex --> (ATG).*(TAG|TGA) <--Flags: MLine 
+**** Regex --> (ATG).*(TAG|TGA) <--Flags: MLine 
+**** Regex --> (ATG){3}.*(TAG|TGA) <--Flags: MLine 
+**** FindAll match count: 0
+**** Regex --> (ATG).*.*.*(TAG|TGA) <--Flags: MLine 
+**** FindAll match count: 8

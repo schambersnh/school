@@ -1,0 +1,81 @@
+/**
+ * Teller - consumer part of simple multithreading example in Java 
+ *            using BankSim/Teller  model
+ * 
+ *            The initial version is not multithreaded. It just gets 
+ *            the entire input data sequence as an ArrayList and goes
+ *            through each entry, sleeping for the time specified as
+ *            the service time for the client.
+ *
+ * @author rdb
+ * May 5, 2009
+ */
+import java.util.*;
+
+public class Teller
+{
+   //-------------------- class variables ----------------------------
+   //-------------------- instance variables -------------------------
+   private ArrayList<Client> _clientsIn;  // clients to be served
+   private ArrayList<Client> _clientsOut; // clients already served
+   private String            _name;       // thread name
+   
+   private long              _baseTime;  // system time in millis of start
+   
+   //---------- magic constants ------------
+   private String            prefix = "                      ---> ";
+   
+   //--------------------- constructor ------------------------------
+   public Teller( String name, ArrayList<Client> clientsIn,
+                               ArrayList<Client> clientsOut )
+   {
+      _name = name;
+      _clientsIn = clientsIn;
+      _clientsOut = clientsOut;
+   }
+   //---------------------- run() ------------------------------------
+   public void run()
+   {
+      _baseTime     = System.currentTimeMillis();
+      Client client = null;
+      System.out.println( "Teller.run: " + _name + " " + _clientsIn.size() );
+      while ( _clientsIn.size() > 0 )
+      {
+         client = _clientsIn.remove( 0 );
+         serve( client );
+      }
+   }
+   //----------------------- serve( Client ) -------------------------
+   private void serve( Client client )
+   {
+      if ( client == null )
+         return;
+      int time = (int)( System.currentTimeMillis() - _baseTime );
+      // if the client's arrival time has not yet passed, need 
+      // to sleep here to simulate the passage of time until the
+      // client arrives.
+      if ( client.arrival > time )
+      {
+         // Note: this sleep will later be done in Bank3Sim; it could be
+         //       deleted from here then, but it does no harm; this code
+         //       should never be executed once the time delay has occurred.
+         Utilities.sleep( client.arrival - time );
+         time = (int)( System.currentTimeMillis() - _baseTime );
+         client.waitTime = 0;  // no waiting
+      }
+      else
+         client.waitTime = time - client.arrival; // record wait time
+      
+      System.out.println( prefix + _name + " q:" + _clientsIn.size() 
+                            + " " + client + " start@" + time );
+      
+      // Now we need to sleep to simulate the servicing of the client
+      Utilities.sleep( client.service ); 
+      
+      time = (int)( System.currentTimeMillis() - _baseTime );      
+      // save client information in the output array
+      _clientsOut.add( client );
+      System.out.println( prefix  + _name + " q:" + _clientsIn.size() 
+                            + " " + client + " end@" + time );
+   }
+}

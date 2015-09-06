@@ -1,0 +1,8 @@
+Output schema: (Fname text, Lname text)
+-----
+James|Borg
+-----
+Total number of rows: 1
+
+Bye!
+

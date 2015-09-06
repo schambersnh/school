@@ -1,0 +1,9 @@
+node a
+node b c d
+node twice
+node twice
+edge      a    b
+edge      a    c
+edge      b    c
+edge      d    a
+edge      undefined a

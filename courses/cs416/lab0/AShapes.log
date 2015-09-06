@@ -1,0 +1,41 @@
+input: #
+input: # A test for Lab 0
+input: #
+input: # This test includes both good and bad input specifications
+input: #
+input: # Bulding with door and windows
+input: # building
+input: r 100 100 200 100 black
+input: # door, also includes extra tokens
+input: r 185 140 30 60 white  extra tokens
+*** Warning *** Warning: Extra tokens on input line ignored:   extra tokens
+input: # 2 rectangular windows, use previous color
+input: r 130 150 25 20
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+input: r 240 150 25 20
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+input: # an oval window above door; bad color should use last color
+input: e 185 110 30 15 badColor
+input: 
+input: # lines to make peaked roof
+input: #trace on --->:<---
+input: l 100 100 200 50 black
+--->: Entering Method parseLine....
+--->: Entering Method checkArgCounnt....
+<---: Exiting Method checkArgCounnt....
+--->: Entering Method execute....
+--->: Entering Method colorFromString....
+<---: Exiting Method colorFromString....
+<---: Exiting Method execute....
+<---: Exiting Method parseLine....
+input: #trace off --->:<---
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+*** ERROR *** AshapesPanel.parseLine: Null reference
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+*** ERROR *** AshapesPanel.parseLine: Null reference
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+*** ERROR *** AshapesPanel.parseLine: Null reference
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+*** ERROR *** AshapesPanel.parseLine: Null reference
+*** ERROR *** AShapesPanel.parseLine:NoSuchElementException
+*** ERROR *** AshapesPanel.parseLine: Null reference

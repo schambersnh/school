@@ -1,0 +1,14 @@
+public class Display
+{
+  private rect1, rect2;
+  public Display(int x, int y, double p)
+  {
+    rect1 = new Rectangle(x, y);
+    rect1.setSize(100, 10);
+    rect1.setColor(Color.WHITE);
+    rect2 = new Rectangle(p/100, y);
+    rect2.setColor(Color.RED);
+  }
+  
+}
+

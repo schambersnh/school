@@ -1,0 +1,247 @@
+/**
+ * Dispatcher.java -- Controls the activities of the EMTVehicle
+ *        Resonsibilities:
+ *            1. Know the current state of the vehicle: is it at home,
+ *               heading to an emergency, heading for hospital, heading home.
+ *            2. Tell the vehicle what to do next. Normally, this will be
+ *               after it gets to its next destination. However, if the
+ *               vehicle is heading home and an emergency site gets added,
+ *               it should get re-directed to the site.
+ *            3. It must know about or be able to get information from
+ *               a. the emergency sites collection
+ *               b. the hospital collection
+ *               c. the timer (because it needs to know when that 
+ *                  vehicle needs to wait for 2 seconds. The easiest
+ *                  way to do this is to simply "restart()" the timer.
+ *                  This works because there is nothing else moving in
+ *                  this application except one vehicle. If that weren't
+ *                  the case, the timer would have to keep running and
+ *                  the code would have to count events in order to figure
+ *                  out when 2 seconds had elapsed.)
+ * 
+ *        Framework:
+ *            This class should implement the Animated interface, and get
+ *            called (by EMTPanel) on every frame event. For example, 
+ *            if the vehicle is home or going home and there is an entry 
+ *            in the sites array, the dispatcher needs to tell the vehicle 
+ *            to go to the next site in the array. There are of course 
+ *            several other cases.
+ * 
+ * @author rdb
+ * 02/02/11 -- Skeleton for dispatcher 
+ * 
+ * Modified by Stephen Chambers for Program 2 on 2/10/11
+ * 
+ * 
+ */
+import java.util.*;
+import java.awt.*;
+
+public class Dispatcher implements Animated
+{
+  //-------------------- instance variables ---------------------
+  private ArrayList<Hospital> _hospitals;
+  private ArrayList<EmergencySite> _esites;
+  private ArrayList<EmergencySite> _disabled;
+  private EMTVehicle _myVehicle;
+  private Point mySitePoint;
+  private Point myHospitalPoint;
+  private int sitenum;
+  private FrameTimer _timer;
+  private JLine _line;
+  
+  //Flags for determining what the vehicle is doing
+  private boolean isGoingToSite = false;
+  private boolean isGoingToHospital = false;
+  private boolean isGoingHome = false;
+  
+  //------------------ constructor -----------------------------
+  public Dispatcher( 
+                    ArrayList<Hospital> hospitals,
+                    ArrayList<EmergencySite> esites, 
+                    EMTVehicle myVehicle,
+                    FrameTimer timer,
+                    JLine line
+                   )
+  {
+    _hospitals = hospitals;
+    _esites = esites;
+    _myVehicle = myVehicle;
+    _timer = timer;
+    _line = line;
+    _disabled = new ArrayList<EmergencySite>();
+  }
+  //---------------------- setNextSite() -------------------------
+  /**
+   * identify the next emergency site, if there is one
+   */
+  private EmergencySite getNextSite()
+  {
+    //Only need to return the first element of the ArrayList because once a 
+    //Emergency Site is visited it is removed from the ArrayList _esites.
+    return _esites.get(0);
+  }
+  //--------------- getClosestHospital( Point ) -------------------------------
+  /**
+   * find the closest hospital site to the parameter
+   *    This method is complete.
+   * Note that we don't bother to compute the correct distance,
+   *    we make the decision based on the square of the distance
+   *    which saves the computation of the square root, a reasonably
+   *    costly operation that serves no purpose for this test.
+   */
+  private Hospital getClosestHospital( Point loc )
+  {
+    double distanceSq = Float.MAX_VALUE;
+    Hospital   closest    = null;
+    for ( Hospital h: _hospitals )
+    {
+      double d2 = loc.distanceSq( h.getLocation() );
+      if ( d2 < distanceSq )
+      {
+        distanceSq = d2;
+        closest = h;
+      }
+    }
+    return closest;
+  }
+  
+  //++++++++++++++++++++++ Animated interface +++++++++++++++++++++++++
+  private boolean _animated = true;
+  //---------------------- isAnimated() ----------------------------------
+  public boolean isAnimated()
+  {
+    return _animated;
+  }
+  //---------------------- setAnimated( boolean ) --------------------
+  public void setAnimated( boolean onOff )
+  {
+    _animated = onOff;
+  }
+  //---------------------- goToSite()-----------------------------
+  private void goToSite()
+  {
+    /*Creates a temporary EmergencySite variable and assigns it to the first 
+     * EmergencySite in the ArrayList _esites. The Vehicle then travels to that
+     * site's point using travelTo() and newFrame() and a line is created showing
+     * where the EMTVehicle is traveling. 
+     * */
+    EmergencySite tempSite = getNextSite();
+    tempSite.setDraggable(false);
+    mySitePoint = tempSite.getLocation();
+    
+    _myVehicle.travelTo(mySitePoint.x, mySitePoint.y, EMTApp.highSpeed);
+    _myVehicle.newFrame();
+    _line.setPoints(_myVehicle.getX(), _myVehicle.getY(), mySitePoint.x, mySitePoint.y);
+    _line.setColor(Color.RED);
+    
+  }
+  //--------------------- goToHospital() -------------------------
+    /*Creates a temporary Hospital variable and assigns it to the closest 
+     * Hospital using the getClosestHospital() method. The Vehicle then travels
+     * to that Hospital's point using travelTo() and newFrame() and a line is 
+     * created showing where the EMTVehicle is  traveling. 
+     * */
+  private void goToHospital()
+  {
+    Hospital tempHospital = getClosestHospital(_myVehicle.getLocation());
+    myHospitalPoint = tempHospital.getLocation();
+ 
+    _myVehicle.travelTo(myHospitalPoint.x, myHospitalPoint.y, EMTApp.highSpeed);
+    _myVehicle.newFrame();
+       _line.setPoints(_myVehicle.getX(), _myVehicle.getY(), myHospitalPoint.x, myHospitalPoint.y);
+    _line.setColor(Color.RED);
+    _line.repaint();
+    
+  }
+  //-------------------- goHome() --------------------------------
+   /*Creates a temporary Point and assigns it the point returned by the 
+    * getHome() method of EMTVehicle The Vehicle then travels
+     * to that point using travelTo and newFrame and a line is 
+     * created showing where the EMTVehicle is  traveling. 
+     * */
+  private void goHome()
+  {
+    Point temp = _myVehicle.getHome();
+    _myVehicle.travelTo(temp.x, temp.y, EMTApp.normalSpeed);
+    _myVehicle.newFrame();
+    
+
+  }
+  //---------------------- newFrame ------------------------------
+  /**
+   * invoked for each frame of animation; figure out what to do with
+   *    the vehicle at this frame.
+   * 
+   * Comments are added so the user understands the semantics of the 
+   * nested if/else ifs. The explanations match up with the lines of code
+   * that they are on.
+   */
+  public void newFrame()
+  {
+    if(_esites.size() > 0) //if there are sites in the ArrayList
+    {
+      
+      if(!isGoingToHospital) //and it's not going to the hospital
+      {
+        isGoingToSite = true; //go to the site
+        isGoingHome = false; //and don't go home
+        goToSite();
+        if((mySitePoint.x == _myVehicle.getLocation().x) && //if it's at the 
+           (mySitePoint.y == _myVehicle.getLocation().y))   //    site
+        {
+          isGoingToSite = false; //it's not going to the site anymore
+          isGoingToHospital = true; //and now it's going to the hospital
+          _esites.get(0).setColor(Color.BLUE); //so turn the site blue
+          _disabled.add(_esites.get(0)); //add it to the disabled array list
+          _esites.remove(_esites.get(0));//and remove the site from the ArrayList
+          _timer.restart(); //this pauses the application 2 seconds
+        }
+        
+        
+      }
+      else if(!isGoingToSite) //if it's not going to the site
+      {
+        isGoingToHospital = true; //it's going to the hospital
+        goToHospital();
+        
+        if((myHospitalPoint.x == _myVehicle.getLocation().x) && //if it's at the
+           (myHospitalPoint.y == _myVehicle.getLocation().y))   //hospital
+        {;
+          isGoingToHospital = false; //don't go to the hospital anymoe
+          _timer.restart(); //pause the application for 2 seconds
+        }
+      }
+    }
+    
+    //NOTE: the disabled ArrayList is part of the application only so that
+    //the application knows the difference between the very start of the 
+    //app(the ArrayList is empty but nothing's done yet) and the very end of 
+    //the app(the ArrayList is empty but everyone's picked up)
+    
+    //If there's no more sites and we still have a passenger
+    if((_esites.size() == 0) && (_disabled.size() > 0) && !isGoingHome) 
+    {
+      goToHospital(); //go to the hospital to drop off the last passenger
+    }
+    
+    //If there's no more sites and we already dropped off the passenger
+    if((_esites.size() == 0) && (_disabled.size() > 0) && 
+       ((myHospitalPoint.x == _myVehicle.getLocation().x) && 
+        (myHospitalPoint.y == _myVehicle.getLocation().y)))
+    {
+      //time to go home!
+      isGoingHome = true;
+    }
+    
+    if(isGoingHome) //if it's time to go home
+    {
+      //actually go home
+      goHome();
+    }
+    
+    
+  }
+}
+
+//+++++++++++++++ end Animated interface ++++++++++++++++++++++++++++++++++

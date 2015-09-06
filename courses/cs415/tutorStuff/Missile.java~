@@ -1,0 +1,28 @@
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.*;
+import java.util.*;
+
+public class Missile extends ShapeGroup
+{
+  //class variables
+  public static int width = 10;
+  public static int height = 20;
+  
+  //instance
+  private Rectangle body;
+  private int dY;
+  
+  public Missle(int x, int y, int diffY)
+  {
+    body = new Rectangle(x, y);
+    add(body);
+    setLocation(x, y);
+    dY = diffY;
+  }
+  public Point getTop()
+  {
+    return getLocation(); 
+  }
+}

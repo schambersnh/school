@@ -1,0 +1,80 @@
+*/
+  #include <stdio.h>
+  #include <stdlib.h>
+  void srand(unsigned int seed);
+  int rand(void);
+
+  int main(void)
+  {
+    unsigned int f1, f2;
+
+    //This code is for testing specific cases 	
+    /*
+    f1 = 0x0024e135;
+    f2 = 0x00bb13c1;
+    unsigned int result;
+    float fresult;
+    float totalCount = 0.0;
+    float successCount = 0.0;
+
+    result = FloatAdd(f1, f2);
+    fresult = *(float*)&f1 + *(float*)&f2;
+   // printf("Result in hex should be: %x\n", *(int*)&fresult);
+
+   
+    if(result != (*(int*)&fresult))
+    {
+      printf("Failure.\nfresult: %x\nresult: %x\n", *(int*)&fresult, result);
+    }
+    else
+    {
+      printf("fresult: %x\nresult: %x\n", *(int*)&fresult, result);
+      printf("Success!\n");
+    }
+    */
+     
+   
+	// The following code presents random cases using all exponents
+	unsigned int exponent = 0x00000000;
+        unsigned int exponent2 = 0x00000000;
+	unsigned int sign = 0x00000000;
+	int k;
+	int randSig = 0;
+	int randSig2 = 0;
+	unsigned int result;
+        float fresult;
+        float totalCount = 0.0;
+        float successCount = 0.0;
+        
+      
+	
+	for(k = 0; k < 10000; k++)
+	{
+	totalCount += 1.0;  
+        f1 = 0x00000000;
+        f2 = 0x00000000;
+
+        f1 = rand();
+        f2 = rand();
+
+	result = FloatAdd(f1, f2);
+	fresult = *(float*)&f1 + *(float*)&f2;
+   
+        if(result != (*(int*)&fresult))
+	{
+          printf("\n//////////////////////////////////\n");
+	  printf("f1: %08X\nf2: %08X\n", *(int*)&f1, *(int*)&f2);
+	  printf("fresult: %08X\nresult: %08X\n", *(int*)&fresult, result);
+          printf("//////////////////////////////////\n\n");
+	}
+	else
+	{   
+            successCount++;
+	    // printf("Success!\n");
+        }
+       
+	  
+      }
+     printf("Success Rate of program: %f\n", successCount / totalCount);
+	
+  }  

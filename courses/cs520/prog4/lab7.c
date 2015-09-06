@@ -1,0 +1,118 @@
+/* A simple posix threads program. A thread is created for each file and 
+the number of new lines are counted. CODE MODIFIED FROM count.c and pi.c
+provided by Professor Hatcher*/
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <string.h>
+
+#define BUFLEN 100
+#define MAX_T 24
+
+int count = 0;
+
+int n = 0;
+
+int globalSum = 0;
+
+pthread_mutex_t mu;             
+
+pthread_cond_t cv; 
+
+//void  work(char[]);
+void * work(void *);
+
+int main(int argc, char *argv[])
+{
+  int i = 0;
+  n = argc;
+  if (argc < 2)
+  {
+    fprintf(stderr, "there should be exactly one argument!\n");
+    exit(-1);
+  }
+  if (pthread_mutex_init(&mu, NULL) != 0)
+  {
+    fprintf(stderr, "can't init mutex");
+  }
+
+   if (pthread_cond_init(&cv, NULL) != 0)
+   {
+     fprintf(stderr, "can't init condition variable");
+   }
+
+  count = 0;
+  for(i = 2; i < argc; i++)
+  {
+    //work(argv[i]);
+    pthread_t temp;
+    if(pthread_create(&temp, NULL, work, (void *) argv[i]) != 0)
+    {
+      printf("Error in thread create.\n");
+    }
+  }
+ 
+    work(argv[1]);
+
+    if(++count != argc)
+    {
+      if (pthread_cond_wait(&cv, &mu) != 0)  //Wait for all slaves to finish
+      {
+        fprintf(stderr, "error in cond_wait by master");
+      }
+    }
+  return 0;
+
+}
+void * work(void * fileName)
+{
+   int fd = open(fileName, O_RDONLY);
+
+  // open returns -1 if open of file failed
+  if (fd == -1)
+  {
+    fprintf(stderr, "can't open %s for reading!\n", (char*)fileName);
+    exit(-1);
+  }
+
+  int totalCount = 0;
+  int lastRead;
+  char buf[BUFLEN];
+
+   while ((lastRead = read(fd, buf, BUFLEN)))
+  {
+    // read could also return -1 if there is an error (not EOF)
+    if (lastRead == -1)
+    {
+      fprintf(stderr, "error reading file %s!\n", (char*)fileName);
+      exit(-1);
+    }
+    int i = 0;
+    for(i = 0; i < lastRead; i++)
+    {
+      if(buf[i] == '\n')
+      {
+        totalCount++;
+      }
+    }
+  }
+  if(strcmp(fileName, "./a.out") != 0)
+  {
+    printf("%s: %d\n", (char*)fileName, totalCount);  
+  }
+  if (++count == n)  //all threads are now done
+  {
+     if (pthread_cond_signal(&cv) != 0)  //wake up master
+     {
+       fprintf(stderr, "error in cond_signal");
+     }
+   }
+     if (pthread_mutex_unlock(&mu) != 0)
+      error("error in mutex_unlock in slave");
+}
+

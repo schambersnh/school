@@ -1,0 +1,8 @@
+----------Longest ORFs for noStops + strand-----------------
+noStops: frame: 0 @ 0 -> 17
+noStops: frame: 1 @ 1 -> 17
+noStops: frame: 2 @ 2 -> 17
+----------Longest ORFs for noStops - strand-----------------
+noStops- rc: frame: 0 @ 0 -> 17
+noStops- rc: frame: 1 @ 1 -> 17
+noStops- rc: frame: 2 @ 2 -> 17

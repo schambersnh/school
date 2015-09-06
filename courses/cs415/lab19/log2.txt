@@ -1,0 +1,76 @@
+11/04/2010 10:33:20
+*LOG-> Loops.main(Loops.java:167)
+*LOG-> Loops.convertArgsToInts(Loops.java:138): Args: [] defaultValue: -1
+*LOG-> Loops.printArray(Loops.java:124): Header: Integers from command line:  Values: []
+*LOG-> Loops.drawLines(Loops.java:52)
+*LOG-> Loops.drawLines(Loops.java:55) PAUSED: Count: 1
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 2
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 3
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 4
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 5
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 6
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 7
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 8
+*LOG-> Loops.drawLines(Loops.java:60) PAUSED: Count: 9
+*LOG-> Loops.nested(Loops.java:18)
+*LOG-> stack trace:
+                   Loops.nested(Loops.java:19)
+                   Loops.main(Loops.java:178)
+                   
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 1
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 2
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 2
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 1
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 3
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 3
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 1
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 3
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 2
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 4
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 4
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 1
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 4
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 2
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 4
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 3
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 5
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 5
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 1
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 5
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 2
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 5
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 3
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 5
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 4
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 6
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 6
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 1
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 6
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 2
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 6
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 3
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 6
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 4
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 6
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 5
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 0
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 1
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 2
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 3
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 4
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 5
+*LOG-> Loops.drawBoxes(Loops.java:77) PAUSED: i: 7
+*LOG-> Loops.drawBoxes(Loops.java:78) PAUSED: j: 6
+*LOG-> Loops.sum(Loops.java:88): n: 5 m: 3

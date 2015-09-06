@@ -1,0 +1,265 @@
+/**
+ * This creates a tetromino that represents the I in the game Tetris it has
+ * an ArrayList of four configurations and draws the shape based on the 
+ * configurations. It can also move left, move right, move down, and rotate.
+ * Implements the tetromino interface.
+ * 
+ * Nick Hodgkiss
+ * 11/23/10
+ * Program 12
+ */ 
+
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.util.*;
+import java.awt.Point;
+
+public class ITetromino implements Tetromino
+{
+  
+  //--------------------------instance variables--------------------------------
+  protected Vector<Rectangle> tiles;
+  protected int row, col;
+  protected Vector<Configuration> config;
+  protected int currentConfigIndex;
+  protected Configuration currentConfig;
+  
+  //----------------------------------------------------------------------------
+  /**
+   * The constructor for this tetromino takes two int values and stores them as
+   * instance variables. It then creates a vector of four Rectangles and a
+   * vector for the four different configurations for this particular shape.
+   */
+  public ITetromino( int r,  int c )
+  {   
+    //stores values as instance variables.
+    row = r;
+    col = c;
+    
+    tiles = new Vector< Rectangle >();
+    
+    //adds four rectangles to the tiles Vector
+    for( int i = 0; i < 4; i++ )
+    {
+      Rectangle re = new Rectangle( );
+      re.setSize( Specs.TILE_SIZE, Specs.TILE_SIZE );
+      re.setFillColor( Specs.I_COLOR );
+      re.setFrameColor( Color.GRAY );
+      tiles.add( re );
+    }
+    
+    config = new Vector < Configuration >();
+    
+    //creates the configurations for the shape.
+    Configuration iConfigUp = new Configuration( 0, 0, 0, 1, 0, 2, 0, 3 );
+    Configuration iConfigLeft = new Configuration( 0, 1, 1, 1, 2, 1, 3, 1 );
+    Configuration iConfigDown = new Configuration( 0, 0, 0, 1, 0, 2, 0, 3 );
+    Configuration iConfigRight = new Configuration( 0, 1, 1, 1, 2, 1, 3, 1 );
+    
+    //adds the configurations to the Vector of configurations.
+    config.add( iConfigUp );
+    config.add( iConfigLeft );
+    config.add( iConfigRight );
+    config.add( iConfigDown );   
+    
+    currentConfigIndex = 0;
+    
+    currentConfig = config.get( currentConfigIndex );
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Draws the i'th tile in the Vector of Rectangles.
+   */
+  public void draw(  )
+  {
+    for( int i = 0; i < 4; i++ )
+    {
+      drawTile( i );
+    }    
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Draws the tile based off of the current configuration.
+   */
+  public void drawTile( int i )
+  {
+    //gets the Point of the i'th configuration
+    Point p = new Point( config.get( currentConfigIndex ).get( i ) );
+    
+    //creates two new local Point variables to store other points.
+    Point playingPoint = new Point();
+    Point playingPointGraphic = new Point();
+    
+    //initializes playingPoint to the i'th configuration's x and y plus the
+    //number of rows and columns.
+    playingPoint.x = p.x + row;
+    playingPoint.y = p.y + col;
+    
+    //initializes a graphic point based off of the playingPoint and the values
+    //stored in the Specs.java class
+    playingPointGraphic.x = Specs.BOARD_X + playingPoint.y * Specs.TILE_SIZE;
+    playingPointGraphic.y = Specs.BOARD_Y + playingPoint.x * Specs.TILE_SIZE;
+    
+    //draws the i'th tile based off of the playingPointGraphic
+    tiles.get( i ).setLocation( playingPointGraphic );    
+  }
+  
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Sets the rows and columns to the given integer values.
+   */
+  public void setRC( int r, int c )
+  {
+    row = r;
+    col = c;
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Increases the row location and redraws the shape one row lower than
+   * before.
+   */
+  public void fall()
+  {
+    row++;
+    draw();    
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Decreases the column location and redraws the image one column to the
+   * left.
+   */
+  public void moveLeft()
+  {
+    col--;
+    draw();
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Increases the column location and redraws the imagw one column to the
+   * right.
+   */
+  public void moveRight()
+  {
+    col++;
+    draw();
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Returns the tetromino's current configuration.
+   */
+  public Configuration getConfiguration( )
+  {
+    return currentConfig;
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Returns the tetromino's current row.
+   */
+  public int getRow( )
+  {
+    return row;
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Returns the tetromino's current column.
+   */
+  public int getCol( )
+  {
+    return col;
+  } 
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Calculates the maximum row for this shape in its current configuration.
+   */
+  public int getMaxRow( )
+  {
+    int max = -1;
+    
+    //for each tile in the configuration check to see if the Point extends
+    //beyond the board's max row.
+    for( int i = 0; i < 4; i++)
+    {
+      Point p = config.get( currentConfigIndex ).get( i );
+      if( max < p.x )
+        max = p.x;
+    } 
+    return max;
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Cauculates the minimum column for this shape in its current configuration.
+   */ 
+  public int getMinCol( )
+  {
+    int min = -1;
+    
+    //for each tile in the configuration check to see if the Point extends
+    //beyond the board's min column.
+    for( int i = 0; i < 4; i++)
+    {
+      Point p = config.get( currentConfigIndex ).get( i );
+      if( min < p.y )
+        min = p.y;
+    }    
+    return min;
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Calculates the maximum column for this shape in its current configuration.
+   */
+  public int getMaxCol( )
+  {
+    int max = -1;
+    
+    //for each tile in the configuration check to see if the Point extends
+    //beyond the board's max column.
+    for( int i = 0; i < 4; i++)
+    {
+      Point p = config.get( currentConfigIndex ).get( i );
+      if( max < p.y )
+        max = p.y;
+    }    
+    return max;
+  }
+  
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Rotates the shape based on the Configurations index.
+   */
+  public void rotate()
+  {
+    //if the currentConfigIndex doesn't extend beyond the Vector's size
+    if( currentConfigIndex < 3 )
+      //increase the configurationIndex.
+      currentConfigIndex++;
+    else
+      //else reset to first configuration.
+      currentConfigIndex = 0;
+    //grabs the new configuration
+    currentConfig = config.get( currentConfigIndex );
+    //redraws the shape with the new configuration.
+    draw();    
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Returns the vector of tiles.
+   */
+  public Vector<Rectangle> getTiles()
+  {
+    return tiles;
+  }
+}// end of STetromino

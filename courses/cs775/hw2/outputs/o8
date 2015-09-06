@@ -1,0 +1,2 @@
+airline	flightnbr	MAX(segnbr)	origin	dest	etd	eta	airmiles	segnbr
+af	99	3	ohare	heathrow	12	14	100	2

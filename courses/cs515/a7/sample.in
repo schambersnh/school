@@ -1,0 +1,21 @@
+define v1
+define v2
+set v1 123
+print
+enter proc1
+define v1
+set v1 10
+set v2 999
+set v1 33
+print
+use v1
+enter func1
+define a
+set a 22
+print
+exit
+define v1
+print
+exit
+print
+exit

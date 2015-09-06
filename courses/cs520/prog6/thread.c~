@@ -1,0 +1,456 @@
+/*Stephen Chambers
+5/12/12
+Program 6
+This program implements a threads package for the Linux Intel IA-32 architecture
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <ctype.h>
+#include <signal.h>
+#include <sys/time.h>
+#include "thread.h"
+static int initDone = 0;
+//Regular ready queue
+
+struct TCB * head;
+struct TCB * end;
+
+//start of mutex chain
+struct thread_mutex_t * mutexHead;
+//global flag for blocking 'critical sections' of code
+int critFlag = 0;
+int unlockFlag = 0;
+int errCount = 0;
+int mallocStack = 16384;
+int addMallocStack = 4095;
+
+static long thread_start(void (*func)(void*), void* info);
+static void special_yield(void);
+void asm_yield(struct TCB *, struct TCB *);
+void asm_special_yield(struct TCB *);
+static void doInit();
+static long mainID;
+static void sigHandler(int);
+
+//Create a thread, malloc its stack, set the stack up to look like it yielded
+long thread_create(void (*func)(void*), void* info)
+{
+  critFlag = 1;
+  if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  //malloc a stack
+  //NOTE: when stack is created, the malloc return value is at the low end of the stack.
+  //thread wants the stack to grow from high to low.
+  //NOTE: Stack must look like it yielded
+
+  int garbage = 0xFFFFFFFF;
+  int * threadStack = malloc(mallocStack);
+  if(threadStack == NULL)
+  {
+    fprintf(stderr, "malloc unsucessful\n");
+    exit(-1);
+  }
+  *(threadStack + addMallocStack) = (int)info;
+  *(threadStack + (addMallocStack- 1)) = (int)func;
+  *(threadStack + (addMallocStack- 2)) = garbage;
+  *(threadStack + (addMallocStack- 3)) = (int)thread_start;
+  *(threadStack + (addMallocStack- 4)) = garbage;
+
+   //traverse through the chain so I can add the thread to the end of the ready queue
+   struct TCB * p = head;
+   while(p -> next != NULL)
+   {
+     p = p-> next;
+     //printf("errCount: %d\n:", errCount);
+   }
+   //now in last element of ready queue, malloc a TCB for current thread and chain it to the end of the ready queue
+   //set end equal to the last element
+  struct TCB * threadTCB = malloc(sizeof(struct TCB));
+  if(threadTCB == NULL)
+  {
+    printf("malloc unsuccessful\n");
+    exit(-1);
+  }
+  threadTCB -> stackPointer = threadStack;
+  threadTCB -> esp = (int)(threadTCB -> stackPointer+ addMallocStack - 4);
+  p -> next = threadTCB;
+  end = threadTCB;
+  threadTCB -> next = NULL;
+  critFlag = 0;
+  return (long)threadTCB;
+}
+
+static long thread_start(void (*func)(void*), void* info)
+{
+  func(info);
+  special_yield();  //will never return, don't save current threads TCB (only access next not cur)
+  return 1;
+}
+
+/*This function moves the current running thread to the end of the ready queue. The new thread at the
+head of the queue is given the cpu*/
+void thread_yield(void)
+{
+  critFlag = 1;
+  if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  // if ready queue is empty, return (how do I check if the ready queue is empty?) head -> next == NULL? end == head?
+  if(head -> next == NULL)
+  {
+    //I want the thread to keep running and simply not yield
+    critFlag = 0;
+    return;
+  }
+  else
+  {
+    //rotate ready queue. first element needs to be at the end and last element needs to be at the beginning
+    struct TCB * endingVal = head;
+    struct TCB * p = head -> next;
+    struct TCB * traverse = head;
+    while(traverse -> next != NULL)
+    {
+        traverse = traverse -> next;
+    }  
+    traverse -> next = endingVal;
+    traverse = traverse -> next;
+    traverse -> next = NULL;
+    end = traverse;
+    head = p;
+
+    struct TCB * cur = endingVal;
+    struct TCB * next = head;
+    //save current thread's state(register contents) in it's TCB and restore the next thread's state from it's TCB
+    asm_yield(cur, next); 
+  } 
+ 
+}
+
+/*Do everything thread_yield does except call asm_special_yield() instead of asm_yield()*/
+static void special_yield(void)
+{
+  critFlag = 1;
+  if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  // if ready queue is empty, return (how do I check if the ready queue is empty?) head -> next == NULL? end == head?
+  if(head -> next == NULL)
+  {
+    //I want the thread to keep running and simply not yield
+    critFlag = 0;
+    return;
+  }
+  else
+  {
+    struct TCB * p = head;
+    head = head -> next;
+    free(p -> stackPointer);
+    free(p);
+    struct TCB * next = head;
+    asm_special_yield(next); 
+  } 
+}
+//simulate the main thread running and save its address for later
+static void doInit()
+{
+
+ //set up signal handlers for premptive scheduling
+  struct sigaction sigInfo;
+  sigInfo.sa_handler = sigHandler;
+  if(sigemptyset(&sigInfo.sa_mask))
+  {
+    perror("sigemptyset unsuccessful\n");
+    exit(-1);
+  }
+  sigInfo.sa_flags = SA_NODEFER;
+
+  if(sigaction(SIGVTALRM, &sigInfo, NULL))
+  {
+    perror("sigaction unsuccessful\n");
+    exit(-1);
+  }
+
+  struct itimerval timerInfo;
+  timerInfo.it_interval.tv_sec = 0;
+  timerInfo.it_interval.tv_usec = 10000;
+  timerInfo.it_value.tv_sec = 0;
+  timerInfo.it_value.tv_usec = 10000;
+
+
+  if(setitimer(ITIMER_VIRTUAL, &timerInfo, NULL))
+  {
+    perror("setitimer unsucessful\n");
+    exit(-1);
+  }
+
+  
+  head = malloc(sizeof(struct TCB));
+  if(head == NULL)
+  {
+    fprintf(stderr, "malloc unsuccessful!\n");
+    exit(-1);
+  }
+  end = head;
+  mainID = (long)head;
+}
+void sigHandler(int signal)
+{
+  //yield if flag is NOT set
+  if(critFlag && unlockFlag)
+  {
+    return;
+  }
+  else
+  {
+    thread_yield();
+  }
+}
+int thread_mutex_init(struct thread_mutex_t * newMutex)
+{
+  critFlag = 1;
+  if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  if(newMutex == NULL)
+  {
+    fprintf(stderr, "invalid mutex.\n");
+    critFlag = 0;
+    return 0;
+  }
+  newMutex -> owner = NULL;
+  newMutex -> wait_head = NULL;
+  critFlag = 0;
+  return 1;
+  
+}
+int thread_mutex_lock(struct thread_mutex_t * mutexLocked)
+{
+  critFlag = 1;
+    if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  if(mutexLocked == NULL)
+  {
+    critFlag = 0;
+    return 0;
+  }
+  //when lock is called, currently running thread is trying to lock. Use head.
+  if((mutexLocked -> owner) == head)
+  {
+    //Trying to lock myself. error
+    critFlag = 0;
+    return 0;
+  }
+  if((mutexLocked -> owner) == NULL)
+  {
+    //unowned, I can lock myself
+    mutexLocked -> owner = head;
+    critFlag = 0;
+    return 1;
+  }
+  else
+  {
+    //have to block thread, check if user was stupid and thread is already in queue
+    struct TCB * p = head;
+    head = head -> next;
+    p -> next = NULL;
+    struct TCB * traverse = mutexLocked -> wait_head;
+    if(traverse == NULL)
+    {
+      mutexLocked -> wait_head = p;
+      asm_yield(p, head);
+      return 1;
+    }
+    while(traverse -> next != NULL)
+    {
+        traverse = traverse -> next;
+    }
+    traverse -> next = p;
+    asm_yield(p, head);
+    return 1;
+  }
+}
+int thread_mutex_unlock(struct thread_mutex_t * mutexUnlocked)
+{
+   critFlag = 1;
+    if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  if(mutexUnlocked == NULL)
+  {
+    critFlag = 0;
+    return 0;
+  }
+  if(mutexUnlocked -> owner != head)
+  {
+    //current running thread does not hold lock
+    critFlag = 0;
+    return 0;
+  }
+  if(mutexUnlocked -> owner == NULL)
+  {
+    critFlag = 0;
+    return 0;
+  }
+  else
+  {
+    //skip over it in mutex queue
+    if(mutexUnlocked -> wait_head == NULL)
+    {
+      mutexUnlocked -> owner = NULL;
+      critFlag = 0;
+      return 1;
+    }
+    struct TCB * p = mutexUnlocked -> wait_head;
+    mutexUnlocked -> wait_head = mutexUnlocked -> wait_head -> next;
+    p -> next = NULL;
+    mutexUnlocked -> owner = p;
+
+    //add to ready queue
+    struct TCB * topHead = head;
+    while(topHead -> next != NULL)
+    {
+      topHead = topHead -> next;
+    }
+    topHead -> next = p;
+    critFlag = 0;
+    return 1;
+  }
+}
+int thread_cond_init(struct thread_cond_t * cond)
+{
+  critFlag = 1;
+    if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  if(cond == NULL)
+  {
+    critFlag = 0;
+    return 0;
+  }
+  cond -> wait_head = NULL;
+  critFlag = 0;
+  return 1;
+}
+int thread_cond_wait(struct thread_cond_t * cond, struct thread_mutex_t * mut)
+{
+  critFlag = 1;
+  if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  if(cond == NULL)
+  {
+    critFlag = 0;
+    return 0;
+  }
+  else
+  {
+    //release mutex
+    unlockFlag = 1;
+    int isReleased = thread_mutex_unlock(mut);
+    //unlock sets critFlag to 0 at end. Must reset
+    critFlag = 1;
+    unlockFlag = 0;
+    //mutex MUST be released for wait to work. If mutex could not be released, quit.
+    if(!isReleased)
+    {
+      critFlag = 0;
+      return 0;
+    }
+    else
+    {
+      //tell the current running thread that its associated mutex is the one passed into it
+      head -> mutex = mut;
+      struct TCB * p = head;
+      head = head -> next;
+      p -> next = NULL;
+      struct TCB * traverse = cond -> wait_head;
+      if(traverse == NULL)
+      {
+        cond -> wait_head = p;
+        asm_yield(p, head);
+        return 1;
+      }
+      while(traverse -> next != NULL)
+      {
+        traverse = traverse -> next;
+      }
+      traverse -> next = p;
+      asm_yield(p, head);
+      return 1;
+    }
+  }
+}
+int thread_cond_signal(struct thread_cond_t * cond)
+{
+  critFlag = 1;
+  if(!initDone)
+  {
+    doInit();
+    initDone = 1;
+  }
+  if(cond == NULL)
+  {
+    critFlag = 0;
+    return 0;
+  }
+  struct TCB * p = cond -> wait_head;
+  while(cond -> wait_head != NULL)
+  {
+    if(cond -> wait_head -> mutex -> owner != NULL)
+    {
+      //if no ones blocked on the associated mutex, make myself the owner
+      if(cond -> wait_head -> mutex -> wait_head != NULL)
+      {
+        //add to the end of the blocked queue of the associated mutex
+	struct TCB * myP = cond -> wait_head -> mutex -> wait_head;
+	while(myP -> next != NULL)
+	{
+          myP = myP -> next;
+	}
+	myP -> next = cond -> wait_head;
+      }
+      else 
+      {
+        cond -> wait_head -> mutex -> wait_head = cond -> wait_head;
+      }
+      cond -> wait_head -> next = NULL;
+    }
+    else
+    {
+       //give ownership of mutex to first guy, place him in the ready queue, block the rest
+      cond -> wait_head -> mutex -> owner = cond -> wait_head;
+      struct TCB * topHead = head;
+      while(topHead -> next != NULL)
+      {
+        topHead = topHead -> next;
+      }
+      topHead -> next = cond -> wait_head;
+    }
+      p = p -> next;
+      cond -> wait_head = p;
+  }
+  critFlag = 0;
+  return 1;
+}

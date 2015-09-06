@@ -1,0 +1,113 @@
+/**
+ * Peg.java
+ * Provides a prototype 'dot' on a standard Die 
+ * 
+ * @Author Stephen Chambers
+ * 10/27/10
+ * */
+import java.awt.Color;
+import java.awt.Point;
+import wheelsunh.users.*;
+
+public class Peg extends Ellipse
+{
+  //---------------------Instance Variables------------------------------------
+  
+  protected Point endPoint;
+  protected int origXLocation, origYLocation, count;
+  protected Color origColor;
+  protected boolean isMoveable, checkable;
+  protected Peg boardArray[][];
+  protected MastermindApp app;
+  //---------------------------------------------------------------------------
+  /*
+   * Constructor for the Peg Class, creates a standard Peg with a boolean
+   * determining whether the peg can be moved and a mastermind app to access
+   * the board pegs
+   * */
+  //---------------------------------------------------------------------------
+  public Peg( int x, int y, Color myColor, boolean moveable, MastermindApp app)
+  {
+    setLocation( x, y );
+    setColor( myColor );
+    setSize( 15, 15 );
+    isMoveable = moveable;
+    this.app = app;
+  }
+  //---------------------------------------------------------------------------
+  /*
+   * If the Peg is moveable, get the point of the mouse press, and save the
+   * original location of the peg for after the drag event
+   * */
+  //---------------------------------------------------------------------------
+  public void mousePressed( java.awt.event.MouseEvent me )
+  {
+    if(canMove())
+      endPoint = me.getPoint();
+    
+    origColor = getColor();
+    origXLocation = getXLocation();
+    origYLocation = getYLocation();
+  }
+  public boolean canMove()
+  {
+    return isMoveable;
+  }
+  
+  
+  
+  
+  
+  //----------------------------------------------------------------------------
+  /**
+   * Drags the peg
+   * 
+   */
+  //---------------------------------------------------------------------------
+  public void mouseDragged( java.awt.event.MouseEvent me )
+  {
+    if (canMove())
+    {
+      Point point = me.getPoint();
+      int diffX = point.x - endPoint.x;
+      int diffY = point.y - endPoint.y;
+      
+      setFillColor(Color.WHITE);
+      
+      setLocation(getXLocation() + diffX, getYLocation() + diffY);
+      
+      endPoint = point;
+    } 
+  }
+    //--------------------------------------------------------------------------
+  /**
+   * When the mouse is released, check to see if the peg intersects with the
+   * peghole on the board. If so, create a new Peg of the same color as the 
+   * dragged peg on the board, and set the location of the peg you were 
+   * dragging back to the original location. After this is performed, let the 
+   * mastermind app know how many pegs were placed in the row so the application
+   * knows when to move to the next row.
+   * 
+   */
+  //---------------------------------------------------------------------------
+  public void mouseReleased( java.awt.event.MouseEvent me )
+  {
+    Peg myBoardPegs[] = app.getCurRow();
+    Peg myCode[] = app.getCode();
+    setColor(origColor);
+    
+    for(int i = 0; i < 4; i++)
+    {
+      if(myBoardPegs[i].boundsIntersects(this) && myBoardPegs[i].getColor() ==
+         Color.BLACK)
+      {
+        this.setLocation(myBoardPegs[i].getLocation());
+        this.setFillColor(this.getFrameColor());
+        Peg newPeg = new Peg(myBoardPegs[i].getXLocation(), myBoardPegs[i].getYLocation(), origColor, true, app);
+        app.incNumPegs();
+      }  
+    }
+    setLocation(origXLocation, origYLocation);   
+  }
+
+}//End of Class

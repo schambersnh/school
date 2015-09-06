@@ -1,0 +1,454 @@
+#!/bin/bash
+#dotest
+#
+# This is a testing script for the frep program. It is split up into three major
+# groups: input parsing, matching, and flags. This will be expanded as the frep
+# program is expanded.
+# Author: Stephen Chambers
+# Date: 10/6/14
+
+fail_count=0
+function grp_input_parsing(){
+	echo
+    echo "******************** GROUP 1: INPUT PARSING *************************"
+    no_regex
+	no_regex_with_option
+	file_does_not_exist
+    file_no_permission
+	file_name_too_long
+	stdin_dash_input
+}
+
+function grp_matching(){
+	echo
+    echo "********************GROUP 2: MATCHING *******************************"
+	basic_pattern_match_stdin
+	basic_pattern_match_file
+	no_match
+	pattern_match_sol
+	pattern_match_eol
+	pattern_match_sol_and_eol
+	pattern_matchset
+	pattern_matchany
+}
+
+function grp_flags(){
+	echo
+    echo "************************ GROUP 3: FLAGS *****************************"
+	help_flag
+	summary_flag_stdin
+	summary_flag_file
+	case_insensitive_flag
+	reverse_flag
+	line_length_flag
+	line_length_incorrect
+	line_length_last
+	line_length_no_parameter
+	max_lines_flag
+	max_lines_incorrect
+	max_lines_last
+	max_lines_no_parameter
+	psuedocode_flag
+	reverse_and_insensitive_flags
+	reverse_and_summary_flags
+	insensitive_and_summary_flags
+}
+
+########################## GROUP 1: INPUT PARSING ##############################
+
+function no_regex(){
+    TEST_NAME="Regex not specified"
+    DESCRIPTION="Ensure frep throws an error when presented with no regex"
+    COMMANDS=( "./frep" )
+    do_test "$COMMANDS" "" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function no_regex_with_option(){
+    TEST_NAME="Regex not specified, option specified"
+    DESCRIPTION="Ensure frep throws an error when presented with no regex AND\
+ an option."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep -m 1 < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2")
+    do_test "$COMMANDS" "" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function stdin_dash_input(){
+    TEST_NAME="stdin input with multiple dashes"
+    DESCRIPTION="Verify that '-' is treated as stdin and it can work multiple\
+ times."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep -s 'test' - - < input.txt"
+	cmd="echo -e '1\n1'"
+	eval CORRECT_RESULT=\$\($cmd\)
+	COMMANDS=( "$COMMAND1" "$COMMAND2")
+    do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+
+function file_name_too_long(){
+    TEST_NAME="File Name Too Long"
+    DESCRIPTION="Verify that passing in a file with a unsupported filename\
+ length generates an error but doesn't crash the program."
+	long_filename=""
+	for i in {1..256}; do
+		long_filename=$long_filename"a"
+	done
+    COMMAND1="./frep 'test' $long_filename "
+    COMMANDS=( "$COMMAND1" )
+    do_test "$COMMANDS" "" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function file_no_permission(){
+    TEST_NAME="Incorrect File Permissions"
+    DESCRIPTION="Verify that passing in a file that the user does not have\
+ permission to read generates an error but doesn't crash the program."
+    COMMAND1="echo 'I am a test' > no_permission.txt"
+    COMMAND2="chmod 001 no_permission.txt"
+    COMMAND3="./frep 'test' no_permission.txt"
+    COMMANDS=( "$COMMAND1" "$COMMAND2" "$COMMAND3" )
+    do_test "$COMMANDS" "" "$TEST_NAME" "$DESCRIPTION" 0
+ 
+}
+
+function file_does_not_exist(){
+	TEST_NAME="File does not exist"
+    DESCRIPTION="Verify that passing in a file that doesn't exist generates\
+ an error but doesn't crash the program."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep 'test' idontexist.txt input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	cmd="echo $(cd $(dirname intput.txt); pwd)/$(basename input.txt)"
+	eval realpath=\$\($cmd\)
+	CORRECT_RESULT=$realpath",1: I am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+########################### GROUP 2: MATCHING ##################################
+
+function basic_pattern_match_stdin(){
+	TEST_NAME="Basic Pattern Matching: stdin"
+    DESCRIPTION="Verify that a basic mattern can be matched with stdin as\
+ input."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: I am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function basic_pattern_match_file(){
+    TEST_NAME="Basic Pattern Matching: file"
+    DESCRIPTION="Verify that a basic pattern can be matched \
+with a file as input."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep 'test' input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	cmd="echo $(cd $(dirname intput.txt); pwd)/$(basename input.txt)"
+	eval realpath=\$\($cmd\)
+	CORRECT_RESULT=$realpath",1: I am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+function no_match(){
+    TEST_NAME="No Match"
+    DESCRIPTION="Verify that an input line without a match functions correctly,"
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep 'nomatch' input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function pattern_match_sol(){
+    TEST_NAME="Pattern match: Start of Line"
+    DESCRIPTION="Verify the program correctly handles a regex with start\
+ of line (^)."
+	COMMAND1="echo -e 'I am a test\ntest I am' > input.txt"
+	COMMAND2="./frep '^test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="2: test I am"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function pattern_match_eol(){
+    TEST_NAME="Pattern match: End of Line"
+    DESCRIPTION="Verify the program correctly handles a regex with end\
+ of line ($)."
+	COMMAND1="echo -e 'I am a test\ntest I am' > input.txt"
+	COMMAND2="./frep 'test$' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: I am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function pattern_match_sol_and_eol(){
+    TEST_NAME="Pattern match: Start and End of Line"
+    DESCRIPTION="Verify the program correctly handles a regex with start and\
+ end of line set."
+	COMMAND1="echo 'test' > input.txt"
+	COMMAND2="./frep '^test$' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function pattern_matchset(){
+    TEST_NAME="Pattern match: Matchset"
+    DESCRIPTION="Verify the program correctly handles a regex with matchsets."
+	COMMAND1="echo -e 'abcdZfg1b\nabcdzfgaB' > input.txt"
+	COMMAND2="./frep 'abcd[A-Z]fg[0-9][a-z]' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: abcdZfg1b"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function pattern_matchany(){
+    TEST_NAME="Pattern match: Matchany"
+    DESCRIPTION="Verify the program correctly handles a regex with matchany."
+	COMMAND1="echo 'abcdddddddddddddefg' > input.txt"
+	COMMAND2="./frep 'abcd*efg' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: abcdddddddddddddefg"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+############################# GROUP 3: FLAGS ###################################
+
+function help_flag(){
+    TEST_NAME="Help flag"
+    DESCRIPTION="Verify that -h returns the help option and does not accept \
+other arguments."
+	COMMAND1="echo 'I am a test' > input.txt"
+    COMMAND2="./frep -h 'test' input.txt"
+	eval CORRECT_RESULT=\$\($COMMAND2\)
+    COMMANDS=( "$COMMAND1" "$COMMAND2" )
+    do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function summary_flag_stdin(){
+    TEST_NAME="Summary flag: stdin"
+    DESCRIPTION="Verify that the summary flag functions and outputs in the \
+correct format for stdin."
+	COMMAND1="echo -e 'I am a test\nI am also a test\nWow, I am a test as well'\
+ > input.txt"
+	COMMAND2="./frep -s 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="3"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function summary_flag_file(){
+    TEST_NAME="Summary flag: file"
+    DESCRIPTION="Verify that the summary flag functions and outputs in the \
+correct format when reading a file. Also verify the flag does not toggle."
+	COMMAND1="echo -e 'I am a test\nI am also a test\nWow, I am a test as well'\
+ > input.txt"
+	COMMAND2="./frep -s -s 'test' input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	cmd="echo $(cd $(dirname intput.txt); pwd)/$(basename input.txt)"
+	eval realpath=\$\($cmd\)
+	CORRECT_RESULT=$realpath": 3"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function case_insensitive_flag(){
+    TEST_NAME="Case Insensitive"
+    DESCRIPTION="Verify that the case insensitive flag functions correctly.\
+ Also verify that the insensitive flag does not toggle."
+	COMMAND1="echo 'i am a tEsT' > input.txt"
+	COMMAND2="./frep -i -i 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: i am a tEsT"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function reverse_flag(){
+    TEST_NAME="Reverse flag"
+    DESCRIPTION="Verify that the reverse flag functions correctly. Also verify\
+ reverse flag does not toggle."
+	COMMAND1="echo 'i am a test' > input.txt"
+	COMMAND2="./frep -r -r 'nomatch' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: i am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function line_length_flag(){
+    TEST_NAME="Line length"
+    DESCRIPTION="Verify that the line length flag functions correctly."
+	COMMAND1="echo 'tests are great' > input.txt"
+	COMMAND2="./frep -l 5 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: tests"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function line_length_incorrect(){
+    TEST_NAME="Incorrect line length"
+    DESCRIPTION="Verify that an incorrect line length returns an error."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep -l 10000 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function line_length_last(){
+    TEST_NAME="Last line length option should be processed"
+    DESCRIPTION="Verify that the last line length option is processed."
+	COMMAND1="echo 'tests are great' > input.txt"
+	COMMAND2="./frep -l1 -l2 -l5 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: tests"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function line_length_no_parameter(){
+    TEST_NAME="Line Length: No Parameter"
+    DESCRIPTION="Verify that the program functions if there is no parameter to\
+ line length."
+	COMMAND1="echo 'tests are great' > input.txt"
+	COMMAND2="./frep -l 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function max_lines_flag(){
+    TEST_NAME="Maximum Lines"
+    DESCRIPTION="Verify that the max lines flag functions correctly."
+	COMMAND1="echo -e 'I am a test\nI am also a test' > input.txt"
+	COMMAND2="./frep -m 1 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: I am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function max_lines_incorrect(){
+    TEST_NAME="Incorrect Maximum Lines"
+    DESCRIPTION="Verify that an incorrect maximum lines returns an error."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep -m abcd 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function max_lines_last(){
+    TEST_NAME="Last max lines option should be processed"
+    DESCRIPTION="Verify that tthe last max lines option is processed"
+	COMMAND1="echo -e 'I am a test\nI am also a test' > input.txt"
+	COMMAND2="./frep -m9 -m5 -m2 -m1 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1: I am a test"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function max_lines_no_parameter(){
+    TEST_NAME="Maximum Lines: No Parameter"
+    DESCRIPTION="Verify that the program functions if there is no parameter to\
+ max lines."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep -m 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function psuedocode_flag(){
+    TEST_NAME="Psuedocode flag"
+    DESCRIPTION="Verify that -c returns the psuedocode instructions."
+	COMMAND1="echo 'I am a test' > input.txt"
+    COMMAND2="./frep -c 'nomatch' input.txt"
+	eval CORRECT_RESULT=\$\($COMMAND2\)
+    COMMANDS=( "$COMMAND1" "$COMMAND2" )
+    do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function reverse_and_insensitive_flags(){
+    TEST_NAME="Reverse and case insensitive flags"
+    DESCRIPTION="Verify that the program matches correctly if the reverse and\
+ insensitive flags are present."
+	COMMAND1="echo 'i am a tEst' > input.txt"
+	COMMAND2="./frep -ri 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function reverse_and_summary_flags(){
+    TEST_NAME="Reverse and summary flags"
+    DESCRIPTION="Verify that the program matches correctly if the reverse and\
+ summary flags are present."
+	COMMAND1="echo 'i am a test' > input.txt"
+	COMMAND2="./frep -rs 'nomatch' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function insensitive_and_summary_flags(){
+    TEST_NAME="Insensitive and summary flags"
+    DESCRIPTION="Verify that the program matches correctly if the summary and\
+ insensitive flags are present."
+	COMMAND1="echo 'i am a tEst' > input.txt"
+	COMMAND2="./frep -is 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT="1"
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 0
+}
+
+function illegal_switch(){
+    TEST_NAME="Illegal Switch"
+    DESCRIPTION="Verify that the program functions if there is an illegal\
+ switch."
+	COMMAND1="echo 'I am a test' > input.txt"
+	COMMAND2="./frep -a 'test' < input.txt"
+	COMMANDS=( "$COMMAND1" "$COMMAND2" )
+	CORRECT_RESULT=""
+	do_test "$COMMANDS" "$CORRECT_RESULT" "$TEST_NAME" "$DESCRIPTION" 1
+}
+
+function do_test(){
+	COMMANDS=$1
+	CORRECT_RESULT=$2
+	TEST_NAME=$3
+    DESCRIPTION=$4
+    EXIT=$5
+	
+	#Remove all input files
+	eval "rm -rf *.txt"
+	echo
+	echo "scheduler: ""$DESCRIPTION"
+
+	for command in "${COMMANDS[@]}"
+	do
+		eval RESULT=\$\($command\)
+	done
+    if [ $? == $EXIT ]; then
+		#RESULT always holds value of last command
+		if [ "$RESULT" == "$CORRECT_RESULT" ]; then
+			echo "===PASS==="
+		else
+			echo "FAIL"
+			echo "Result was: "$RESULT
+			echo "Correct result: "$CORRECT_RESULT
+			cmd='expr $fail_count + 1'
+			eval fail_count=\$\($cmd\)
+		fi
+    else
+        echo "FAIL: Incorrect Exit Status"
+		cmd='expr $fail_count + 1'
+		eval fail_count=\$\($cmd\)
+    fi
+	
+	#Remove all input files
+	eval "rm -rf *.txt"
+}
+
+grp_input_parsing
+grp_matching
+grp_flags
+
+echo
+echo "There were "$fail_count" failures."

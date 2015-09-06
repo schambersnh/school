@@ -1,0 +1,6 @@
+edge node1 node2
+node node1
+   
+node a b c d
+edge a b
+edge node2 d

@@ -1,0 +1,2 @@
+\project_{Fname, Lname, Dname, Dlocation}(\select_{Plocation='Houston'}(EMPLOYEE \join_{Essn=Ssn} WORKS_ON \join_{Pno=Pnumber} PROJECT) 
+    \join_{Dnum=Dnumber} Department \join DEPT_LOCATIONS);

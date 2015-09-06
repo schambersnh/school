@@ -1,0 +1,62 @@
+import java.awt.Color;
+import wheelsunh.users.*;
+public class MasterMind
+{
+  protected Rectangle outerBoard;
+  protected Peg myBoardPegs[][];
+  protected Peg myPegs[];
+  protected int myX;
+  protected boolean isNear;
+  protected Color colors[] = {Color.RED, Color.BLUE, Color.GREEN, Color.BLACK,
+                              Color.ORANGE, Color.YELLOW};
+  
+  
+  
+  
+  public MasterMind(int x, int y)
+  {
+    //Creates the Outer Board of MasterMind
+    outerBoard = new Rectangle(x-10, y-10);
+    outerBoard.setSize(130, 370);
+    outerBoard.setFillColor(Color.ORANGE);
+    outerBoard.setFrameColor(Color.BLACK);
+    
+    //Initializes 2 Dimensional Array of Pegs for the Board
+    myBoardPegs = new Peg[12][4];
+    //Saves x value
+    myX = x;
+    
+    //Creates Pegs
+    for(int i = 0; i < 12; i++)
+    {
+      for(int j = 0; j < 4; j++)
+      {
+        myBoardPegs[i][j] = new Peg(x, y, Color.BLACK);
+        x += 30;   
+      }  
+      //Increments y and resets x
+      y+=30;
+      x = myX; 
+    }
+    //Initializes array of Pegs for the User
+    myPegs = new Peg[6];
+    for(int i = 0; i < 6; i++)
+    {
+      myPegs[i] = new Peg(x + 200, y - 360, colors[i]);
+      x += 30;
+    }
+  }
+  
+  //----------------------------------------------------------------------------
+  /**
+   *
+   * 
+   */
+  
+  public static void main(String [] args)
+  {
+    Frame f = new Frame();
+    MasterMind myBoard = new MasterMind(200, 50);
+    
+  }
+}

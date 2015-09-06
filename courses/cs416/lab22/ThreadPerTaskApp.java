@@ -1,0 +1,100 @@
+/**
+ * ThreadPerTaskApp.java - The main app that uses 1 thread for each task
+ */
+import java.util.*;
+
+public class ThreadPerTaskApp
+{
+   //--------------------- class variables -------------------------
+   // min and max service times for taskQ   
+   public static int minService = 100;
+   public static int maxService = 200;
+
+   //--------------------- instance variables -------------------------
+   //---------------------- constructor --------------------------------
+   public ThreadPerTaskApp( int nTasks )
+   {
+      TaskQueue  taskQ   = generateTasks( nTasks );
+      Thread[]   threads = new Thread[ nTasks ];
+
+      long startTime = System.currentTimeMillis();
+
+      // create threads to control each task
+      for ( int t = 0; t < nTasks; t++ )
+      {
+         ///////////////////////////////////////////////////////////////
+         // 1a. remove a task from taskQ, assign to a local variable
+         //  b. create a Thread and assign to entry t of threads array
+         //     1st arg: Task object just removed from the taskQ
+         //     2nd arg: Name for thread; use name of task object stored in
+         //              the Task public variable "taskName".
+         //  c. start the thread
+         /////////////////////////////////////////////////////////////
+         Task myTask = taskQ.remove();
+         Thread myThread = new Thread(myTask, myTask.taskName);
+         threads[t] = myThread;
+         threads[t].start();
+         
+         
+      } 
+       
+      System.out.print( "Tasks done: " );
+      for ( int t = 0; t < threads.length; t++ )
+      {
+         ////////////////////////////////////////////////////////////
+         // 1d. invoke join() method of the t-th element in threads array
+         //  
+         //     This must be inside a try-catch block for the 
+         //             InterruptedException
+         //     The catch can have an empty code body.
+         //  e. Inside the "try" after the join, print the task name, which we
+         //     also made the thread name; use the getName() method of Thread
+         //     Use "print", not "println" and add a space after the name.
+         ///////////////////////////////////////////////////////////
+        try
+        {
+            threads[t].join();
+            System.out.print(threads[t].getName() + " ");
+        }
+        catch(InterruptedException e)
+        {
+          
+        }
+            
+            
+            
+      }
+      System.out.println();
+      
+      float time = ( System.currentTimeMillis() - startTime ) / 1000.0f;     
+      System.out.println( " Elapsed time: " + time );
+   }
+   //----------------- TaskQueue generateTasks( int ) ----------------------
+   /**
+    * generate the specified number of tasks with random service times
+    */
+   private TaskQueue generateTasks( int nTasks )
+   {
+      TaskQueue  taskQ    = new TaskQueue();
+      int svcRange   = maxService - minService;
+      int totalSvc   = 0; 
+      
+      // create the tasks
+      Random rng = new Random( 1 );
+      for ( int t = 0; t < nTasks; t++ )
+      {
+         int serviceTime = minService + rng.nextInt( svcRange );
+         totalSvc += serviceTime;
+         taskQ.add( new Task( "T" + t, serviceTime ));
+      }
+      
+      float taskTime = totalSvc / 1000.0f;
+      System.out.println( "#Tasks: " + nTasks + " Total time: " + taskTime );
+      return taskQ;  
+   }
+   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   public static void main( String[] args )
+   {
+      ThreadPerTaskApp m = new ThreadPerTaskApp( 10 );
+   }
+}

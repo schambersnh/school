@@ -1,0 +1,122 @@
+/** 
+ * Program2.java:
+ * Draws two pads for drawing Avatars.
+ *
+ * @Stephen Chambers 
+ * 9/14/10
+ * 
+ */
+
+import wheelsunh.users.*;
+import java.awt.Color;
+
+public class Program2 extends wheelsunh.users.Frame
+{
+    //---------------- instance variables ------------------------------
+    private Rectangle pad1, pad2;
+    private int x1 = 200, y1 = 200, x2 = 400, y2 = 200;
+   private int padX = 100, padY = 80;
+    private  Rectangle pad;
+    private Rectangle body;
+    private Ellipse wheel, wheel2;
+    private Line line1;
+    private Rectangle flag;
+    private Ellipse inFlag;
+    
+    // -----------------------------------------------------------------
+    /** Constructor for the Program2 class.
+     */
+    public Program2( )
+    {
+     
+     
+      //Creates Pads in which to put ATVs
+        pad1 = new Rectangle( x1 - 50, y1 );
+        pad1.setFillColor( Color.WHITE );
+        pad1.setFrameColor( Color.BLACK );
+        pad1.setSize( padX + 100, padY + 100 );
+       
+        pad2 = new Rectangle( x2, y2 );
+        pad2.setFillColor( Color.WHITE );
+        pad2.setFrameColor( Color.BLACK );
+        pad2.setSize( padX + 100, padY + 100 );
+        
+  //Configures location parameters so the ATV is inside pad1
+         x1 = 150;
+         y1 = 300;
+         x2 = 350;
+         y2 = 300;
+        // Creates body of the ATV1
+        body = new wheelsunh.users.Rectangle(x1 + 50, y1 - 35);
+        body.setFillColor(java.awt.Color.RED);
+        body.setSize(padX, padY-30);
+        
+        //Creates the two wheels of the ATV1
+        wheel = new wheelsunh.users.Ellipse(x1 + 50,y1 + 15);
+        wheel.setFillColor(java.awt.Color.GREEN);
+        wheel.setSize(padX - 70, padY- 50);
+        
+        wheel2 = new wheelsunh.users.Ellipse(x1 + 115,y1 + 15);
+        wheel2.setFillColor(java.awt.Color.GREEN);
+        wheel2.setSize(padX - 70, padY - 50);
+        
+        //Creates the Flagpole of ATV1
+        line1 = new wheelsunh.users.Line(x1 + 120, y1 - 58, x2- 80, y2-38);
+        line1.setThickness(5);
+        line1.setColor(java.awt.Color.BLACK);
+        
+        //Creates the Outisde of the flag of ATV1
+        flag = new wheelsunh.users.Rectangle(x1 + 123, y1 - 60);
+        flag.setFillColor(java.awt.Color.WHITE);
+        flag.setFrameColor(java.awt.Color.BLACK);
+        flag.setSize(padX - 75, padY - 65);
+        
+        //Creates the circle inside of the flag of ATV1
+        inFlag = new wheelsunh.users.Ellipse(x1 + 130, y1 - 57);
+        inFlag.setSize(padX - 90, padY - 70);
+        
+        
+  //Configures location parameters so the ATV is inside pad1
+         x1 = 400;
+         y1 = 300;
+         x2 = 600;
+         y2 = 300;
+         
+        // Creates body of the ATV2
+        body = new wheelsunh.users.Rectangle(x1 + 50, y1 - 35);
+        body.setFillColor(java.awt.Color.RED);
+        body.setSize(100, 50);
+        
+        //Creates the two wheels of the ATV2
+        wheel = new wheelsunh.users.Ellipse(x1 + 50,y1 + 15);
+        wheel.setFillColor(java.awt.Color.GREEN);
+        wheel.setSize(30, 30);
+        
+        wheel2 = new wheelsunh.users.Ellipse(x1 + 115,y1 + 15);
+        wheel2.setFillColor(java.awt.Color.GREEN);
+        wheel2.setSize(30, 30);
+        
+        //Creates the Flagpole of ATV2
+        line1 = new wheelsunh.users.Line(x1 + 120, y1 - 58, x2- 80, y2-38);
+        line1.setThickness(5);
+        line1.setColor(java.awt.Color.BLACK);
+        
+        //Creates the Outisde of the flag of ATV2
+        flag = new wheelsunh.users.Rectangle(x1 + 123, y1 - 60);
+        flag.setFillColor(java.awt.Color.WHITE);
+        flag.setFrameColor(java.awt.Color.BLACK);
+        flag.setSize(25, 15);
+        
+        //Creates the circle inside of the flag of ATV2
+        inFlag = new wheelsunh.users.Ellipse(x1 + 130, y1 - 57);
+        inFlag.setSize(10, 10);
+        
+        
+    }  
+
+public static void main(String[] args)
+    {
+        Program2 app = new Program2();
+    }
+}        
+        

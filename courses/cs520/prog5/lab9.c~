@@ -1,0 +1,38 @@
+/*Stephen Chambers
+4/6/12
+lab 9
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+
+void test1();
+int * getFP(void);
+int main()
+{
+  int i = 0;
+  for(i = 0; i < 25; i++)
+  {
+    test1();
+  }
+
+}
+int frameCount()
+{
+  int count = 0;
+  int * ebp = (int*)getFP();
+  while((*ebp) != 0)
+  {
+    count ++;
+    ebp = (int*) *ebp;
+  }
+  return count - 1;
+}
+void test1()
+{
+  printf("entering function\n");
+  int fcount = frameCount();
+  printf("fcount: %d\n", fcount);
+  return;
+}

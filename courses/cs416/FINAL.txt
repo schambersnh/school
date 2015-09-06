@@ -1,0 +1,578 @@
+Tree Code
+
+************************BINARY TREE**********************************
+
+inOrder( node ):
+if ( node is null )
+return
+else
+inOrder( node.leftTree )
+print node.name
+inOrder( node.rightTree )
+
+preOrder( node ):
+if ( node is null )
+return
+else
+print node.name
+preOrder( node.leftTree )
+preOrder( node.rightTree )
+
+postOrder( node ):
+if ( node is null )
+return
+else
+postOrder( node.leftTree )
+postOrder( node.rightTree )
+print node.name
+
+public void add( Data d )
+{
+Node n = new Node( d );
+if ( _root == null )
+_root = n;
+else
+addNode( _root, n );
+}
+
+private void addNode( Node r, Node n )
+{
+int cmp = n.data.compareTo( r.data );
+if ( cmp < 0 )
+// add n to left branch of r
+if ( r.left == null )
+r.left = n;
+else
+addNode( r.left, n );
+else if ( cmp > 0 )
+if ( r.right == null )
+r.right = n;
+else
+addNode( r.right, n );
+else // key is already in the tree
+throw new BinarySearchTreeException();
+}
+
+public Data find( String str )
+{
+Node ret = null;
+ret = findNode( _root, str );
+if ( ret == null )
+return null;
+else
+return ret.data;
+}
+
+private Node findNode( Node r, String s )
+{
+if ( r == null )
+return null;
+int cmp = s.compareTo( r.data.key );
+if ( cmp < 0 ) // search left branch
+return findNode( r.left, s );
+else if ( cmp > 0 )// search right branch
+return findNode( r.right, s );
+else // found it!
+return r;
+}
+
+public Data find( String s )
+{
+Node cur = _root;
+Data found = null;
+while ( cur != null && found == null )
+{
+int cmp = s.compareTo( cur.data.key );
+if ( cmp < 0 ) // check left branch
+cur = cur.left;
+else if ( cmp > 0 ) // check right branch
+cur = cur.right;
+else // found it
+found = cur.data;
+}
+return found;
+}
+
+public Data find( Data d )
+{
+Node cur = _root;
+Data found = null;
+Iterator<Data> iter = this.iterator();
+while ( iter.hasNext() )
+{
+Data test = iter.next();
+if ( test.equals( d ) )
+return test;
+}
+return null;
+}
+
+public Data remove( String str )
+{
+Node ret = null;
+ret = findNode( _root, str );
+if ( ret == null )
+return null;
+Data d = ret.data;
+removeNode( ret ); // hard part
+return d;
+}
+
+removeNode( Node n ):
+p = n.parent(); // get parent (somehow)
+if ( p == null ) // n is the root of tree
+removeRoot()
+else if p.left == n // removing parent's left node
+removeLeft( p, n )
+else // removing parent's right node
+removeRight( p, n )
+
+removeRoot():
+if root.left == null
+root = root.right;
+else if root.right == null
+root = root.left;
+else // hard case, root has 2 children
+// we’ll make left the new root
+addToFarRight( root.left, root.right );
+root = root.left;
+
+The dist field of a Node object represents a measure of the alphabetic “distance” between the node’s two
+children. For example the distance between “a” and “b” is 1; the distance between “a” and “c” is 2, the
+distance between “aa” and “ab” is 1, etc. For implementation convenience a null node is treated as if it is a
+String of exactly one blank (“ ”). You may assume the existence of a utility method:
+String stringKey( Node n )
+that returns n.data.key if it exists or “ ” if it n is null. If you take the absolute value of the results of
+calling the compareTo method of String, you get the alphabetic distance between the two strings.
+Write one recursive method (no while, no global variables), to
+1. fill in the dist field for all nodes, and
+2. return the maximum dist field found in the tree.
+// set the dist field of every node in the subtree rooted at node and
+// return the maximum dist in that subtree
+int setDistance( Node node )
+{
+if ( node == null )
+return 0;
+else
+{
+String lkey = stringKey( left );
+String rkey = stringKey( right );
+node.dist = Math.abs( lkey.compareTo( rkey ));
+int lcmp = setDistance( left );
+int rcmp = setDistance( right );
+return Math.max( node.dist, Math.max( lkey, rkey ));
+}
+}
+private Node root; // tree
+public class Data
+{
+String key; // for ordering
+String name; // a name
+int value; // a value
+}
+public class Node
+{
+Node left; // left subtree
+Node right; // right subtree
+Node parent; // parent
+Data data; // the payload
+int dist; // distance between child nodes
+}
+}
+
+public int size()
+{
+return size( root );
+}
+public int size( Node n )
+{
+if ( n == null )
+return 0;
+else
+return 1 + size( n.left ) + size( n.right );
+}
+********************************QUADTREE***************************************
+void addPoint( qnode, data ):
+update min/max data for this qnode
+if ( qnode is a leaf )
+add data to data vector for leaf
+else
+child = subtree containing data
+addPoint( child, data )
+
+void findPoints( qnode, R, vector ):
+if ( intersection( R, qnode ))
+if ( qnode is leaf )
+for each point in qnode.points
+if point in R
+vector.add( point )
+else
+for each child of qnode
+findPoints( child, R, vector )
+
+Data findMaxTemp( qnode, maxData ):
+if ( qnode is leaf )
+maxData = maxLocalTemp( maxData, qnode.points )
+else
+for each child of qnode
+if ( maxData.temp < child.maxTemp )
+maxData = findMaxTemp( gnode.child, maxData )
+return maxData
+Data dummyMin = new Data( Float.MIN_VALUE )
+Data maxTemp = findMaxTemp( qtree.root, dummyMin )
+
+Data maxLocalTemp( maxData, points )
+for each point in points
+if ( point.temp > maxData.temp )
+maxData = point;
+
+void drawContour( qnode, isoValue ):
+if ( qnode == null ||
+qnode.max < isoValue ||
+qnode.min > isoValue )
+return
+if ( qnode is leaf )
+draw IsoContour in qnode area
+else
+for each child of qnode
+drawContour( child, isoValue )
+
+void newFrame():
+update moving objects' positions
+testCollide( quadtree.root )
+
+void testCollide( qnode ):
+for each moving object
+if obj intersects qnode
+if qnode is leaf
+testObjects( obj )
+else
+for each child of qnode
+testCollide( child );
+
+public boolean add( QNode root, Point p ) // NOT an efficient solution
+{ // if all nodes are same size
+if ( root.kids == null && root.contains( P )
+{
+root.ptsInNode.add( p );
+return true;
+}
+else if ( root.kids != null )
+{
+for ( int i = 0; i < kids.length; i++ )
+{
+if ( add( kids[ i ] )
+return true;
+}
+}
+return false;
+}
+
+private Data updateMax( Node node )
+{
+if ( node.kids == null )
+return node.data
+else
+{
+node.data = updateMax( kids.get( 0 );
+for ( int i = 1; i < kids.size(); i++ )
+{
+Data tmp = updateMax( kids.get( i ));
+if ( tmp.value > max.value )
+node.data = tmp;
+}
+return node.data;
+}
+}
+
+public int size()
+{
+return size( root );
+}
+public int size( Node n )
+{
+int s = 0;
+if ( n == null ) // this test not needed based on assumptions
+return s;
+if ( n.kids != null )
+for ( int k = 0; k < n.kids.length; k++ )
+s += size( n.kids[ k ] );
+return s + 1; // be sure to count this one.
+}
+
+*************************GRAPHS************************************
+
+Path findPath( Node start, Node end )
+if ( start == end ) // base case 1
+path = new Path
+path.add( start )
+return path
+EdgeSet edges = start.getEdges
+if edges == null
+return null // 2nd base case
+for each edge
+// try going down this edge
+path = findPath( edge.end, end )
+if path != null
+append start to front of path
+return path // 3rd base case
+return null // 4th base case
+
+boolean findPath( Path p, Node s, Node e )
+if ( s is marked )
+return false
+if ( s == e )
+p.add( s );
+return true
+EdgeSet edges = start.getEdges
+if edges == null
+return false // can't get to end!
+p.add( s )
+mark s
+for each edge
+// try going down this edge
+if findPath( p, edge.end, end )
+return true
+unmark s
+p.remove( s )
+
+***************************THREADS**************************
+17
+public class SimplestThread extends Thread
+{
+private int _time; // simulated execution time in msecs
+//--------- constructor ------------------------
+public SimplestThread( String name, int otherArgs )
+{
+super( name );
+_time = (int)( Math.random() * 5000 );
+System.out.println( getName() + " ---- Create (" + _time + “)” );
+}
+//--------- run ---------------------------------
+public void run()
+{
+System.out.println( getName() + " ---> run()" );
+try {
+sleep( _time ); // simulate execution time
+} catch ( InterruptedException iex ) { // something }
+System.out.println( getName() + " <--- done" );
+}
+}
+
+public static void main( String[] args )
+{
+// We'll just spawn a bunch of threads
+SimplestThread[] threads = new SimplestThread[5];
+for ( int t = 0; t < threads.length; t++ )
+{
+threads[t] = new SimplestThread( "Thread_" + t, t);
+threads[t].start();
+}
+observeProgress( threads );
+}
+
+{
+boolean someoneLives = true;
+while ( someoneLives )
+{
+Utilities.sleep( 100 ); // sleep for 1/10 second
+someoneLives = false;
+for ( int t = 0; t < threads.length; t++ )
+if ( threads[t] != null )
+{
+if ( threads[t].isAlive() )
+someoneLives = true;
+else
+{
+System.out.println( threads[t].getName() + " done" );
+threads[t] = null;
+}
+}
+}
+System.out.println( "------ Everyone is done ----" );
+
+***********************LISTS*************************************
+public Data find( String search )
+{
+Node node = head;
+while ( node != null && !search.equals( node.data.key )
+node = node.next;
+if ( node == null )
+return null;
+else
+return node.data;
+}
+
+class Node
+{
+...
+public Data find( String search )
+{
+if ( search.equals( this.data.key ) )
+return this.data;
+if ( this.next == null )
+return null;
+return this.next.find( search );
+
+Suppose you want a class that uses the key value to sort a linked list of Data objects (from the questions
+above). In this case you want to add a new object to the list before the first node in the list whose key is
+alphabetically greater than the key of the Data object to be added to the list. Unfortunately, this is a oneway
+linked list: each node only can reference the node after it, not the one before it. However, we can
+maintain a “previous” node reference as we search for the correct insertion point. We can set a local variable,
+prev, to null before entering the search loop (which should look a lot like the search loop for the iterative find
+method) and updating it to the cur value at the end of the loop. Write a findPrev method that returns the node
+in the list after which the new node should be inserted. findPrev returns null if the new node should become
+the new head of the list. You need to use the String method compareTo(String) to determine the alphabetic
+ordering of two String objects.
+public Node findPrev( Node newNode )
+{
+Node cur = head;
+Node prev = null;
+if ( head == null )
+return null;
+while ( cur != null && newNode.data.key.compareTo( cur.data.key ) <=0 )
+{
+prev = cur;
+cur = cur.next;
+}
+return prev;
+}
+
+Suppose the Node object has a reference to the previous node on the list (as well as the next one) in a field
+named prev. Such a node defines a two-way linked list. Rewrite the findPrev code from the previous question
+to use this field.
+public Node findPrev( Node newNode )
+{
+Node cur = head;
+Node prev = null;
+if ( head == null )
+return null;
+while ( cur != null && newNode.data.key.compareTo( cur.data.key ) <=0 )
+{
+prev = cur;
+cur = cur.next;
+}
+return prev;
+}
+public Node findPrev( Node newNode )
+{
+Node cur = head;
+if if ( head == null )
+return null;
+while ( cur != null && newNode.key.compareTo( cur.data.key ) <=0 )
+cur = cur.next;
+if ( cur == null )
+return tail;
+else
+return cur.prev;
+}
+
+Complete the add method for the List class that will insert a Data object into its correctly sorted location for
+a two-way linked list using the findPrev method of the previous question. You need to take care to update
+correctly the head and tail references of the List class as well as the next and prev fields of the Node class.
+public void add( Data d )
+{
+Node newNode = new Node( d );
+Node b4 = null;
+if ( head == null )
+head = tail = newNode;
+else
+{
+b4 = findPrev( newNode ); // get preceding node
+newNode.prev = b4; // set prev field of new node
+if ( b4 == null )
+{ // this is the new head
+newNode.next = head;
+head.prev = newNode;
+head = newNode;
+}
+else
+{
+newNode.next = b4.next;
+if ( b4 == tail )
+tail = newNode;
+else
+b4.next.prev = newNode;
+b4.next = newNode;
+}
+}
+}
+
+One possible implementation of dynamic length arrays (like ArrayList) is to allocate array space as a list of
+blocks. When the first block fills up, a new one is added to the list for subsequent array entries, but the
+existing entries would be left in the same block and same space as
+originally. This implementation makes array expansion very cheap
+(just add a new block to the list) at the cost of more expensive
+random access. Describe in pseudocode what would be required to
+implement the get( int index ) method of ArrayList if the data storage
+is implemented as a list of blocks. Assume there is a Block class that
+has a reference to the array with the data for that block, and fields
+for firstIndex and lastIndex that are the ArrayList indexes of the
+entries stored in this block.
+List blockList
+Block b
+public T get( int index )
+{
+if ( index is < 0 or >= arraysize
+throw an exception
+else
+{
+for each block in blocklist
+{
+if index is >= block.firstIndex && index <= block.lastIndex
+return block.array.get( index – block.firstIndex );
+}
+// if get here, there is an unknown problem: index is valid, but
+// we didn’t find it in the blockList.
+}
+}
+public class Block
+{
+public Block next;
+public int startIndex;
+public int endIndex;
+public Data[] data;
+}
+
+public int matchKey( Node node, String search )
+{
+if ( node == null )
+return 0;
+else if ( search.equals( node.key ))
+return 1 + matchKey( node.next, search );
+else
+return matchKey( node.next, search );
+}
+
+private void delete( Node gone ) // you may assume that gone != null
+// and it doesn’t reference either sentinel
+{ // the long form
+Node before = gone.prev;
+Node after = gone.next;
+before.next = after;
+after.prev = before;
+}
+or the short form
+gone.next.prev = gone.prev;
+gone.prev.next = gone.next;
+
+private void delete( Node gone ) // you may assume that gone != null
+{
+if ( gone == head && gone == tail )
+head = tail = null;
+else if ( gone == head )
+{
+head = gone.next;
+head.prev = null;
+{
+else if ( gone == tail )
+{
+tail = gone.prev;
+tail.next = null;
+}
+else
+{
+gone.next.prev = gone.prev;
+gone.prev.next = gone.ext;
+}
+}

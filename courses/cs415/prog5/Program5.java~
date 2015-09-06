@@ -1,0 +1,24 @@
+/** 
+ * Program5.java
+ *Tests the ATV Class
+ *
+ * Stephen Chambers
+ * 9/21/10
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+
+public class Program5 extends wheelsunh.users.Frame
+{
+
+     public static void main(String[] args)
+    {
+      Frame f = new Frame();
+      ATV atv1 = new ATV(150, 150);
+      ATV atv2 = new ATV();
+      ATV atv3 = new ATV(Color.CYAN);
+      atv3.setLocation(350, 350);
+      atv3.setColor(Color.BLACK);
+      atv3.getColor();
+    }
+}

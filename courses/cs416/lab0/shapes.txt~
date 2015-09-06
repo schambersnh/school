@@ -1,0 +1,36 @@
+#
+# A test for Lab 0
+#
+# This test includes both good and bad input specifications
+#
+# Bulding with door and windows
+# building
+r 100 100 200 100 black
+# door, also includes extra tokens
+r 185 140 30 60 white  extra tokens
+# 2 rectangular windows, use previous color
+r 130 150 25 20 
+r 240 150 25 20 
+# an oval window above door; bad color should use last color
+e 185 110 30 15 badColor
+
+# lines to make peaked roof
+   l 100 100 200 50 black
+   l 200 50 300 100 black
+   
+#
+# truck of different colors
+# body
+   r 400 162 50 20 blue
+# cab
+   r 410 150 20 12 red
+# wheels
+   e 405 175 15 15 black
+   e 430 175 15 15 
+
+# Errors
+t 1 2 3 5 x
+r 
+r 1 
+e 1 2 
+l 1 2 3

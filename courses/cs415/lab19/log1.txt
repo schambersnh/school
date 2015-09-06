@@ -1,0 +1,13 @@
+*LOG-> Loops.main(Loops.java:161): Logging to console
+*LOG-> Loops.main(Loops.java:162)
+*LOG-> Loops.convertArgsToInts(Loops.java:134): Args: [] defaultValue: -1
+*LOG-> Loops.printArray(Loops.java:120): Header: Integers from command line:  Values: []
+--------------- Integers from command line: -------------------
+
+*LOG-> Loops.drawLines(Loops.java:52)
+*LOG-> Loops.nested(Loops.java:18)
+*LOG-> stack trace:
+                   Loops.nested(Loops.java:19)
+                   Loops.main(Loops.java:173)
+                   
+*LOG-> Loops.sum(Loops.java:84): n: 5 m: 3

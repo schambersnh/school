@@ -1,0 +1,124 @@
+0.0: ARR
+	Packet sent be served, departs at: 1.1002533724360275
+1.1002533724360275:DEP
+	Packet departed, spent 1.1002533724360275
+1.1810982505783256: ARR
+	Packet sent be served, departs at: 4.048187562752595
+1.2118572514795065: ARR
+	Packet enqueued
+4.048187562752595:DEP
+	Packet departed, spent 2.8670893121742695
+	Packet with arrival time 1.2118572514795065 set to depart at 12.674261370850445
+8.365598974269288: ARR
+	Packet enqueued
+11.146152781152175: ARR
+	Packet enqueued
+11.228342048661796: ARR
+	Packet enqueued
+12.674261370850445:DEP
+	Packet departed, spent 11.46240411937094
+    Packet with arrival time 8.365598974269288 set to depart at 12.963135644289913
+12.963135644289913:DEP
+	Packet departed, spent 4.5975366700206255
+    Packet with arrival time 11.146152781152175 set to depart at 13.771807487696702
+13.771807487696702:DEP
+	Packet departed, spent 2.625654706544527
+    Packet with arrival time 11.228342048661796 set to depart at 15.189147711090232
+14.007420609249412: ARR
+	Packet enqueued
+15.189147711090232:DEP
+	Packet departed, spent 3.9608056624284362
+    Packet with arrival time 14.007420609249412 set to depart at 15.303419360249684
+15.303419360249684:DEP
+	Packet departed, spent 1.2959987510002726
+15.339404180007856: ARR
+	Packet sent be served, departs at: 16.91645617956431
+15.598658298446768: ARR
+	Packet enqueued
+16.39821207237934: ARR
+	Packet enqueued
+16.91645617956431:DEP
+	Packet departed, spent 1.5770519995564545
+    Packet with arrival time 15.598658298446768 set to depart at 17.630291285758698
+17.630291285758698:DEP
+	Packet departed, spent 2.03163298731193
+    Packet with arrival time 16.39821207237934 set to depart at 22.885092364746836
+19.75913160143816: ARR
+	Packet enqueued
+20.149257404867303: ARR
+	Packet enqueued
+22.664403747440456: ARR
+	Packet enqueued
+22.885092364746836:DEP
+	Packet departed, spent 6.486880292367495
+    Packet with arrival time 19.75913160143816 set to depart at 23.37090202867778
+23.00482299402088: ARR
+	Packet enqueued
+23.37090202867778:DEP
+	Packet departed, spent 3.6117704272396196
+    Packet with arrival time 20.149257404867303 set to depart at 25.391966778625097
+24.83326439649655: ARR
+	Packet enqueued
+25.391966778625097:DEP
+	Packet departed, spent 5.242709373757794
+    Packet with arrival time 22.664403747440456 set to depart at 30.634307570263914
+27.06893777647482: ARR
+	Packet enqueued
+27.883384300194024: ARR
+	Packet enqueued
+30.634307570263914:DEP
+	Packet departed, spent 7.969903822823458
+    Packet with arrival time 23.00482299402088 set to depart at 33.750270653557386
+31.435390749303686: ARR
+	Packet enqueued
+33.750270653557386:DEP
+	Packet departed, spent 10.745447659536506
+    Packet with arrival time 24.83326439649655 set to depart at 34.683616947145566
+33.862736930184234: ARR
+	Packet enqueued
+34.683616947145566:DEP
+	Packet departed, spent 9.850352550649017
+    Packet with arrival time 27.06893777647482 set to depart at 35.017961226843944
+35.017961226843944:DEP
+	Packet departed, spent 7.9490234503691255
+    Packet with arrival time 27.883384300194024 set to depart at 36.834322832149304
+36.359912793667604: ARR
+	Packet enqueued
+36.834322832149304:DEP
+	Packet departed, spent 8.95093853195528
+    Packet with arrival time 31.435390749303686 set to depart at 36.85995612156351
+36.85995612156351:DEP
+	Packet departed, spent 5.424565372259828
+    Packet with arrival time 33.862736930184234 set to depart at 37.80393488192572
+37.80393488192572:DEP
+	Packet departed, spent 3.9411979517414863
+    Packet with arrival time 36.359912793667604 set to depart at 44.239405584752575
+38.299322621006596: ARR
+	Packet enqueued
+40.46751952910612: ARR
+	Packet enqueued
+42.98579580887464: ARR
+	Packet enqueued
+42.99115056972408: ARR
+	Packet enqueued
+43.881556804355604: ARR
+	Packet enqueued
+44.239405584752575:DEP
+	Packet departed, spent 7.879492791084971
+    Packet with arrival time 38.299322621006596 set to depart at 45.67314813117384
+45.67314813117384:DEP
+	Packet departed, spent 7.373825510167244
+    Packet with arrival time 40.46751952910612 set to depart at 47.84266181952623
+47.84266181952623:DEP
+	Packet departed, spent 7.375142290420108
+    Packet with arrival time 42.98579580887464 set to depart at 48.009384059656306
+48.009384059656306:DEP
+	Packet departed, spent 5.023588250781664
+    Packet with arrival time 42.99115056972408 set to depart at 49.630753463754544
+49.630753463754544:DEP
+	Packet departed, spent 6.639602894030467
+    Packet with arrival time 43.881556804355604 set to depart at 49.80275639287296
+49.80275639287296:DEP
+	Packet departed, spent 5.921199588517354
+50.0:END
+

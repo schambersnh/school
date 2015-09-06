@@ -1,0 +1,5 @@
+node
+edge a
+bad
+node a b c
+node b

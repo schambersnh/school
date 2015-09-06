@@ -1,0 +1,131 @@
+/** 
+ * DrawPanel.java: Swing panel for AWT draw assignment.
+ * 
+ * This is a skeleton for the main display window for an awt application. 
+ *      
+ * @author rdb
+ * 01/10/08 
+ * Modified by Stephen Chambers 1/27/2011 for cs416 Lab1
+ */
+
+import java.util.ArrayList;
+import java.awt.*;
+import javax.swing.*;
+
+public class DrawPanel extends JPanel
+{ 
+   //-------------------- instance variables ----------------------
+   // Instance variables to reference all the objects created in the scene.
+   ArrayList<AShape> myList;
+      
+   //------------- Constructor ---------------------------------
+   /**
+    * Create awt objects to be displayed.
+    */
+   public DrawPanel( String [ ] args ) 
+   {  
+      myList = new ArrayList<AShape>();
+      
+      
+      makeScene();
+   }  
+   //------------------- makeScene() ----------------------------
+   /**
+    * Create the wheels objects that make up the scene
+    */
+   private void makeScene()
+   {
+      ARectangle rect1 = new ARectangle( Color.BLUE );
+      rect1.setLocation( 100, 100 );
+      rect1.setSize( 40, 40 );
+      myList.add(rect1);
+      
+      ARectangle rect2 = new ARectangle( Color.RED );
+      rect2.setLocation( 200, 200 );
+      rect2.setSize( 20, 60 );
+      myList.add(rect2);
+      
+      ALine line1 = new ALine();
+      line1.setColor( Color.BLACK );
+      line1.setPoints( 120, 120, 210, 230 );
+      myList.add(line1);
+      
+      AEllipse ell1 = new AEllipse( Color.CYAN );
+      ell1.setLocation( 10, 400  );
+      ell1.setSize( 40, 10 );
+      myList.add(ell1);
+      
+      AEllipse ell2 = new AEllipse( Color.MAGENTA );
+      ell2.setLocation( 400, 400 );
+      ell2.setSize( 30, 30 );
+      myList.add(ell2);
+      
+      ALine line2 = new ALine();
+      line2.setColor( Color.BLACK );
+      line2.setPoints( 25, 405, 415, 415 );  
+      myList.add(line2);
+      
+      AWTBot robot1 = new AWTBot( Color.YELLOW );
+      robot1.setLocation( 450, 300 );
+      myList.add(robot1);
+      
+      AWTBot robot2 = new AWTBot( Color.CYAN );
+      robot2.setLocation( 400, 20 );
+      myList.add(robot2);
+      
+      HDTV tv1 = new HDTV(100, 50, Color.BLUE);
+      myList.add(tv1);
+      
+      HDTV tv2 = new HDTV(300, 200, Color.GREEN);
+      myList.add(tv2);
+      
+      ARoundRectangle myRoundRect1 = new ARoundRectangle(30, 30);
+      myList.add(myRoundRect1);
+      
+      ARoundRectangle myRoundRect2 = new ARoundRectangle(400, 200);
+      myList.add(myRoundRect2);
+      
+      
+     
+      
+   }
+   //------------- paintComponent ---------------------------------------
+   /**
+    * This method is called from the Java environment when it determines
+    * that the JPanel display should be updated; you need to 
+    * make appropriate calls here to re-draw the graphical images on
+    * the display. Each object created in the constructor above should 
+    * have its "fill" and/or "draw" methods invoked with a Graphics2D 
+    * object. The Graphics object passed to paintComponent will be a 
+    * a Graphics2D object, so it can be coerced to that type and
+    * passed along to the "display" method of the objects you created.
+    * 
+    * Note that the "display" method is not an awt method, but a convenience
+    * method defined by the "wrapper" classes. The display method usually
+    * passes the graphical objects to both the Graphics2D.fill and
+    * Graphics2D.draw methods, except in the case of ALine graphical objects 
+    * which cannot be "filled".
+    */
+   public void paintComponent( Graphics aBrush )
+   {
+      super.paintComponent( aBrush );
+      Graphics2D brush2D = (Graphics2D) aBrush;  // coerce arg to Graphics2D
+      
+      for(int i = 0; i < myList.size(); i++)
+      {
+       myList.get( i ).display( brush2D );
+      }
+
+   
+   
+   
+   }
+   //-------------------- main --------------------------------------------
+   /**
+    * Invoke SwingApp.main
+    */
+   public static void main( String[] args )
+   {
+      SwingApp.main( args );
+   }
+}

@@ -1,0 +1,7 @@
+public class BadTableException extends Exception
+{
+  public BadTableException( String message )
+  {
+    super( message );
+  }
+}

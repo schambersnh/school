@@ -1,0 +1,1 @@
+\project_{Dependent_name}(\select_{sex='M'}(EMPLOYEE) \join_{ssn=Essn} \select_{sex='M'}(DEPENDENT));

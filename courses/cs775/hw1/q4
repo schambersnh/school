@@ -1,0 +1,1 @@
+\project_{Fname, Minit, Lname}((EMPLOYEE \join_{Ssn=Ssn2} \rename_{Ssn2}\project_{Super_ssn}EMPLOYEE) \join_{Ssn=Essn} DEPENDENT);

@@ -1,0 +1,3 @@
+\project_{Fname, Lname}(\select_{Sex='F'} EMPLOYEE \join_{Ssn=Sssn} \rename_{Sssn}(\project_{Super_ssn}(EMPLOYEE)))
+    \union
+        (\project_{Fname,Lname}(\select_{Sex='M'}(EMPLOYEE))) \diff (\project_{Fname, Lname}(\select_{Sex='M'} EMPLOYEE \join_{Ssn=Sssn} \rename_{Sssn}(\project_{Super_ssn}(EMPLOYEE))));

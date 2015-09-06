@@ -1,0 +1,49 @@
+/** 
+ * P1Start.java:
+ * Displays a rectangle for building an ATV.
+ *
+ * mb 8/10
+ * 
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+
+public class P1Start extends wheelsunh.users.Frame
+{
+    
+    //---------------- instance variables ------------------------------
+    
+    private  Rectangle pad;
+    
+    
+
+    
+    
+    // -----------------------------------------------------------------
+    /** Constructor for the Start class.bbbb
+      */
+    public P1Start( )
+    {
+        pad = new wheelsunh.users.Rectangle( 200, 200 );
+        pad.setFillColor( java.awt.Color.WHITE );
+        pad.setFrameColor( java.awt.Color.BLACK );
+        pad.setSize( 100, 80);
+        //--------------------------------------------
+        //--------------------------------------------
+        
+        // add your code here
+        
+        
+        
+        
+        
+    } 
+    
+    // -----------------------------------------------------------------
+    /** main program just invokes the class constructor.
+      */
+    public static void main(String[] args)
+    {
+        P1Start app = new P1Start();
+    }
+}//End of Class 

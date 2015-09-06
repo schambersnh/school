@@ -1,0 +1,41 @@
+11/04/2010 10:51:33
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [] name: c
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 0
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [c]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [c] name: y
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 1
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [c, y]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [c, y] name: k
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 1
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [c, k, y]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [c, k, y] name: a
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 0
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [a, c, k, y]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [a, c, k, y] name: e
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 2
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [a, c, e, k, y]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [a, c, e, k, y] name: w
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 4
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [a, c, e, k, w, y]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [a, c, e, k, w, y] name: p
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 4
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [a, c, e, k, p, w, y]
+*LOG-> StringLoops.addSorted(StringLoops.java:63): BEFORE
+arr: [a, c, e, k, p, w, y] name: v
+*LOG-> StringLoops.addSorted(StringLoops.java:75): insert at: 5
+*LOG-> StringLoops.addSorted(StringLoops.java:79) PAUSED: AFTER
+arr: [a, c, e, k, p, v, w, y]

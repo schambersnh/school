@@ -1,0 +1,11 @@
+On the client side, the following commands are run to run each experiement:
+python http_nossl.py //Apache with no encryption
+python http_ssl.py //Apache with encryption
+python js_nossl.py //Node.js with no encryption
+python js_ssl.py //Node.js with encryption
+
+On the server-side, the following commands need to be run:
+node a4.js //for js_nossl.py
+node a4ssl.js //for js_ssl.py
+
+The hello.txt file and the crt and key files used on the server are included as well.

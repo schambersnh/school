@@ -1,0 +1,10 @@
+Output schema: (Pname text, Fname text, Lname text)
+-----
+Newbenefits|Alicia|Zelaya
+Newbenefits|Jennifer|Wallace
+Reorganization|Jennifer|Wallace
+-----
+Total number of rows: 3
+
+Bye!
+

@@ -1,0 +1,168 @@
+/** 
+ * FractalEllipse.java:
+ * A shape that draws a self-similar pattern based on certain parameters
+ * We begin with a circle and then add smaller circles on its circumference.
+ *
+ * @author  of the skeleton: rdb
+ */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.util.*;
+
+public class FractalEllipse extends Ellipse2D.Double 
+{
+   //---------------- class variables ------------------------------
+   static  int     maxDepth    = 6;
+   static  double  offset      = 0;
+   static  double  sizeRatio   = 0.5;
+   static  double  hwRatio     = 1;
+   static  int     width       = 200;
+   static  int     numChildren = 4;
+   
+   static  boolean fill        = true;
+   
+ 
+   
+   //---------------- instance variables ------------------------------
+     Vector<FractalEllipse> _children = new Vector<FractalEllipse>();
+   FractalEllipse _child;
+   Color[] myColors = new Color[6];
+   int colorIndex = 0;
+   double _angle;
+   int saveDepth;
+   
+   //------------------------ constructors ----------------------------
+   /**
+    *   constructor 
+    */
+   public FractalEllipse( int depth, Point p, int w, int h )
+   {
+      setFrame( p.x, p.y, w, h );
+      
+      //***************************************************************
+      //  Need to create the children unless depth has reached the 
+      //    max specified by the maxDepth static variable
+      //***************************************************************
+      saveDepth = depth;
+      if(depth < maxDepth)
+      {
+        double centerx = p.x + w/2;
+        double centery = p.y + h/2;
+        
+        double x, y;  
+        double radius = w/2 * (offset + 1);
+        for(int i = 0; i < numChildren; i++)
+        {
+          _angle = (i*2*Math.PI)/numChildren;
+          x = radius  * Math.cos(_angle) + centerx;
+          y = radius  * Math.sin(_angle) + centery;
+          
+          x -= w/4;
+          y -= h/4;
+          FractalEllipse temp = new FractalEllipse( depth + 1, new Point((int)x, (int)y), w/2, h/2);
+          temp.setFrame(temp.getX() + (radius*sizeRatio), temp.getY(), getWidth()*sizeRatio, getHeight()*sizeRatio);
+          _children.add(temp); 
+        }
+
+    
+      
+      //////////////////////////////////////////////////////////////////
+      // Need to determine the size and location of all the children
+      //    of this object and then invoke their constructors.
+      //
+      // All calculation needs to be done in float; conversion to the
+      //    int (using Math.round() -- should only be performed at the
+      //    very end.
+      //////////////////////////////////////////////////////////////////
+   }
+   }
+
+       
+
+
+   
+   //--------------------- draw( Graphics2D ) -----------------------
+   /**
+    * method called by FractalGUI.paintComponent
+    */   
+   public void draw( Graphics2D context ) 
+   {
+      Color saveColor = context.getColor();
+      createColors();
+      Color myColor = Color.MAGENTA;
+      context.setColor(myColors[colorIndex]);
+      
+      if(saveDepth == 1)
+      {
+        context.setColor(myColors[0]);
+      }
+      else if(saveDepth == 2)
+      {
+        context.setColor(myColors[1]);
+      }
+      else if(saveDepth == 3)
+      {
+        context.setColor(myColors[2]);
+      }
+      else if(saveDepth == 4)
+      {
+        context.setColor(myColors[3]);
+      }
+      else if(saveDepth == 5)
+      {
+        context.setColor(myColors[4]);
+      }
+      else if(saveDepth == 6)
+      {
+        context.setColor(myColors[5]);
+      }
+      
+       //draw myself
+      if ( fill )        
+         context.fill( this );
+      else
+      
+         context.draw( this );
+      
+      ////////////////////////////////////////////////////////////////
+      // Need to recurse to children draw methods -- only if the children
+      //   exist of course.
+      // Need to use a different color for each level of recursion
+      /////////////////////////////////////////////////////////////////
+      
+      if(_children.size() > 0)
+      {
+      for(int i = 0; i < numChildren; i++)
+      {
+        colorIndex++;
+        _children.get(i).draw(context);
+        
+      }
+      }
+      
+      context.setColor( saveColor );
+   }
+   //--------------------------------createColors----------------------------
+   /*
+    * Creates the Colors in the array with transparency
+    * */
+   public void createColors()
+   {
+   myColors[0] = new Color(250, 0, 0,250);
+   myColors[1] = new Color(0, 250, 0, 250);
+   myColors[2] = new Color(0, 0, 250, 250);
+   myColors[3] = new Color(176, 23, 210, 250); 
+   myColors[4] = new Color(10, 235, 116, 250); 
+   myColors[5] = new Color(157, 94, 203, 250);
+   }
+   //==================== main ========================================
+   /**
+    * A convenience main to invoke app
+    */
+   public static void main( String[] args )
+   {
+      FractalApp.main( args );
+   }
+}

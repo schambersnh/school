@@ -1,0 +1,174 @@
+/** 
+ * AWTBot.java: A simple 2D image of a robot.
+ * Modified by Stephen Chambers 1/27/2011 for cs416 Lab1
+ */
+
+import java.awt.*;
+import java.awt.Color;
+
+public class AWTBot implements AShape
+{ 
+   //---------------- instance variables ------------------------------
+   AEllipse    body;
+   ARectangle  wheel1;
+   ARectangle  wheel2;
+   ARectangle  caster;
+   ARectangle  head;
+   ARectangle  sensor;
+   ALine       antenna;
+   
+   int         x, y;
+   Color       bodyColor;
+   
+   
+   // ---------------------- AWTBot() ----------------------------------
+   /** The constructor creates all the robot parts, and sets a default
+     * location and color.
+     */
+   public AWTBot()
+   {   
+      wheel1 = new ARectangle();   
+      wheel1.setSize( 20, 30 );
+      wheel1.setFrameColor( java.awt.Color.BLACK );
+      wheel1.setFillColor( java.awt.Color.BLACK );
+      
+      
+      wheel2 = new ARectangle();     
+      wheel2.setSize( 20, 30 );
+      wheel2.setFillColor( java.awt.Color.BLACK );
+      wheel2.setFrameColor( java.awt.Color.BLACK );
+      
+      caster = new ARectangle();    
+      caster.setSize( 16, 20 );
+      caster.setFillColor( java.awt.Color.BLACK );
+      caster.setFrameColor( java.awt.Color.BLACK );
+      
+      body = new AEllipse(); 
+      body.setSize( 60, 60 );
+      body.setFrameColor( java.awt.Color.BLACK );
+      body.setFillColor( java.awt.Color.BLUE );
+      
+      head = new ARectangle();   
+      head.setSize( 50, 5);
+      head.setFillColor( java.awt.Color.GREEN );
+      head.setFrameColor( java.awt.Color.BLACK );
+      
+      sensor = new ARectangle();  
+      sensor.setSize( 10, 10 );
+      sensor.setFillColor( java.awt.Color.RED );
+      sensor.setFrameColor( java.awt.Color.BLACK );
+      
+      antenna = new ALine( x + 40, y + 30 , x + 40, y + 20);  
+      antenna.setColor( java.awt.Color.BLUE);
+      
+      setLocation( 0, 0 );
+   }
+   
+   // ------------------- AWTBot( int, int ) --------------------------------
+   /**
+    * This constructor includes an explicit location and default color (BLUE)
+     */
+   public AWTBot ( int x, int y )
+   {   
+       this();
+       setLocation( x, y );
+       setColor( Color.BLUE );
+   }
+   
+   // ---------------------- AWTBot( Color ) -------------------------------
+   /** 
+    * This constructor includes explicit color and default location ( 0,0 )
+    */
+   public AWTBot( Color c )
+   {   
+       this();
+       setLocation( 0, 0 );
+       setColor( c );
+   }
+   
+   //--------------------- setColor( Color ) --------------------------------- 
+   /**
+    * set the body color to the parameter and default colors for all other parts
+    */
+   public void setColor( Color c )
+   {
+      bodyColor = c;
+      body.setFillColor( c );
+   }
+      
+   //------------------- setLocation( int, int ) --------------------------- 
+   /**
+    * set the location of the robot to the paramters.
+    */
+   public void setLocation( int x, int y )
+   {
+      this.x = x;
+      this.y = y;
+      
+      wheel1.setLocation( x, y + 60 );
+      wheel2.setLocation( x + 60, y + 60 );
+      caster.setLocation( x + 32, y );
+      body.setLocation( x + 10, y + 15 );
+      head.setLocation( x + 15, y + 40 );
+      sensor.setLocation( x + 35, y + 30 );
+      antenna.setPoints( x + 40, y + 30 , x + 40, y - 20);
+   }
+   
+   //--------------------- int getXLocation() ---------------------------------
+   /**
+    * return the x location of the robot.
+    */
+   public int getXLocation()
+   {
+      return x;       
+   }
+   
+   //--------------------- int getYLocation() ---------------------------------
+   /**
+    * return the y location of the robot.
+    */
+   public int getYLocation()
+   {
+      return y;    
+   }
+   
+   //--------------------- int getColor() ---------------------------------
+   /**
+    * return the body color of the robot.
+    */
+   public Color getColor()
+   {
+      return bodyColor;    
+   }
+   
+   //----------------------- display( Graphics2D ) -------------------------
+   /**
+    * display - calls draw and fill awt methods (this is an rdb method).
+    */
+   public void display( java.awt.Graphics2D brush2D )
+   {
+      ///////////////////////////////////////////////////////////////////
+      // For every A-object created in the AWTBot constructor (there are 7)
+      //   invoke that objects display method with "brush2D" as the 
+      //   the parameter.
+      ////////////////////////////////////////////////////////////////////
+      wheel1.display( brush2D );
+      wheel2.display( brush2D );
+      caster.display( brush2D );
+      body.display( brush2D );
+      head.display( brush2D );
+      sensor.display( brush2D );
+      antenna.display( brush2D );
+      
+      
+   }
+   
+   //------------------------  main -------------------------------------
+   public static void main( String[] args )
+   {
+      new Frame();
+      AWTBot myBot = new AWTBot();
+      myBot.setColor( Color.ORANGE );
+      myBot.setLocation( 200, 400 );
+   }
+}

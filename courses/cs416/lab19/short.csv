@@ -1,0 +1,29 @@
+SourceId,HitId,information,bit score,E-value
+Contig1,ref|XM_312445.3|,"Anopheles ...  ",52.0,0.009
+Contig1,emb|AM406671.1|,"Lactococcus ...  ",44.1,2.1
+Contig1,emb|AM434057.1|,"Vitis vinifera ...  ",44.1,2.1
+Contig1,gb|AC000004.1|,"Human 17 sequence ...  ",44.1,2.1
+Contig1,dbj|AP008213.1|,"Oryza sativa ...  ",44.1,2.1
+Contig1,dbj|AP008208.1|,"Oryza sativa ...  ",44.1,2.1
+Contig1,emb|AL139283.13|,"Human DNA ...  ",44.1,2.1
+Contig1,gb|AC158979.2|,"Mus musculus BAC ...  ",44.1,2.1
+Contig1,gb|AC171016.2|,"Gallus gallus BAC ...  ",44.1,2.1
+Contig2,emb|AL645932.8|,"Mouse DNA ...  ",52.0,0.009
+Contig2,emb|AJ783631.1|,"Lacerta viridis ...",48.1,0.13
+Contig2,emb|AL773597.29|,"Mouse DNA ...  ",48.1,0.13
+Contig2,gb|AC183769.2|,"Pan troglodytes ...  ",46.1,0.53
+Contig2,gb|AC152987.1|,"Mus musculus 6 ...  ",46.1,0.53
+Contig2,gb|AC111100.13|,"RP23-179J8, com ... ",46.1,0.53
+Contig2,gb|AC138026.4|,"Mus musculus BAC ...  ",46.1,0.53
+Contig2,gb|AC133191.3|,"RP23-390K15 ...  ",46.1,0.53
+Contig2,gb|AC132612.3|,"Mus musculus BAC ...  ",46.1,0.53
+Contig2,gb|AC113528.8|,"Mus musculus ...  ",46.1,0.53
+Contig3,gb|DQ249398.1|,"D pulex microsatellite ...",317,9e-83
+Contig3,dbj|AP008207.1|,"Oryza sativa ...  ",50.1,0.034
+Contig3,dbj|AP003794.4|,"Oryza sativa ...  ",50.1,0.034
+Contig3,dbj|AP003287.3|,"Oryza sativa ...  ",50.1,0.034
+Contig3,emb|AM459476.1|,"Vitis vinifera ...  ",48.1,0.13
+Contig3,ref|XM_589798.3|,"hypoth LOC512308 ... ",46.1,0.53
+Contig3,gb|AC165236.5|,"clone RP23-348C18 ...  ",46.1,0.53
+Contig3,gb|AC127282.3|,"RP23-318O24 ...  ",46.1,0.53
+Contig3,gb|AC159291.3|,"RP23-287P9 ...  ",46.1,0.53

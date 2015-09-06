@@ -1,0 +1,59 @@
+/**
+ * Jumper - 
+ * 
+ * @author rdb 
+ * derived from the Cockroach class by mlb
+ * 
+ * History 
+ * 10/19/09 rdb Jumper - also generates random color
+ *       
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.util.*;
+
+public class Jumper extends Ellipse
+{   
+   //-------------- instance variables -----------------
+   private Random  rng        = null;
+   
+   //------------------- Constructor -------------------
+   public Jumper()
+   {       
+      rng = new Random();
+      int height = rng.nextInt( 15 ) + 10;
+      int width  = height * 3;
+      
+      setSize( width, height );
+      setColor( Color.BLACK );
+      
+      setRotation( rng.nextInt( 360 ));    
+      jump();     
+   }
+   
+   //----------------------- jump() ---------------------------
+   public void jump()
+   {
+      int x = rng.nextInt( 680 ); 
+      int y = rng.nextInt( 480 )  ; 
+      setLocation( x,  y );
+   }
+   
+   //-------------------mousePressed( MouseEvent  --------------
+   public void mousePressed( java.awt.event.MouseEvent e )
+   {
+      Jumper child = null;
+      
+      child = new Jumper();
+      jump();  
+      System.out.println( "------------  roaches! ----- " );
+   } 
+   
+   
+   //----------------------- main ---------------------------
+   public static void main ( String[] argv )     
+   {
+      Frame m = new Frame();
+      Jumper cartoon = new Jumper();
+   }   
+}

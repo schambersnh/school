@@ -1,0 +1,64 @@
+/** 
+ * Lab5
+.java:
+ * 
+ * 
+ * 
+ * @author cs415
+ * 
+ */
+
+// --------------- imports ------------------------------
+import wheelsunh.users.*;
+import java.awt.Color;
+
+public class Lab5
+ extends Frame
+{
+    //---------------- instance variables ------------------------------
+    
+    // -----------------------------------------------------------------
+    /** 
+     * Constructor for the Lab5
+ class.
+     */
+    public Lab5
+( )
+    {
+       // local "constant" variables define location/size of each circle
+       int    outerX   =  0,  outerY = 0;
+       int    outerSize = 80;
+       
+       // <------ Add declarations for data needed for inner circles ---------->
+       
+       // local variables to reference the Wheels objects used to draw target.
+       Ellipse    outer;
+       
+       // <------- Add declarations for Wheels variables for inner circles ---->
+       
+       // create the outer circle
+       outer = new Ellipse( outerX, outerY );
+       outer.setSize( outerSize, outerSize );
+       outer.setColor( Color.RED );
+       
+       // create the inner circles
+       // <-------- Add code here to create the inner circles
+
+
+
+
+
+
+                
+    } 
+        
+    // -----------------------------------------------------------------
+    /** main program just invokes the class constructor.
+     */
+    public static void main(String[] args)
+    {
+        Lab5
+ app = new Lab5
+();
+    }
+}//End of Class Lab5

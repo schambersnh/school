@@ -1,0 +1,260 @@
+/**
+ * TetrisStart.java
+ * 11/23/10
+ * Program 12
+ * 
+ * This class creates a board for the Tetris game and cycles through four
+ * different Tetromino shapes. The class can use the direction keys where up
+ * rotates the piece, down will drop the piece, and left and right will move
+ * the piece left or right accordingly. When the piece hits the bottom a new
+ * one is created at the top.
+ * 
+ * Main class of Program 12.
+ */
+import wheelsunh.users.*;
+import java.awt.event.*;
+import java.awt.Color;
+import java.util.*;
+
+public class TetrisStart implements Animator, KeyListener
+{ 
+  
+  //--------------------------Instance Variables--------------------------------
+  private Tetromino curTet;
+  private int curTetSetter = 0;
+  private Rectangle[][] board;
+  private AnimationTimer timer;
+  
+  
+  //---------------------------------------------------------------------------
+  /**
+   * The constructor creates a 2D Array of Rectangles based off the Specs.java
+   * class. It also creates a new timer object and assigns the Tetromino
+   * object to a JTetromino initinally.
+   */  
+  public TetrisStart( )
+  {
+    board = new Rectangle[ Specs.BOARD_ROWS ][ Specs.BOARD_COLS ];
+    timer = new AnimationTimer( 1000, this );
+    timer.start();
+    
+    //creates the board's rectangles for each [row][col] index.
+    for( int r = 0; r < Specs.BOARD_ROWS; r++ )
+      for( int c = 0; c < Specs.BOARD_COLS; c++ )
+      makeBoardSquare( r, c ); 
+    
+    //assigns curTet to a new JTetromino
+    curTet = new JTetromino( 0, 0 );
+    
+    //sets its location and draws it
+    curTet.setRC( 0, 3 );
+    curTet.draw();
+  }  
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Draws the board for the game to be played on
+   */  
+  private void makeBoardSquare( int r, int c )
+  {
+    int x = Specs.BOARD_X + c * Specs.TILE_SIZE;
+    int y = Specs.BOARD_Y + r * Specs.TILE_SIZE;
+    
+    //sets the given index as a new Rectangle
+    board[r][c] = new Rectangle( );
+    board[r][c].setFillColor( Color.BLACK );
+    board[r][c].setFrameColor( Color.BLACK ); 
+    board[r][c].setLocation( x, y ); 
+    board[r][c].setSize( Specs.TILE_SIZE, Specs.TILE_SIZE ); 
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Drops the block down if there is room for the block to go down. The block
+   * is dropped every second as based on the timer.
+   */  
+  public void animate( )
+  {
+    int max = curTet.getMaxRow();    
+    max += curTet.getRow();
+    
+    //if there is still room to fall
+    if( max < Specs.BOARD_ROWS - 1 )
+      curTet.fall();
+    
+    //grabs the next Tetromino
+    else
+    { 
+      setCurrentTet();
+    } 
+    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Sets the current Tetromino that will be used.
+   */  
+  public void setCurrentTet()
+  {
+    //increases the index to grab a new Tetromino.
+    curTetSetter++;
+    
+    //if the index is greater than the number of Tetromino's useable
+    if( curTetSetter > 3 )
+      curTetSetter = 0;
+    
+    //if 0 create a new JTetromino
+    if( curTetSetter == 0 )
+    {
+      curTet = new JTetromino( 0, 0 );
+      
+      //set its row and column and draw it
+      curTet.setRC( 0, 3 );
+      curTet.draw();
+    }
+    
+    //if 1 create a new ITetromino
+    else if( curTetSetter == 1 )
+    {
+      curTet = new ITetromino( 0, 0 );
+      
+      //set its row and column and draw it
+      curTet.setRC( 0, 3 );
+      curTet.draw();
+    }
+    
+    //if 2 create a new STetromino
+    else if( curTetSetter == 2 )
+    {
+      curTet = new STetromino( 0, 0 );
+      
+      //set its row and column and draw it
+      curTet.setRC( 0, 3 );
+      curTet.draw();
+    }
+    
+    //if 3 create a new TTetromino
+    else if( curTetSetter == 3 )
+    {
+      curTet = new TTetromino( 0, 0 );
+      
+      //set its row and column and draw it
+      curTet.setRC( 0, 3 );
+      curTet.draw();
+    }
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Drops the Tetromino down if there is room for the shape to fall.
+   */  
+  public void fall()
+  {
+    int max = curTet.getMaxRow();
+    max += curTet.getRow();
+    
+    //if there is still room to fall
+    if( max < Specs.BOARD_ROWS - 1 )
+      curTet.fall();
+    
+    //else grab the new Tetromino
+    else
+    { 
+      setCurrentTet();
+    } 
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * This will move the curTet left if it has room to move left regardless of
+   * its configuration.
+   */  
+  public void moveLeft()
+  {
+    int min = curTet.getMinCol();
+    min += curTet.getCol();
+    
+    //if there is room to move left
+    if( min > - 1 )
+      curTet.moveLeft();    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * This will move the curTet right if it has room to move left regardless of
+   * its configuration.
+   */  
+  public void moveRight()
+  {
+    int max = curTet.getMaxCol();
+    max += curTet.getCol();
+    
+    //if there is still room to move right.
+    if( max < Specs.BOARD_COLS - 1  )
+      curTet.moveRight();
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Rotates the curTet object
+   */  
+  public void rotate( )
+  {
+    curTet.rotate();
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * This method handles the key pressed events.
+   */  
+  public void keyPressed(KeyEvent e) 
+  { 
+    if( e.getKeyCode() == 37 )//left
+    {
+      moveLeft();
+    }
+    else if ( e.getKeyCode() == 38 )//up
+    {
+      rotate();      
+    }
+    else if ( e.getKeyCode() == 39 )//right
+    {
+      moveRight();
+    }
+    else if ( e.getKeyCode() == 40 )//down
+    {
+      fall();
+    }
+    else
+    {
+      System.out.println( "Other." );
+    }
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Implemented from KeyListener unused in this program.
+   */  
+  public void keyReleased(KeyEvent e) 
+  {
+    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Implemented from KeyListener unused in this program
+   */  
+  public void keyTyped( KeyEvent e ) 
+  {
+    
+  }
+  
+  //------------------------main method-----------------------------------------
+  public static void main(String[] args) 
+  {
+    Frame f = new Frame( );
+    TetrisStart tetris = new TetrisStart( );
+    f.addKeyListener( tetris );
+  }
+  
+}

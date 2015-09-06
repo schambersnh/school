@@ -1,0 +1,55 @@
+/**
+ * RoundTest.java -- a skeleton for a comprehensive test of
+ *    ARoundRectangle. This should be expanded sufficiently that
+ *    it is clear from looking at the output that you have tested
+ *    the ARoundRectangle thoroughly and understand its parameters.
+ * 
+ */
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
+public class RoundTest extends JPanel
+{
+   //-------------- instance variables ------------------------------
+   ArrayList<AShape> myList;
+   //------------------ constructor ---------------------------------
+   public RoundTest( )
+   {
+      myList = new ArrayList<AShape>();
+      ARoundRectangle myRoundRect1 = new ARoundRectangle(30, 30, 40, 40, 100, 100);
+      myList.add(myRoundRect1);
+      
+      //Changing Location, width, height and arc size
+      ARoundRectangle myRoundRect2 = new ARoundRectangle(100, 100, 60, 60, 50, 50);
+      myList.add(myRoundRect2); 
+      
+      //Changing Location, keeping height and width parameters from myRoundRect2
+      //but changing arc size via method
+      ARoundRectangle myRoundRect3 = new ARoundRectangle(300, 300, 60, 60, 50, 50);
+      myRoundRect3.setArcSize(10, 10);
+      myList.add(myRoundRect3);
+            
+   }
+   //------------- paintComponent( Graphics ) ----------------------
+   public void paintComponent( Graphics g )
+   {
+      super.paintComponent( g );
+      Graphics2D brush2D = (Graphics2D) g;
+      for(int i = 0; i < myList.size(); i++)
+      {
+         myList.get(i).display(brush2D);
+      }
+   }
+   
+   //------------------------ main -----------------------------------
+   public static void  main( String[] args )
+   {
+      JFrame f = new JFrame( "ARoundRectangle test" );
+      f.setSize( 500, 400 );
+      f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+      JPanel panel = new RoundTest();
+      f.add( panel );
+      f.setVisible( true );  // Initially, JFrame is not visible, make it so.
+   }            
+}

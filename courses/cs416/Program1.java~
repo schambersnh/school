@@ -1,0 +1,49 @@
+/** 
+ * Program1.java:
+ * Displays a rectangle for building an ATV.
+ *
+ * mb 8/10
+ * 
+ */
+import wheelsunh.users.*;
+import java.awt.Color;
+
+public class Program1 extends wheelsunh.users.Frame
+{
+    
+    //---------------- instance variables ------------------------------
+    
+    private  Rectangle pad;
+    
+    
+
+    
+    
+    // -----------------------------------------------------------------
+    /** Constructor for the Start class.bbbb
+      */
+    public Program1( )
+    {
+        pad = new wheelsunh.users.Rectangle( 200, 200 );
+        pad.setFillColor( java.awt.Color.WHITE );
+        pad.setFrameColor( java.awt.Color.BLACK );
+        pad.setSize( 100, 80);
+        //--------------------------------------------
+        //--------------------------------------------
+        
+        // add your code here
+        
+        
+        
+        
+        
+    } 
+    
+    // -----------------------------------------------------------------
+    /** main program just invokes the class constructor.
+      */
+    public static void main(String[] args)
+    {
+        Program1 app = new Program1();
+    }
+}//End of Class 

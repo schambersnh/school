@@ -1,0 +1,1 @@
+\project_{Fname, Lname}(\select_{Hours > 10.0}(\select_{Dno=5}(EMPLOYEE) \join_{ssn=Essn} (\select_{Pname='ProductX'}(PROJECT) \join_{Pnumber=Pno} WORKS_ON)));

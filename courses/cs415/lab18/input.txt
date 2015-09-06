@@ -1,0 +1,20 @@
+# CLI lab input data file
+#  if first character of line is #, this is a comment.
+Baker
+  Charlie Brown
+Delta
+rectangle miscellaneous
+   B aker
+   C Black
+ellipse too
+b-lower case
+clowercase Red
+dlowercase
+# comments aren't recognized automatically  
+     # comments with leading spaces
+   r  add red rectangle (eventually)
+   
+   Color GREEN
+   e  and an ellipse that is green  
+   d again
+   d for sure

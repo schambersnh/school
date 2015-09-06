@@ -1,0 +1,20 @@
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+
+public class Piano extends ShapeGroup
+{
+  //---------------------------------Instance Variables------------------------
+  private Rectangle body, leg1, leg2;
+  private Rectangle keys;
+  
+  int x = 100;
+  int y  100;
+    
+   public Piano()
+   {
+     body = new Rectangle(x, y);
+     body.setColor(Color.BLACK);
+     body.setSize(50, 25);
+   }
+   
+}

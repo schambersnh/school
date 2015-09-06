@@ -1,0 +1,316 @@
+/**
+ * ListApp: CS 416 Lab exercise: Code needs to be written for the methods:
+ * 
+ *             loopAverage   (iterative)
+ *             nodeSum       (recursive), called from recurseAverage
+ *             reverse       (iterative)
+ *             cursedReverse (recursive)
+ *             compressList  (recursive OR iterative, your choice)
+ */
+import java.util.Random;
+import java.util.Scanner;
+
+public class ListApp
+{
+  //----------------- instance variables ----------------------------  
+  //------------------- constructor ---------------------------------
+  /**
+   * arguments are 
+   *    numKeys -- number of keys to create when generating random data
+   *    numItems -- number items ot generate
+   *    seed     -- random number seed; -1 means let system pick it.
+   */
+  public ListApp( int numKeys, int numItems, int seed )
+  {      
+    DataList list = generateData( numKeys, numItems, seed );
+    
+    // 1. Test loopAverage method; printList calls "loopAverage"
+    printList( list, "Initial list" );
+    
+    // 2. Test recurseAverage method
+    double recurseAve = recurseAverage( list );
+    System.out.println( "List average (recurse) of " + list.size() 
+                         + " elements: " + recurseAve );
+    
+    // 3. test reverse method
+    DataList revList = reverse( list );
+    printList( revList, "Reversed list" );
+    
+    // 4. test recursive reverse
+    DataList recRevList = cursedReverse( list );
+    printList( recRevList, "Recursive reversed list (cursedReverse)" );
+    DataList revRevList = cursedReverse( recRevList );
+    printList( revRevList, "Reverse recursive reversed list (cursedReverse)" );
+    
+    // 5. test compressList method
+    // make new data, so effects of previous errors are minimized
+    list = generateData( numKeys, numItems, seed );
+    printList( list, "New List" );
+    
+    DataList clist = compressList( list );
+    printList( clist, "After compression" );
+  }
+  
+  //------------------- loopAverage( list ) ----------------------------
+  /**
+   * compute and return the average value of all the value fields of
+   * the Data objects in the list. Traverse the list using the 
+   * head() and next() methods of LinkedList. This is an iterative
+   * solution.
+   */
+  private double loopAverage( DataList list )
+  {
+    DataNode head = list.head();
+    double sum = 0.0;
+    int    count = 0;
+   
+    ////////////////////////////////////////////////////
+    // 1. add a loop here to traverse list computing the sum of value fields
+    //++++++++++++++++++++++
+  
+    while (count < list.size())
+    {
+      Data a = head.data();
+      sum += a.value;
+      head = head.next();
+      count++;
+    }
+    
+    //////////////////////////////////////////////////
+    if ( count == 0 )
+      return 0;
+    else 
+      return sum / count;
+  }
+  //------------------- recurseAverage( list ) ----------------------------
+  /**
+   * compute and return the average value of all the value fields of
+   * the Data objects in the list. Traverse the list by getting the node
+   * that is the head of the list (the head() method of LinkedList)
+   * and then using the next field of Node to get the next Node.
+   * 
+   * The recursion should be done with the nodeSum method.
+   */
+  private double recurseAverage( DataList list )
+  {
+    DataNode head = list.head(); 
+    if ( list.size() == 0 )
+      return 0;
+    else
+      return nodeSum( head ) / list.size();
+  }
+  //------------------- nodeSum( Node ) ---------------------------------
+  /**
+   * Compute and return the sum of the values for this node and all of 
+   * the remaining nodes after it on the list.
+   */
+  private double nodeSum( DataNode cur )
+  {
+    ////////////////////////////////////////////////////////////////////////
+    // 2.  add this node's value to the sum of values from rest of the list
+    //      return the sum.
+    //+++++++++++++++++++++
+    if(cur.next()!= null)
+    {
+    return cur.data().value + nodeSum(cur.next());  // replace this line
+    }
+    else
+    {
+      return cur.data().value;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////
+  }
+  //------------------- reverse( list ) -----------------------------
+  /**
+   * Create a new LinkedList that is in the reverse order of the list 
+   * passed as the argument. The input list should not be modified.
+   * Traverse the input list using the head() and next() methods
+   * of LinkedList. Add the element to the new list with addHead.
+   */
+  private DataList reverse( DataList list )
+  {
+    DataList newList = new DataList();
+    /////////////////////////////////////////////////////////////////////
+    // 3. traverse "list", getting each data item from list
+    //     and adding it to the head of newList
+    //++++++++++++++++++++++++++
+    DataNode head = list.head();
+    for(int i = 0; i < list.size(); i++)
+    {
+      newList.addHead(head.data());
+      head = head.next();
+    }
+    
+    return newList;
+    /////////////////////////////////////////////////////////////////////
+  }
+  //------------------- cursedReverse( list ) -----------------------------
+  /**
+   * Use recursion to create a new LinkedList that is in the reverse 
+   * order of the list passed as the argument. The input list should 
+   * not be modified.
+   * Traverse the input list using the head() and next() methods
+   * of LinkedList. Add the element to the new list with addHead.
+   */
+  private DataList cursedReverse( DataList list )
+  {
+    return cursedReverse( list.head() );
+  } 
+  
+  //----------- helper function
+  /**
+   * cursedReverse( DataNode )
+   *     recursively chase list until get to the end.
+   *     create new list at the end of the recursion, return
+   *     add nodes to the returned list at the end of the list
+   *        since you're coming back up, the end will be reversed.
+   */
+  private DataList cursedReverse( DataNode node )
+  {
+    /////////////////////////////////////////////////////////////////////
+    // 4. traverse "list", recursively
+    //++++++++++++++++++++++++++
+    
+    if (node == null)
+    {
+      return new DataList();
+    }
+    else
+    {
+      DataList newList = cursedReverse(node.next());
+      newList.add(node.data());
+      return newList;
+    }
+ 
+
+
+    
+    
+    /////////////////////////////////////////////////////////////////////
+  }
+  
+  
+  //---------------------- compress( list ) ----------------------------
+  /**
+   * create a new list from the old. The new list will have just one
+   * entry for each key; the value of that entry will be the sum of the
+   * values of all the original entries with that key.
+   * 
+   */
+  private DataList compressList(  DataList list )
+  {
+    DataList newList = new DataList();
+    
+    ////////////////////////////////////////////////////////////////////
+    // 5. for each entry in the list
+    //       if key is found in the  new list
+    //          update the new list's value field for this key
+    //       else
+    //          add a node to the new list for this key/value 
+    //++++++++++++++++++++++++++++++++++
+    DataNode head = list.head();
+    for(int i = 0; i < list.size(); i++)
+    {
+      Data a = head.data();
+      if(list.find(a.key)!= null)
+      {
+        newList.find(a.key).data().value += list.find(a.key).data().value;
+      }
+      else
+      {
+        newList.add(new Data(a.key, a.value));
+      }
+      head = head.next();
+    }
+    return newList; 
+    ///////////////////////////////////////////////////////////////////
+  }
+  
+  //***************** do not change anything below **********************
+  
+  //------------------- printList( list, String ) ---------------------------
+  private void printList( DataList list, String title )
+  {
+    String dashes = "------------------------";
+    System.out.println( "\n" + dashes + " " + title + " " + dashes );
+    System.out.println( list );
+    if ( list != null  && list.size() > 0 )
+    {
+      double loopAve = loopAverage( list );
+      int total = (int) ( loopAve * list.size() );
+      System.out. println( "List average (loop) of " + list.size() 
+                            + " elements: " + loopAve + " Total: " + total );
+    }
+    System.out.println( dashes + dashes + dashes );
+  }
+  //------------------- generateData -----------------------------------
+  /**
+   * generate some random list data.
+   */
+  private DataList generateData( int numKeys, int numItems, int seed )
+  {
+    DataList l = new DataList();
+    Random rng;
+    if ( seed < 0 )
+      rng = new Random();
+    else 
+      rng = new Random( seed );
+    
+    String letters = "abcdefghijkloaeipr";
+    String[] keys = new String[ numKeys ];
+    
+    System.err.print( keys.length + "  unique keys: " );
+    for ( int i = 0; i < numKeys; i++ )
+    {
+      int letter1 = rng.nextInt( letters.length() );
+      int letter2 = rng.nextInt( letters.length() );
+      keys[ i ] =   letters.substring( letter1, letter1 + 1 )
+        + letters.substring( letter2, letter2 + 1 );
+      System.out.print( keys[ i ]  + " " );
+    }
+    System.out.println();
+    for ( int i = 0; i < numItems; i++ )
+    {
+      String key = keys[ rng.nextInt( keys.length )];
+      int    val = rng.nextInt( 100 );
+      Data d = new Data( key, val );
+      l.add( d );
+    }
+    return l;
+  }
+  //+++++++++++++++++++++++++ static methods ++++++++++++++++++++++++++  
+  //-------------------- getArg( String[], int, int ) -----------------
+  /**
+   * Utility to convert a command line string argument to an int. 
+   * Parameters: args array, index of argument, default value
+   * Default value if argument not present or not an int.
+   */
+  private static int getArg( String[ ] args, int which, int defaultVal )
+  {
+    try
+    {
+      return Integer.parseInt( args[ which ] ); // string to int
+    }
+    catch ( ArrayIndexOutOfBoundsException oob )
+    {
+      // Not an error. Parameter is optional; return default
+    }
+    catch ( NumberFormatException nfe )
+    {         
+      System.err.println( "Error: invalid command line argument " 
+                           + which + " = " + args[ which ] 
+                           + ".  Should be integer; using default value: "
+                           + defaultVal );
+    }  
+    return defaultVal;
+  }
+  //--------------------- main -----------------------------------------
+  public static void main( String[] args )
+  {
+    int numKeys  = getArg( args, 0, 6 );  // number unique keys
+    int numItems = getArg( args, 1, 8 );  // number of items to generate
+    int seed     = getArg( args, 2, 0 );  // seed for data generation
+    ListApp app = new ListApp( numKeys, numItems, seed );
+  }
+}

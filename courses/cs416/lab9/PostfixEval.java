@@ -1,0 +1,233 @@
+/**
+ * PostfixEval.java -- Postfix evaluation
+ * This program reads a string from the user that is a postfix expression
+ * that must be parsed and evaluated. The tokens in the string can be 
+ * integers or operators.
+ * 
+ * Modified by Stephen Chambers for lab9 on 2/24/2011
+ */
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.io.*;
+
+public class PostfixEval //extends JFrame
+{
+   //---------------------- class variables -------------------------
+   static boolean interactive = true;
+
+   //---------------------- instance variables ----------------------
+   Collection<String> _dictionary;
+   
+   private char      _option;
+
+   //--------------------------- constructor -----------------------
+   public PostfixEval( String title )     
+   {    
+      Scanner batchIn = null;
+      String inMessage = "Enter a postfix expression";      
+      String input = null; 
+      if ( interactive )
+         input = JOptionPane.showInputDialog( null,  inMessage );
+      else
+      {
+         batchIn = new Scanner( System.in );
+         if ( batchIn.hasNextLine() )
+            input = batchIn.nextLine();
+      }
+      
+      while ( input != null && input.length() > 0 )
+      {
+         String outMessage = evaluateExpression( input );
+            System.out.println( outMessage + "\n--------------------" );
+         if ( interactive )
+         {
+            JOptionPane.showMessageDialog( null, outMessage );
+            input = JOptionPane.showInputDialog( null,  inMessage ); 
+         }
+         else if ( batchIn.hasNextLine() )
+            input = batchIn.nextLine();
+         else 
+            input = null;
+      }
+   }
+   //----------------- evaluateExpression( String ) -------------------
+   /**
+    * Parse the input string and evaluate it as a postfix expression
+    */
+   private String evaluateExpression( String expr )
+   {
+      ////////////////////////////////////////////////////////
+      // 2a. Edit line below to use Stack<Integer> instead of StringSack
+      //
+      //////////////////////////////////////////////////////////
+      Stack<Integer> stack = new Stack<Integer>();
+      
+      
+      String  returnMsg = null;
+      Scanner in = new Scanner( expr );
+      boolean  inputError = false;
+      while ( in.hasNext() && returnMsg == null )
+      {
+         String   token = in.next();
+         Number   left  = null;
+         Number   right = null;
+         Integer  value = null;
+         char     tok = 'v';
+         Scanner  numCheck = new Scanner( token );
+         if ( numCheck.hasNextInt() )
+         {
+         value = new Integer( numCheck.nextInt() );
+         }
+         else 
+             tok = checkValidOperator( token );
+         
+         switch ( tok )
+         {
+            case 'v':     // An integer value was read
+               //////////////////////////////////////////////////////////
+               // 2b. need to push the value onto stack
+               //////////////////////////////////////////////////////////
+              stack.push(value);
+              System.out.println("Stack contains " + stack.toString());
+               
+               System.out.println( "Value read: " + value );
+               break;
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+               System.out.println( "Operator read: " + tok );
+               returnMsg = execute( stack, tok );
+               break;
+            case '?':
+               returnMsg = "Unknown operator entered: " + token;
+               break;
+         } 
+         //////////////////////////////////////////////////////////////////
+         // 2d. Print out the state of the stack at each step; use toString()
+         //     method of Stack
+         //////////////////////////////////////////////////////////////////
+         stack.toString();
+         
+      }
+      if ( returnMsg != null ) // Already found a problem;
+      {
+         returnMsg = "Invalid expression: " + expr + "\n" + returnMsg;
+      }
+      else if ( stack.size() != 1 ) // a problem if stack has 0 or >2 elements
+      {
+         returnMsg = "Invalid expression: " + expr + "\n"
+                        + "Stack has 0 or > 1 entry. " + stack;
+      }  
+      else
+      {
+         //////////////////////////////////////////////////////////////////
+         // 2e. Get the expression value from the only element in the stack
+         //      and create a meaningful String describing the input expression
+         //      and the resulting value. 
+         //     Assign it to returnMsg.
+         ///////////////////////////////////////////////////////////////////
+        System.out.println("Stack contains " + stack.toString());
+        returnMsg = "The result is " + stack.pop();
+  
+      
+      }
+      return returnMsg;
+   }
+   //----------------- execute( Stack, char ) --------------------
+   /**
+    * Execute  method gets the Stack as 1st argument and a char
+    *         representing a valid operator.
+    * It returns an error message if there is an error, null if there are no
+    *    errors.
+    */
+   /////////////////////////////////////////////////////////////////
+   // 2a. Parameter must be changed from StringSack to Stack<Integer>
+   /////////////////////////////////////////////////////////////////
+   private String execute( Stack<Integer> stack, char operator )
+   {  
+      if ( stack.size() < 2 )
+         return "Invalid operation: Too few operands";
+      //////////////////////////////////////////////////////////
+      // 2c. (i)   pop 2 elements off stack, 
+      //           first is right operand, second is left, 
+      //     (ii)  do the operation, assign the value to a variable
+      //     (iii) push result onto the stack
+      //////////////////////////////////////////////////////////
+      
+      // (i) pop right then left operands
+      
+      int first = stack.pop();
+      int last = stack.pop();
+      int result;
+      switch ( operator )
+      {
+         case '+':
+            // (ii) compute value of left + right 
+           result = first + last;
+           stack.push(result);
+            
+            
+            break;
+         case '-':
+            // (ii) compute value of left - right 
+            result = first - last;
+            stack.push(result);
+            
+            break;
+         case '*':
+            // (ii) compute value of left * right 
+            result = first * last;
+            stack.push(result);
+            
+            break;
+         case '/':
+            // (ii) compute value of left / right 
+            result = first/last;
+            stack.push(result);
+            
+            break;
+      }
+      // (iii) push result onto stack
+      
+
+      return null;   // non-null return string is error message; null is good
+   }
+   //----------------- checkValidOperator( String ) --------------------
+   /**
+    * If the parameter is a valid operator, return the char that represents
+    *    that operator ( + - * / ).
+    * else 
+    *    return '?'
+    * 
+    * The input String must have length 1 and that 1 character must be 
+    * a valid arithmetic operator.
+    */
+   private char checkValidOperator( String token )
+   {  
+      if ( token.length() != 1 )
+         return '?';
+      else 
+      {
+         char ch = token.charAt( 0 );
+         switch ( ch )
+         {
+            case '+': return '+';
+            case '-': return '-';
+            case '*': return '*';
+            case '/': return '/';
+            default:  return '?';
+         }
+   }
+   }
+   //----------------------- main ----------------------------------------
+   public static void main( String[] args )
+   {
+      if ( args.length > 0 )
+         interactive = false;
+      new PostfixEval( "PostfixEval" );
+   }
+}

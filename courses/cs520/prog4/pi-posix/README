@@ -1,0 +1,8 @@
+This directory contains:
+
+pi.c - Posix threads (parallel) program for computing pi.
+
+timer.c - a simple timer mechanism.
+
+Makefile - a makefile for building the pi executable.
+

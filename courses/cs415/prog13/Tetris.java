@@ -1,0 +1,440 @@
+/**
+ * TetrisStart.java
+ * Creates a class modeling a game of Tetris. Pieces can be moved with the 
+ * arrow keys and a new one is created when a piece hits the bottom
+ * 
+ * Stephen Chambers
+ * 11/23/10
+ *
+ * 
+ *
+ * 
+ * 
+ */
+import wheelsunh.users.*;
+import java.awt.event.*;
+import java.awt.Color;
+import java.util.*;
+import java.awt.Point;
+
+public class Tetris implements Animator, KeyListener
+{ 
+  
+  //--------------------------Instance Variables--------------------------------
+  private Tetromino currentTetromino;
+  private int currentTetrominoSetter = 0;
+  private Rectangle[][] myBoard;
+  private Rectangle scoreWindow;
+  private AnimationTimer myTimer;
+  
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Constructor creates a two dimensional array of rectangles as a board
+   * and initializes a timer
+   */  
+  public Tetris( )
+  {
+    myBoard = new Rectangle[ Specs.BOARD_ROWS ][ Specs.BOARD_COLS ];
+    myTimer = new AnimationTimer( 1000, this );
+    myTimer.start(); //start timer
+    
+    //creates the board of rectangles
+    for( int r = 0; r < Specs.BOARD_ROWS; r++ )
+      for( int c = 0; c < Specs.BOARD_COLS; c++ )
+      makeBoardSquare( r, c ); 
+    
+    //assigns currentTetromino to a new JTetromino
+    currentTetromino = new JTetromino( 0, 0 );
+    
+    //sets its location and draws it
+    currentTetromino.setRC( 0, 3 );
+    currentTetromino.draw();
+    
+    scoreWindow = new Rectangle(450, 200);
+    scoreWindow.setSize(120, 120);
+    scoreWindow.setFillColor(Color.WHITE);
+    scoreWindow.setFrameColor(Color.BLACK);
+    
+    TextBox score = new TextBox(460, 220);
+    score.setSize(50, 20);
+    score.setText("Score:");
+    score.setFrameColor(Color.WHITE);
+    
+    TextBox level = new TextBox(460, 240);
+    level.setSize(50, 20);
+    level.setText("Level:");
+    level.setFrameColor(Color.WHITE);
+    
+    TextBox lines = new TextBox(460, 260);
+    lines.setSize(50, 20);
+    lines.setText("Lines:");
+    lines.setFrameColor(Color.WHITE);
+  }  
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Method that draws board, used in the constructor's nested for loop
+   */  
+  private void makeBoardSquare( int r, int c )
+  {
+    int x = Specs.BOARD_X + c * Specs.TILE_SIZE;
+    int y = Specs.BOARD_Y + r * Specs.TILE_SIZE;
+    
+    //sets the index given by the parameters as a new Rectangle
+    myBoard[r][c] = new Rectangle( );
+    myBoard[r][c].setFillColor( Color.BLUE );
+    myBoard[r][c].setFrameColor( Color.BLUE ); 
+    myBoard[r][c].setLocation( x, y ); 
+    myBoard[r][c].setSize( Specs.TILE_SIZE, Specs.TILE_SIZE ); 
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Drops a tetromino every second
+   */  
+  public void animate( )
+  {
+  fall();
+    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Sets the current Tetromino
+   */  
+  public void setCurrentTet()
+  {
+    //increments index
+    Random myGen = new Random();
+    currentTetrominoSetter = myGen.nextInt(7);
+    
+    if(myBoard[0][3].getColor().equals(Color.BLUE))
+    {
+    
+    /*
+     * Else if block determing what Tetromino will fall
+     * */
+    if( currentTetrominoSetter == 0 )
+    {
+      currentTetromino = new JTetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    
+    else if( currentTetrominoSetter == 1 )
+    {
+      currentTetromino = new ITetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    
+    
+    else if( currentTetrominoSetter == 2 )
+    {
+      currentTetromino = new STetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    
+    
+    else if( currentTetrominoSetter == 3 )
+    {
+      currentTetromino = new TTetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    else if( currentTetrominoSetter == 4 )
+    {
+      currentTetromino = new ZTetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    else if( currentTetrominoSetter == 5 )
+    {
+      currentTetromino = new OTetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    else if( currentTetrominoSetter == 6 )
+    {
+      currentTetromino = new LTetromino( 0, 0 );
+      
+      
+      currentTetromino.setRC( 0, 3 );
+      currentTetromino.draw();
+    }
+    }
+    else
+    {
+
+    }
+    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Drops the Tetromino 
+   */  
+  public void fall()
+  {
+    int max = currentTetromino.getMaxRow();
+    max += currentTetromino.getRow();
+    
+    
+    if( max < Specs.BOARD_ROWS - 1 && canFall() ) //if shape can fall
+      currentTetromino.fall();
+    
+    //draw a new Tetromino on the board itself to give the board access
+    else
+    { 
+      Configuration myConfig = currentTetromino.getConfiguration();
+      
+      for(int i = 0; i < 4; i++)
+      {
+        Point p = new Point( myConfig.get( i ) );
+        
+        Point playingBoardPoint = new Point();
+        Point graphicPoint = new Point();
+        
+        playingBoardPoint.x = p.x + currentTetromino.getRow();
+        playingBoardPoint.y = p.y + currentTetromino.getCol();;
+        
+        myBoard[playingBoardPoint.x][playingBoardPoint.y].setFillColor(currentTetromino.getColor());
+        
+      }
+      //Hide the tetromino 
+      currentTetromino.hide();
+      
+      //Grab the new tetromino
+      setCurrentTet();
+    } 
+  }
+  
+  public boolean canFall()
+  {
+    Configuration myConfig = currentTetromino.getConfiguration();
+    boolean canFall = true;
+    
+    for(int i = 0; i < 4; i++)
+    {
+      Point p = new Point(myConfig.get(i));
+      
+      int x = p.x + currentTetromino.getRow();
+      int y = p.y + currentTetromino.getCol();
+      
+      //If a space cannot fall
+      if(myBoard[x+1][y].getFillColor().equals(Color.BLUE))
+      {
+        canFall = true;
+      }
+      else
+      {
+        canFall = false;
+        //Break from the loop so the loop doesn't keep continuing
+        break;
+      }
+    }
+   
+    return canFall;
+  }
+  
+    public boolean canRoatate()
+  {
+    Configuration myConfig = currentTetromino.getNextConfiguration();
+    boolean canRot = true;
+    
+    for(int i = 0; i < 4; i++)
+    {
+      Point p = new Point(myConfig.get(i));
+      
+      int x = p.x + currentTetromino.getRow();
+      int y = p.y + currentTetromino.getCol();
+     
+      //If neighbors of the current board square are the background color,
+      //the piece can rotate
+      if(myBoard[x][y].getFillColor().equals(Color.BLUE) ||
+      myBoard[x-1][y].getFillColor().equals(Color.BLUE) ||
+      myBoard[x+1][y].getFillColor().equals(Color.BLUE) ||
+      myBoard[x+1][y-1].getFillColor().equals(Color.BLUE) ||
+      myBoard[x+1][y+1].getFillColor().equals(Color.BLUE) ||
+      myBoard[x][y-1].getFillColor().equals(Color.BLUE) ||
+      myBoard[x][y+1].getFillColor().equals(Color.BLUE) ||
+      myBoard[x-1][y-1].getFillColor().equals(Color.BLUE) ||
+      myBoard[x-1][y].getFillColor().equals(Color.BLUE) ||
+      myBoard[x-1][y+1].getFillColor().equals(Color.BLUE))
+      {
+        canRot = true;
+      }
+      else
+      {
+        canRot = false;
+        break;
+      }
+    }
+   
+    return canRot;
+  }
+  
+  //Same as canFall(), but checks a different board space
+  public boolean canRight()
+  {
+    Configuration myConfig = currentTetromino.getConfiguration();
+    boolean canFall = true;
+    
+    for(int i = 0; i < 4; i++)
+    {
+      Point p = new Point(myConfig.get(i));
+      
+      int x = p.x + currentTetromino.getRow();
+      int y = p.y + currentTetromino.getCol();
+      
+      
+      if(myBoard[x][y+1].getFillColor().equals(Color.BLUE))
+      {
+        canFall = true;
+      }
+      else
+      {
+        canFall = false;
+        break;
+      }
+    }
+
+    return canFall;
+  }
+    //Same as canFall(), but checks a different board color
+  public boolean canLeft()
+  {
+    Configuration myConfig = currentTetromino.getConfiguration();
+    boolean canFall = true;
+    
+    for(int i = 0; i < 4; i++)
+    {
+      Point p = new Point(myConfig.get(i));
+      
+      int x = p.x + currentTetromino.getRow();
+      int y = p.y + currentTetromino.getCol();
+     
+      
+      if(myBoard[x][y-1].getFillColor().equals(Color.BLUE))
+      {
+        canFall = true;
+      }
+      else
+      {
+        canFall = false;
+        break;
+      }
+    }
+
+    return canFall;
+  }
+  
+  
+  //---------------------------------------------------------------------------
+  /**
+   *Moves the currentTetromino left 
+   */  
+  public void moveLeft()
+  {
+    int min = currentTetromino.getMinCol();
+    min += currentTetromino.getCol();
+    
+    
+    if( min > 0 && canLeft() ) //if shape can move left
+      currentTetromino.moveLeft();    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Moves the currentTetromino right
+   */  
+  public void moveRight()
+  {
+    int max = currentTetromino.getMaxCol();
+    max += currentTetromino.getCol();
+    
+    
+    if( max < Specs.BOARD_COLS - 1 && canRight() ) //if shape can move right
+      currentTetromino.moveRight();
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Rotates the currentTetromino 
+   */  
+  public void rotate( )
+  {
+    currentTetromino.rotate();
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Handles the key pressed events.
+   */  
+  public void keyPressed(KeyEvent e) 
+  { 
+    if( e.getKeyCode() == 37 )//left
+    {
+      moveLeft();
+    }
+    else if ( e.getKeyCode() == 38 )//up
+    {
+      rotate();      
+    }
+    else if ( e.getKeyCode() == 39 )//right
+    {
+      moveRight();
+    }
+    else if ( e.getKeyCode() == 40 )//down
+    {
+      fall();
+    }
+    else
+    {
+      System.out.println( "Other." );
+    }
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Implemented from KeyListener
+   */  
+  public void keyReleased(KeyEvent e) 
+  {
+    
+  }
+  
+  //---------------------------------------------------------------------------
+  /**
+   * Implemented from KeyListener
+   */  
+  public void keyTyped( KeyEvent e ) 
+  {
+    
+  }
+  
+  
+  
+  //------------------------main method-----------------------------------------
+  public static void main(String[] args) 
+  {
+    Frame f = new Frame( );
+    Tetris tetris = new Tetris( );
+    f.addKeyListener( tetris );
+  }
+  
+} //End Of Class

@@ -1,0 +1,45 @@
+/** 
+ * Cockroach.java
+ * Creates a Cockroach
+ * 
+ * @Stephen Chambers
+ * 10/7/10
+ * 
+ **/
+
+import java.util.Random;
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+
+public class Cockroach extends Ellipse
+{
+  //--------------------------Instance Variables---------------------------
+  private int height, xloc, yloc, rot;
+  private Ellipse cockroach;
+  Random rand1 = new Random();
+  Random rand2 = new Random();
+  
+  public Cockroach( )
+  {
+    xloc =rand1.nextInt(700);
+    yloc = rand2.nextInt(500);
+    height = 10 + rand.nextInt(20-10);
+    rot = rand.nextInt(360);
+    
+    cockroach = new Ellipse(xloc, yloc);
+    cockroach.setSize(3*height, height);
+    cockroach.setRotation(rot);
+  }
+  
+  public void mousePressed(MouseEvent e)
+  {
+    
+  }
+  
+  public static void main(String [] args)
+  {
+    Cockroach cock1 = new Cockroach();
+  }
+  
+}

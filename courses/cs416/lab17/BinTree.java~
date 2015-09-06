@@ -1,0 +1,179 @@
+
+/**
+ * BinTree -- this class uses a separate BiNode class to
+ * store nodes. The tree class is pretty lame; it just contains
+ * a reference to the root of the tree.
+ */
+
+import java.util.*;
+import java.io.*;
+
+public class BinTree 
+{
+  //-------------------- instance variables ---------------------
+  private BiNode  _root;
+  private int    _size;
+  
+  //-------------------- constructors --------------------------
+  /**
+   * Construct an empty tree with no nodes
+   */
+  public BinTree( BiNode root )
+  {
+    _root = root;
+  }
+  
+  //--------------------- root() ----------------------------------
+  /**
+   * return the root of the tree; this is package access so that DisplayPanel
+   * can do a prefix walk of the tree. Would be better to have multiple
+   * iterators.
+   */
+  BiNode root()
+  {
+    return _root;
+  }
+  
+  //-------------------- height() ------------------------------------
+  /**
+   * return the height of the tree 
+   */
+  public int height()
+  {
+    return _root.height();
+  }
+  
+  //------------------------ add( int ) ------------------------
+  public void add( int val )
+  {
+    _root.add( val );
+  }
+  //-------------------------- size() -------------------------
+  /**
+   * return tree size
+   */
+  public int size()
+  {
+    return 0;
+    //return _root.size();
+  }
+  //-------------------------- print() -------------------------
+  /**
+   * print tree
+   */
+  public void print()
+  {
+    System.out.println( _root );
+  }
+  //-------------------------- pointsInRange() -------------------------
+  /**
+   * find all the points in a range
+   */
+  public ArrayList<Integer> pointsInRange( int min, int max )
+  {
+    ArrayList<Integer> points = new ArrayList<Integer>();
+    _root.findPoints( min, max, points );
+    return points;
+  }
+  //-------------------------- split() -------------------------
+  /**
+   * split a node. Use a value to pick node. 
+   * The value does not need to be in the node; it just identifies
+   * which node it would be in if it were in a node.
+   */
+  public void split( int value )
+  {
+    System.out.println( "Split called " + value );
+    BiNode loc = _root.findLeaf( value );
+    if ( loc != null )
+      loc.split( value );
+  }
+  //-------------------------- merge() -------------------------
+  /**
+   * merge a node with its sibling. Use a value to pick node. 
+   * The value does not need to be in the node; it just identifies
+   * which node it would be in if it were in a node.
+   */
+  public void merge( int value )
+  {
+    System.out.println( "Merge called " + value );
+    BiNode loc = _root.findLeaf( value );
+    BiNode sibling = null;
+    
+    if(loc != null)
+    {
+      if(loc._parent !=  null)
+      {
+        sibling = loc._parent._right;
+      }
+    }
+    ArrayList<Integer> locValues = loc.getValues();
+    ArrayList<Integer> sibValues = locValues;
+    
+    loc._parent._left = null;
+    loc._parent._right = null;
+    
+    for(int i = 0; i < locValues.size(); i++)
+    {
+      loc._parent.add(locValues.get(i));
+    }
+    
+    if(sibling != null)
+    {
+      sibling._parent._left = null;
+      sibling._parent._right = null;
+      
+      for(int i = 0; i < sibValues.size(); i++)
+      {
+        loc._parent.add(locValues.get(i));
+      }
+      
+    }
+    
+    
+    //////////////////////////////////////////////////////////
+    // Add code here to complete the merge
+    //
+    // The findLeaf( value ) method of BiNode will return the
+    //   leaf of the tree that has the range that includes value.
+    // Invoke that method using the _root instance variable of 
+    //
+    // Need to get to parent of that node, and get the sibling
+    //  of the one returned from findLeaf.
+    //
+    // Then use the 'getValues()' method to get the data points
+    // for the found node and for its sibling. All of the data
+    // points for both nodes must be added to the parent, AFTER
+    // setting the parent's left and right links to null!
+    //
+    // Note that the sibling of a leaf node might not itself be
+    // a leaf, so you'll be deleting a subtree. However, it's 
+    // straightforwad since the "getValues()" method when called
+    // on an internal node will return all the values in all its
+    // descendents.
+    //
+    ////////////////////////////////////////////////////////////
+  }
+  //---------------------- findLeaf( int ) -----------------------------
+  /**
+   * find and report on a data for a particular leaf based on a value.
+   * The node whose range contains the value is returned.
+   */
+  public BiNode findLeaf( int value )
+  {  
+    return _root.findLeaf( value );
+  }
+  //-------------------------- toString() -------------------------
+  /**
+   * Generate a string representation of the tree.
+   */
+  public String toString()
+  {
+    return _root.toString( ) ;        
+  }
+  //--------------------- main -----------------------------------------
+  public static void main( String[] args )
+  {
+    BinTreeLab app = new BinTreeLab( "BinTree", args );
+  }
+}

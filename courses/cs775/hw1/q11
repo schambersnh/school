@@ -1,0 +1,1 @@
+\project_{Dname, Pname}(DEPARTMENT \join_{Dnumber=Dnum} \select_{PLocation='Stafford' or PLocation='Houston'}(PROJECT));

@@ -1,0 +1,16 @@
+#1. Write add 11 in assembly, takes an int, adds 11 to it, and returns the result
+#2. Write threadYield
+
+.text
+.align 4
+.globl asm_add11
+
+asm_add11:
+pushl %ebp
+movl %esp, %ebp
+###############################################################################
+movl 8(%ebp), %eax
+addl $11, %eax
+###############################################################################
+popl %ebp
+ret

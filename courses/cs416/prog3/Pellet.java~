@@ -1,0 +1,17 @@
+import java.awt.*;
+public class Pellet extends JEllipse
+{
+  public Pellet()
+  {
+    super();
+    setColor(Color.BLACK);
+    setSize(10, 10);
+  }
+  public Pellet(int x, int y)
+  {
+    super(x, y);
+    setColor(Color.BLACK);
+    setSize(10, 10);
+  }
+  
+}

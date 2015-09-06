@@ -1,0 +1,218 @@
+import java.awt.Color;
+import wheelsunh.users.*;
+import java.util.Random;
+public class MastermindApp
+{
+  //--------------------Instance Variables------------------------------------
+  protected Rectangle outerBoard, rectHide, outerCheck[];
+  protected Random randGen;
+  protected Peg myPegs[], myCode[], myBoardPegs[][];
+  protected CheckCode myCheckCode[];
+  protected int myX, myY, randColor, curRow = 0, pegCount = 0, colorCount = 0;
+  protected int checkX = 310, checkY = 47, userX, userY;
+  protected boolean isNear, checkable;
+  protected Color colors[] = {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN,
+    Color.MAGENTA, Color.YELLOW};
+  
+  public MastermindApp(int x, int y)
+  {
+    userX = x;
+    userY = y;
+    
+    //Initializes the Random Number Generator
+    randGen = new Random();
+    
+    //Creates the Outer Board of MastermindApp
+    outerBoard = new Rectangle(x-10, y-10);
+    outerBoard.setSize(150, 400);
+    outerBoard.setFillColor(Color.ORANGE);
+    outerBoard.setFrameColor(Color.BLACK);
+    
+    /*
+     * Initializes an array of boxes that tell the user how close their guess
+     * is to the secret code
+     * */
+    myCheckCode = new CheckCode[12];
+    for(int i = 0; i < 12; i++)
+    {
+      myCheckCode[i] = new CheckCode(checkX, checkY);
+      checkY += 30;
+    }
+    
+    
+    //Initializes 2 Dimensional Array of Pegs for the Board
+    myBoardPegs = new Peg[12][4];
+    //Saves x value
+    myX = x;
+    myY = y;
+    
+    //Creates Board Pegs
+    for(int i = 0; i < 12; i++)
+    {
+      for(int j = 0; j < 4; j++)
+      {
+        myBoardPegs[i][j] = new Peg(x, y, Color.GRAY, false, this);
+        x += 30;   
+      }  
+      //Increments y and resets x
+      y+=30;
+      x = myX; 
+    }
+    //Initializes array of Pegs for the User
+    myPegs = new Peg[6];
+    for(int i = 0; i < 6; i++)
+    {
+      myPegs[i] = new Peg(x + 200, y - 360, colors[i], true, this);
+      x += 30;
+    }  
+   
+     //Generate a new Code
+    genCode();
+    //Hide the Code
+    hideCode();
+  }
+   //--------------------------------------------------------------------------
+  /*
+   * Generates a new Code
+   * */
+  public void genCode()
+  {
+    myCode = new Peg[4];
+    int x = 200;
+    
+    for(int i = 0; i < 4; i++)
+    {
+      randColor = randGen.nextInt(6);
+      myCode[i] = new Peg(x, 410, colors[randColor], false, this);
+      x+= 30;
+    }
+  }
+  //---------------------------------------------------------------------------
+  /*
+   * Creates a rectangle to hide the secret code
+   * */
+  public void hideCode()
+  {
+    int x = 200;
+    int y = 50;
+    
+    
+    rectHide = new Rectangle(x, y + 360);
+    rectHide.setSize(110, 20);
+    rectHide.setColor(Color.BLACK);
+  }
+  public void newGame()
+  {
+    //Generate a new Code
+    genCode();
+    //Hide the Code
+    hideCode();
+    Peg s[][] = getBoardPegs();
+    //Sets all pegs to Black
+    //Creates Board Pegs
+    for(int i = 0; i < 12; i++)
+    {
+      for(int j = 0; j < 4; j++)
+      {
+        myBoardPegs[i][j] = new Peg(userX, userY, Color.GRAY, false, this);
+        userX += 30;
+      }  
+      //Increments y and resets x
+      userY += 30;
+      userX = myX;
+     
+     
+    }
+    userY = myY;
+    for(int i = 0; i < 4; i++)
+    {
+      myBoardPegs[0][i].setColor(Color.BLACK);
+    }
+  }
+   //---------------------------------------------------------------------------
+  /*
+   * Shows Rectangle that hides the Code
+   * */
+  //---------------------------------------------------------------------------
+  public void showCode()
+  {
+    rectHide.hide();
+  }
+   //---------------------------------------------------------------------------
+  /*
+   *Gets the Current Row of the Two Dimensional array for the Peg MouseReleased
+   *Method
+   * */
+  //---------------------------------------------------------------------------
+  public Peg[] getCurRow()
+  {
+    return myBoardPegs[curRow];
+    
+  }
+  public Peg[][] getBoardPegs()
+  {
+    return myBoardPegs;
+  }
+   //---------------------------------------------------------------------------
+  /*Returns the Secret Code 
+   * */
+  //---------------------------------------------------------------------------
+  public Peg[] getCode()
+  {
+    return myCode;
+  }
+   //---------------------------------------------------------------------------
+  public void incNumPegs()
+  {
+    pegCount++;
+    if (pegCount == 4)
+    {
+      Peg curBoardPegs[] = this.getCurRow();
+      for(int i = 0; i < 4; i++)
+      {
+        System.out.println(curBoardPegs[i].getColor());
+      }
+      Peg myCode[] = this.getCode();
+      for(int i = 0; i < 4; i++)
+      {
+        if(curBoardPegs[i].getColor() == myCode[i].getColor())
+        {
+          colorCount++;
+        }
+      }
+      System.out.println(colorCount);
+      curRow++;
+      pegCount = 0;
+      Peg myBoardPegs[] = this.getCurRow();
+      for (int i = 0; i < 4; i++)
+      {
+        myBoardPegs[i].setColor(Color.BLACK);
+      }
+    }
+  }
+  //----------------------------------------------------------------------------
+  /**
+   *
+   * Initializes Game Display
+   */
+  
+  public static void main(String [] args)
+  {
+    Frame f = new Frame();
+    MastermindApp app = new MastermindApp(200, 50);
+    
+    
+    NewGameButton newGame = new NewGameButton(500, 200, app);
+    newGame.setText("New Game");
+    
+    HideButton showHide = new HideButton(500, 250, app);
+    showHide.setText("Show/Hide");
+    
+    
+    Peg myBoardPegs[] = app.getCurRow();
+    for (int i = 0; i < 4; i++)
+    {
+      myBoardPegs[i].setColor(Color.BLACK);
+    }
+  }
+} //End of Class

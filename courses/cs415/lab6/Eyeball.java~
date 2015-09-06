@@ -1,0 +1,25 @@
+import wheelsunh.users.*;
+import java.awt.Color;
+
+Public Class Eyeball()
+{
+  ////////////////////Instance Variables//////////////////////////
+  Ellipse e1;
+  Ellipse e2;
+  int ballSize, irisSize, xLocation, yLocation;
+  Color irisColor;
+  
+  public Eyeball()
+  {
+    e1 = new Ellipse(50, 0);
+    e2 = new Ellipse(25, 10);
+    e2.setColor(Color.Blue);
+    
+  }
+  
+}
+public static void main(String [] args)
+{
+  Frame f = new Frame();
+  
+}

@@ -1,0 +1,124 @@
+
+/* this class provides a student data base.  Students may be
+ * looked up by their id number, and they may be output in
+ * original insertion order.
+*/
+
+#include <iostream>
+#include "StudentDB.h"
+#include "Student.h"
+#include "CourseDB.h"
+using namespace std;
+
+class Student;
+class CourseDB;
+
+
+
+        StudentDB::StudentDB(int size)
+            // constructs empty database with specified number of
+            // elements in array
+	{
+		int i;
+		expected = size;
+		table = new Elem*[expected];
+		for(i = 0; i < expected; i++)
+		{
+			table[i] = 0;
+		}
+		head = 0;
+	}
+
+        StudentDB::~StudentDB()
+            // destructor
+	{
+		int i;
+		for(i = 0; i < expected; i++)
+		{
+			delete table[i];
+		}
+		Elem * p = head;
+		while(head != 0)
+		{
+		p = head;
+		head = head -> next;
+		delete p;
+		}
+	}
+
+        void StudentDB::insert(const Student & v) throw(Duplicate)
+            // inserts student into database.  Throws exception
+            // if student already in database.
+	{
+		int index = v.hash(expected);
+		Elem * p = table[index];
+
+		while(p && (*p -> infoPtr) != v)
+		{
+			p = p -> next;
+		}
+		if(p != 0)
+		{
+			throw Duplicate();
+		}
+		else
+		{
+			//hash table
+			Elem * elem = new Elem;
+			Student * student = new Student;
+			(*student) = v;
+			elem -> infoPtr = student;
+			elem -> next = table[index];
+			table[index] = elem;
+
+			Elem * p2 = new Elem;
+			p2 -> infoPtr = student;
+			p2 -> next = 0; 
+			if(head == 0)
+			{
+				head = p2;
+			}
+			else
+			{
+				tail -> next = p2;
+			}
+			tail = p2;	
+		}
+		
+	}
+
+        const Student * StudentDB::find(const Student & v) const
+            // returns pointer to student in database or null if
+            // not found
+	{	
+		int index = v.hash(expected);
+		Elem * p = table[index];
+
+		while(p && (*p -> infoPtr) != v)
+		{
+			p = p -> next;
+		}
+		if(p != 0)
+		{
+			return p-> infoPtr;
+		}
+		else
+		{
+			return NULL;
+		}
+		
+	}
+
+        void StudentDB::printSchedules(ostream & s, const CourseDB & data) const
+            // prints schedules of all students in database
+	{
+		Elem *p = head;
+		while(p)
+		{
+			p -> infoPtr -> printSchedule(s, data); 
+			cout << endl;
+			p = p -> next;
+		}
+	}
+
+   

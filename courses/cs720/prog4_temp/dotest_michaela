@@ -1,0 +1,1365 @@
+#!/bin/bash
+
+# Make sure match works
+function test1()
+{
+	echo "Running test1: Checking Match"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "not match" >> tmp
+	echo "abcd" >> tmp
+	
+	./frep "abc" < tmp > output
+	
+	echo "1: abcabc" > correct
+	echo "3: abcd" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure matchany works
+function test2()
+{
+	echo "Running test2: Checking Matchany"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abc. abc" > tmp
+	echo "not match" >> tmp
+	echo "abc  d Other text to make sure this works" >> tmp
+	echo "not match" >> tmp
+	echo "This line is trying toabcd Hide the match" >> tmp
+	
+	./frep "abc. ." < tmp > output
+	
+	echo "1: abc. abc" > correct
+	echo "3: abc  d Other text to make sure this works" >> correct
+	echo "5: This line is trying toabcd Hide the match" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure matchset works
+function test3()
+{
+	echo "Running test3: Checking Matchset"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcnopqrstuvwxyz123|" > tmp
+	echo "match" >> tmp
+	echo "day" >> tmp
+	echo "" >> tmp
+	echo "aaaaaaaaaaaaaaadaaaaaaaaaaaaaaaa" >> tmp
+	
+	./frep "[d-m]" < tmp > output
+	
+	echo "2: match" > correct
+	echo "3: day" >> correct
+	echo "5: aaaaaaaaaaaaaaadaaaaaaaaaaaaaaaa" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure split and jump works
+function test4()
+{
+	echo "Running test4: Checking Split & Jump"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcnopqrstuvwxyz123|" > tmp
+	echo "match" >> tmp
+	echo "abbbbbbbbbbbbbbb" >> tmp
+	echo "" >> tmp
+	echo "aaaaaaaaaaaaaaabaaaaaaaaaaaaaaaa" >> tmp
+	
+	./frep "ab*" < tmp > output
+	
+	echo "1: abcnopqrstuvwxyz123|" > correct
+	echo "2: match" >> correct
+	echo "3: abbbbbbbbbbbbbbb" >> correct
+	echo "5: aaaaaaaaaaaaaaabaaaaaaaaaaaaaaaa" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure next_if_soln works
+function test5()
+{
+	echo "Running test5: Checking Next if SOLN"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcnopqrstuvwxyz123|" > tmp
+	echo "no match" >> tmp
+	echo "ababc" >> tmp
+	echo "" >> tmp
+	echo "abc" >> tmp
+	echo "aaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaa" >> tmp
+	
+	./frep "^abc" < tmp > output
+	
+	echo "1: abcnopqrstuvwxyz123|" > correct
+	echo "5: abc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure next_if_eoln works
+function test6()
+{
+	echo "Running test6: Checking Next if EOL"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcnopqrstuvwxyz123|" > tmp
+	echo "no match" >> tmp
+	echo "ababc" >> tmp
+	echo "" >> tmp
+	echo "abc" >> tmp
+	echo "aaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaa" >> tmp
+	
+	./frep "abc$" < tmp > output
+	
+	echo "3: ababc" > correct
+	echo "5: abc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep can read a file
+function test7()
+{
+	echo "Running test7: Checking Read from file"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo $res",1: a" > correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles '-' as stdin
+function test8()
+{
+	echo "Running test8: Checking '-' is stdin"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" - < tmp > output
+	
+	echo "1: a" > correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles can read from multiple files
+function test9()
+{
+	echo "Running test9: Checking Read from Multiple Files"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" tmp tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo $res",1: a" > correct
+	echo $res",1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles reading multiple '-' each as stdin
+function test10()
+{
+	echo "Running test10: Checking Read from stdin Mutiple Times"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" - - < tmp > output
+	
+	echo "1: a" > correct
+	echo "1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles reading '-' as stdin and reading a file
+function test11()
+{
+	echo "Running test11: Checking Read from stdin and File"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo "1: a" > correct
+	echo $res",1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles reading a file and reading '-' as stdin
+function test12()
+{
+	echo "Running test12: Checking Reading from File and stdin"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" tmp - < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo $res",1: a" > correct
+	echo "1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles reading multiple files and reading '-' as stdin
+function test13()
+{
+	echo "Running test13: Checking Reads from Multiple files and stdin"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" tmp - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo $res",1: a" > correct
+	echo "1: a" >> correct
+	echo $res",1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles reading multiple files and multiple '-' as stdins
+function test14()
+{
+	echo "Running test14: Checking Multiple Files and Multiple stdins"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep "^a$" tmp - tmp - tmp - < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo $res",1: a" > correct
+	echo "1: a" >> correct
+	echo $res",1: a" >> correct
+	echo "1: a" >> correct
+	echo $res",1: a" >> correct
+	echo "1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -c flag correctly
+function test15()
+{
+	echo "Running test15: Checking -c Flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep -c "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "action_limit = 5 instructions generated" > correct
+	echo "    1: next_if_soln" >> correct
+	echo "    2:        match 'a'" >> correct
+	echo "    3: next_if_eoln" >> correct
+	echo "    4:         done" >> correct
+	echo "1: a" >> correct
+	echo $res",1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -i flag correctly
+function test16()
+{
+	echo "Running test16: Checking -i Flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -i "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1: a" > correct
+	echo "3: A" >> correct
+	echo $res",1: a" >> correct
+	echo $res",3: A" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -r flag correctly
+function test17()
+{
+	echo "Running test17: Checking -r flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -r "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "2: no match" > correct
+	echo "3: A" >> correct
+	echo $res",2: no match" >> correct
+	echo $res",3: A" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -s flag correctly
+function test18()
+{
+	echo "Running test18: Checking -s flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -s "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1" > correct
+	echo $res": 1" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -h flag correctly
+function test19()
+{
+	echo "Running test19: Checking -h flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -h "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "-h: 	print this help information." > correct
+	echo "-i: 	turn case sensitivity ON (default OFF)" >> correct
+	echo "-s: 	turn summary ON (default OFF). A single output line containing the count" >> correct
+	echo "	of selected input lines is generated." >> correct
+	echo "-l57: 	set line length to 57 (default 0)" >> correct
+	echo "-m102: 	set maximum input lines to 102 (defaul 255)" >> correct
+	echo "Usage: frep [OPTIONS] pattern_string [list of input file names]" >> correct
+	echo "Try frep -h for more information." >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -l number flag correctly
+function test20()
+{
+	echo "Running test20: Checking -l flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -l3 "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1: abc" > correct
+	echo "2: abc" >> correct
+	echo "4: abc" >> correct
+	echo "8: abc" >> correct
+	echo $res",1: abc" >> correct
+	echo $res",2: abc" >> correct
+	echo $res",4: abc" >> correct
+	echo $res",8: abc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles the -m number flag correctly
+function test21()
+{
+	echo "Running test21: Checking -m flag"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -m3 "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1: abcabc" > correct
+	echo "2: abcd" >> correct
+	echo "3: Aabc" >> correct
+	echo $res",1: abcabc" >> correct
+	echo $res",2: abcd" >> correct
+	echo $res",3: Aabc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles all the flags correctly
+function test22()
+{
+	echo "Running test1: Checking Handles All Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -hircsl3 -m3 "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "-h: 	print this help information." > correct
+	echo "-i: 	turn case sensitivity ON (default OFF)" >> correct
+	echo "-s: 	turn summary ON (default OFF). A single output line containing the count" >> correct
+	echo "	of selected input lines is generated." >> correct
+	echo "-l57: 	set line length to 57 (default 0)" >> correct
+	echo "-m102: 	set maximum input lines to 102 (defaul 255)" >> correct
+	echo "Usage: frep [OPTIONS] pattern_string [list of input file names]" >> correct
+	echo "Try frep -h for more information." >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles all the flags correctly
+function test23()
+{
+	echo "Running test23: Checking Handles All Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -ircsl3 -m3 -h "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "-h: 	print this help information." > correct
+	echo "-i: 	turn case sensitivity ON (default OFF)" >> correct
+	echo "-s: 	turn summary ON (default OFF). A single output line containing the count" >> correct
+	echo "	of selected input lines is generated." >> correct
+	echo "-l57: 	set line length to 57 (default 0)" >> correct
+	echo "-m102: 	set maximum input lines to 102 (defaul 255)" >> correct
+	echo "Usage: frep [OPTIONS] pattern_string [list of input file names]" >> correct
+	echo "Try frep -h for more information." >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles a lot of errors
+function test24()
+{
+	echo "Running test24: Checking Handles Flag Errors"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -l -m -m -l -l0 -m0 -l1024 -l3 -m3 "abc" - tmp < tmp 2> output
+	
+	echo "Illegal numeric value \"-m\" for switch -l. For the help menu use"\
+		 "the -h flag" > correct
+	echo "Illegal numeric value \"-l\" for switch -m. For the help menu use"\
+		 "the -h flag" >> correct
+	echo "Illegal argument 0 for flag -l" >> correct
+	echo "Illegal argument 0 for flag -m" >> correct
+	echo "Illegal argument 1024 for flag -l" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles other errors
+function test25()
+{
+	echo "Running test25: Checking Handles Flag Errors"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -g -l "abc" - tmp < tmp 2> output
+	
+	echo "Illegal switch 'g'" > correct
+	echo "Illegal numeric value \"abc\" for switch -l. For the help menu use"\
+		 "the -h flag" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -c flags correctly
+function test26()
+{
+	echo "Running test26: Checking Handles Multiple -c Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	
+	./frep -c -c "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "action_limit = 5 instructions generated" > correct
+	echo "    1: next_if_soln" >> correct
+	echo "    2:        match 'a'" >> correct
+	echo "    3: next_if_eoln" >> correct
+	echo "    4:         done" >> correct
+	echo "1: a" >> correct
+	echo $res",1: a" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -i flags correctly
+function test27()
+{
+	echo "Running test27: Checking Handles Multiple -i Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -i -i "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1: a" > correct
+	echo "3: A" >> correct
+	echo $res",1: a" >> correct
+	echo $res",3: A" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -r flags correctly
+function test28()
+{
+	echo "Running test28: Checking Handles Multiple -r Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -r -r "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "2: no match" > correct
+	echo "3: A" >> correct
+	echo $res",2: no match" >> correct
+	echo $res",3: A" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -s flags correctly
+function test29()
+{
+	echo "Running test29: Checking Handles Multiple -s Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -s -s "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1" > correct
+	echo $res": 1" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -h flags correctly
+function test30()
+{
+	echo "Running test30: Checking Handles Multiple -h Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "a" > tmp
+	echo "no match" >> tmp
+	echo "A" >> tmp
+	
+	./frep -h -h "^a$" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo "-h: 	print this help information." > correct
+	echo "-i: 	turn case sensitivity ON (default OFF)" >> correct
+	echo "-s: 	turn summary ON (default OFF). A single output line containing the count" >> correct
+	echo "	of selected input lines is generated." >> correct
+	echo "-l57: 	set line length to 57 (default 0)" >> correct
+	echo "-m102: 	set maximum input lines to 102 (defaul 255)" >> correct
+	echo "Usage: frep [OPTIONS] pattern_string [list of input file names]" >> correct
+	echo "Try frep -h for more information." >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -l number flags correctly
+function test31()
+{
+	echo "Running test31: Checking Handles Multiple -l Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -l20 -l100 -l3 "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1: abc" > correct
+	echo "2: abc" >> correct
+	echo "4: abc" >> correct
+	echo "8: abc" >> correct
+	echo $res",1: abc" >> correct
+	echo $res",2: abc" >> correct
+	echo $res",4: abc" >> correct
+	echo $res",8: abc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple -m number flags correctly
+function test32()
+{
+	echo "Running test32: Checking Handles Multiple -m Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep -m27 -m100 -m3 "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+
+	echo "1: abcabc" > correct
+	echo "2: abcd" >> correct
+	echo "3: Aabc" >> correct
+	echo $res",1: abcabc" >> correct
+	echo $res",2: abcd" >> correct
+	echo $res",3: Aabc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles multiple different flags correctly
+function test33()
+{
+	echo "Running test33: Checking Handles Multiple Flags"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "AbcaBc" > tmp
+	echo "abCd" >> tmp
+	echo "Aabc" >> tmp
+	echo "aBc" >> tmp
+	
+	./frep -cirs -l3 -m6 "abc" - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo "action_limit = 5 instructions generated" > correct
+	echo "    1:        match 'a'" >> correct
+	echo "    2:        match 'b'" >> correct
+	echo "    3:        match 'c'" >> correct
+	echo "    4:         done" >> correct
+	echo "3" >> correct
+	echo $res": 3" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles nonexistant files correctly
+function test34()
+{
+	echo "Running test34: Checking Handles Nonexistant File"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo "abcabc" > tmp
+	echo "abcd" >> tmp
+	echo "Aabc" >> tmp
+	echo "abc" >> tmp
+	
+	./frep "abc" notafile - tmp < tmp &> output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo "No such file or directory: For file notafile" > correct
+	echo "1: abcabc" >> correct
+	echo "2: abcd" >> correct
+	echo "3: Aabc" >> correct
+	echo "4: abc" >> correct
+	echo $res",1: abcabc" >> correct
+	echo $res",2: abcd" >> correct
+	echo $res",3: Aabc" >> correct
+	echo $res",4: abc" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Make sure frep handles matchany with nonprintable character
+function test35()
+{
+	echo "Running test35: Checking Handles Matchany with Nonprintable Char"
+	
+    local  _RESULT=$1
+    local  myresult="PASS"
+	
+	echo -e "a\t." > tmp
+	echo "a" >> tmp
+	
+	./frep -s "a." - tmp < tmp > output
+	 
+	cmd="echo $(cd $(dirname tmp); pwd)/$(basename tmp)"
+	eval res=\$\($cmd\)
+	
+	echo "1" > correct
+	echo $res": 1" >> correct
+	
+	cmd="diff output correct"
+	eval res=\$\($cmd\)
+	
+	if [ "$res" == "" ]; then
+		myresult="PASS"
+	else
+		myresult="FAIL"
+	fi
+	
+	rm correct
+	rm output
+	rm tmp
+	
+    eval $_RESULT="'$myresult'"
+}
+
+# Run all the tests
+function run_tests()
+{
+	num_pass=0
+	num_tests=0
+	TESTS=( test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11
+		 test12 test13 test14 test15 test16 test17 test18 test19 test20 test21 
+		 test22 test23 test24 test25 test26 test27 test28 test29 test30 test31
+		 test32 test33 test34 test35 )
+	
+	for t in "${TESTS[@]}"
+	do
+		$t result
+		num_tests=`expr $num_tests + 1`;
+		echo "    ==="$result"==="
+		if [ $result == "PASS" ]; then
+			num_pass=`expr $num_pass + 1`;
+		fi
+	done
+	
+	echo $num_pass" / "$num_tests
+	num_fail=`expr $num_tests - $num_pass`;
+	
+	if [ $num_fail == 1 ]; then
+		echo "Failed "$num_fail" test"
+	else 
+		if [ $num_fail == 0 ]; then
+			echo "Success: did not fail any tests!"
+		else
+			echo "Failed "$num_fail" tests"
+		fi
+	fi
+}
+
+run_tests

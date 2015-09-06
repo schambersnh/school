@@ -1,0 +1,127 @@
+/**
+ * Chapter 7: MoverGUI.java
+ * Creates the panel to be placed inside the SwingApp window.
+ *
+ * 1/30/08: rdb
+ *    Renamed (old name was BallApp)
+ * 01/28/09: rdb
+ *    Revised to use null Layout
+ */
+import java.awt.*;
+import java.awt.geom.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class MoverGUI extends JPanel implements Animated 
+{
+   //------------ package static variables for command line args -------
+   static int     dxInitialMove = 4;
+   static int     dyInitialMove = 4;
+   //------------------------- instance variables -----------------------
+   private JSnowMan _snowman;
+   
+   private FrameTimer _timer;
+   private final int INTERVAL = 100;
+   
+   //------------------------- constructor ----------------------------
+   public MoverGUI( int w, int h ) 
+   {
+      super();
+      setLayout( null );    // make sure no layout manager tries to 
+                            //   layout the objects added to this JPanel.
+      JPanel panel = new JPanel();
+
+      panel.setSize( w, h );
+      panel.setLayout( null );
+      add( panel );
+
+      //buildGUI();    // add the GUI components for this app
+      buildDisplay( panel );        // build the initial display for the app
+      
+      this.setBackground( Color.white );
+      
+      _timer = new FrameTimer( INTERVAL, this );
+      _timer.start();
+   }
+   //-----------------------  buildGUI() --------------------------
+   /**
+    * encapsulate code that builds GUI components for the program.
+    */
+   private void buildGUI( )
+   {
+      add( new JButton( "East" ), BorderLayout.EAST );
+      add( new JButton( "North" ), BorderLayout.NORTH );
+      add( new JButton( "West" ), BorderLayout.WEST );
+      
+      // Put several buttons in the South
+      String labels[] = { "South0", "South1", "South2" };
+      JPanel southPanel = new JPanel();
+      for ( int i = 0; i < labels.length; i++ )
+      {
+         JButton button = new JButton( labels[ i ] );
+         button. addActionListener( new MyButtonListener( i ));
+         southPanel.add( button );
+      }
+      add( southPanel, BorderLayout.SOUTH );
+   } 
+   //-----------------------  buildDisplay() --------------------------
+   /**
+    * encapsulate code that builds display components for startup.
+    */
+   private void buildDisplay( JPanel panel )
+   {
+      // for now just have 1 snow man
+      _snowman = new JSnowMan( 50, 80 );
+      _snowman.setMove( dxInitialMove, dyInitialMove ); 
+      panel.add( _snowman );
+   }
+   //++++++++++++++++++++++ MyButtonListener ++++++++++++++++++++++++++
+   // public inner class for button event handler:
+   public class MyButtonListener implements ActionListener
+   {
+      int _btnId;  // which button is associated with this ActionListener
+      public MyButtonListener( int btnId )
+      {
+         _btnId = btnId;   // save the id for the actionPerfomed invocation
+      }
+      public void actionPerformed( ActionEvent ev )
+      {
+         System.out.println( "Button " + _btnId + " event." );
+         //////////////////////////////////////////////////////////////
+         // add code here to test _btnId and do what needs to be
+         //   done for each button. 
+         // As an inner class, code here has access to all instance
+         //   variables and methods of the outer class.
+         //////////////////////////////////////////////////////////////
+      }
+   }
+
+   //++++++++++++++++++++++++ Animated interface methods +++++++++++++++++++++
+   private boolean _animated = true;  // instance variable
+   //---------------------- isAnimated() ----------------------------------
+   public boolean isAnimated()
+   {
+      return _animated;
+   }
+   //---------------------- setAnimated( boolean ) --------------------
+   public void setAnimated( boolean onOff )
+   {
+      _animated = onOff;
+   }
+   //-------------------------- newFrame() --------------------------------
+   /**
+    * implements Animated interface. On each time event, 
+    * move each component
+    */
+   public void newFrame() 
+   {
+     _snowman.newFrame();
+      this.repaint();
+   }   
+   //+++++++++++++++++++ application starter ++++++++++++++++++++
+   //-------------------------- main ----------------------------
+   public static void main( String[] args )
+   {
+      MoverApp app = new MoverApp( "MoverApp from DrawPanel", args );
+   }  
+}

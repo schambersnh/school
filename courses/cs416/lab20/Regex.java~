@@ -1,0 +1,244 @@
+/**
+ * Regex - this class encapsulates some of Java's regular expression behavior
+ *         into a single class.
+ * 
+ * This is just a skeleton. You must fill in the code.
+ * 
+ * @author rdb
+ * April 2009
+ */
+import java.util.regex.*;
+import java.io.*;
+import java.text.*;
+
+public class Regex
+{
+   //--------------------- instance variables ----------------------------
+  
+   private Pattern          _pattern;
+   private Matcher          _matcher;
+   
+   private String           _regexString;    // the currently active reg expr
+   private String           _testInput;      // the current input
+   private int              _flags = 0;
+   
+      
+   //---------------------- constructor ----------------------------------
+   /**
+    * Build a Regex object; none of the require information is available yet.
+    */
+   public Regex()
+   {
+      _regexString = null;
+      _testInput   = null;
+      _pattern     = null;
+      _matcher     = null;
+   }
+   //---------------------- setRegex( String) -----------------------------
+   /**
+    * Given a regular expression as a string, create a Pattern object
+    * and also a Matcher if we have an input string already.
+    */
+   public void setRegex( String regex )
+   {  
+      if ( regex != null && regex.length() > 0 )
+      {
+         //////////////////////////////////////////////////////////////
+         // Step 1a.
+         // If the argument is not null and has length > 0, create a 
+         //   pattern object from the string, usingthe "compile" static 
+         //   method of Pattern.
+         //
+         //   The first argument to Pattern.compile is the regex string,
+         //   The 2nd argument must be _flags.
+         //       You should initialize the _flags instance variable to 
+         //             Pattern.MULTILINE
+         //       This tells the regex processor to treat each line as 
+         //       a separate input. This means that ^ matches the first
+         //       character of a line and $ matches the last -- the normal
+         //       behavior is for ^ to match the start of the input string
+         //       and $ matches the end of the string. In our case, we have
+         //       squashed all of the lines of the input into a single String
+         //       for convenience.
+         //
+         //   If the user has defined an input string (_testInput), create a
+         //       Matcher from the Pattern object and the String to be tested.
+         //         _pattern.matcher( _testInput );
+         //   You'll use the Matcher object for actual matching operations.
+         ////////////////////////////////////////////////////////////////////
+         
+         
+      }
+   }
+   //------------------ setInput() ------------------------
+   /**
+    * Save the new input, create a Matcher if you have a pattern
+    */
+   public void setInput( String testString )
+   {
+      _testInput = testString;
+      if ( _pattern != null && testString != null )
+      {
+         /////////////////////////////////////////////////////////
+         // Step 1b.
+         // create a Matcher object using the matcher( String )
+         // method of the Pattern class; assign it to the 
+         // _matcher instance variable.
+         /////////////////////////////////////////////////////////
+         
+         
+      }
+   }
+   //---------------------- find() -----------------------------
+   /**
+    * return the next match (not all of them)
+    */
+   public String find( )
+   {  
+      String results = null;
+      if ( _matcher == null )
+         results = "****** Error ***** matcher is not defined.";
+      else
+      {
+         /////////////////////////////////////////////////////////////
+         // Step 1c.
+         // Invoke the "find()" method of the Matcher class.
+         // If it returns true, you can get the matches substring
+         //   by calling the "group()" method of Matcher; return
+         //   that result.
+         // If find() returns false, return null
+         /////////////////////////////////////////////////////////////
+         
+         
+      }
+      return results;
+   }
+
+   //------------------ findAll() ------------------------
+   /**
+    * Find all matches in the input string to the pattern
+    *  Return all matches in one string separated by line feeds.
+    */
+   public String findAll()
+   {
+      String results = null;
+      if ( _matcher == null )
+         results = "****** Error ***** matcher is not defined.";
+      else
+      {
+         ///////////////////////////////////////////////////////////////////
+         // Step 3.
+         // keep calling the find method of matcher until it returns false.
+         // For each true match, call the group() method of matcher that
+         // returns the complete string matched by the pattern.
+         // Concatenate all the matches into a single string, separated
+         // by line feeds, and return it.
+         //////////////////////////////////////////////////////////////////
+         
+         
+      }
+      return results;
+   }
+   //------------------ split() ------------------------
+   /**
+    * split the input string according to the r.e.
+    */
+   public String split()
+   {
+      String results = null;
+      if ( _matcher == null )
+         results = "****** Error ***** matcher is not defined.";
+      else
+      {
+         /////////////////////////////////////////////////////////////
+         // Step 4:
+         // the split method of Pattern returns an array of strings.
+         // You need to concatenate them together  (with \n) into a 
+         // single string and return it.
+         ///////////////////////////////////////////////////////////// 
+         
+         
+      }
+      return results;
+   }
+   //---------------------- group() -----------------------------
+   /**
+    * return next group from previous match
+    */  
+   public String group( )
+   {  
+      String results = null;
+      if ( _matcher == null )
+         results = "****** Error ***** matcher is not defined.";
+      else
+      {
+         //////////////////////////////////////////////////////
+         // Step 5
+         // just need to return the results of calling the Matcher
+         // method, group()
+         //////////////////////////////////////////////////////
+         
+         
+      }
+      return results;
+   }
+
+   //---------------------- group( int ) -----------------------------
+   /**
+    * return i-th group from previous match
+    */
+   public String group( int i )
+   {  
+      //////////////////////////////////////////////////////////////
+      // Step 5. 
+      // Need to return the results from calling the 
+      //       Matcher method, group( i ). 
+      //
+      // if there is no group i, return null.
+      //
+      // The problem is to avoid an IndexOutOfBoundsException. This
+      // is thrown if the i-th group doesn't exist or if it did not 
+      // match anything in the current test string.
+      //
+      // There are 2 ways to do this: 
+      // 1. Use the getCount() method.
+      // 2. Put your invocation of group( i ) in a try block and catch the
+      //    exception if it is thrown.
+      ///////////////////////////////////////////////////////////////////
+      
+      
+      return null;
+   }
+
+   //---------------------- reset() -----------------------------
+   /**
+    * reset the regular expression processing on the current input string.
+    * So, next matching will start over again on the same input string.
+    */
+   public void reset( )
+   {  
+      if ( _matcher == null )
+         System.err.println( "*** reset Error *** matcher is not defined." );
+      else
+         _matcher.reset();
+   }
+   //---------------------- setFlags( int ) ---------------------------
+   /**
+    * some flags have changed, need to recompile the pattern and reset
+    */
+   public void setFlags( int flags )
+   {
+      _flags = flags;
+      ////////////////////////////////////////////////////////////
+      // Step 6.  Recompile the pattern, 
+      //          and reinitialize matcher IF there is a defined input string
+      ////////////////////////////////////////////////////////////   
+      
+      
+   }
+   //--------------------- main -----------------------------------------
+   public static void main( String[] args )
+   {
+      new RegexInJava( "Regex in Java", args );
+   }
+}

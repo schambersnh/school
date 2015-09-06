@@ -1,0 +1,43 @@
+Have an array of hash tables that the MULTIPLE THREADS MAKE. create in main program.
+spawn for starters 8 threads on each file.
+
+
+
+struct {
+int numFile;
+int threadID;
+} threadInfo;
+
+offset = buffersize / 8;
+id * offset,  (id*offset + offset);
+
+for(numFile = 1; numFile < argc; numFile ++)
+{
+if the buffer size is shorter then a million...
+struct *** threadArrTable[8];
+pthread_t pt[8];
+for(i = 0; i < 8; i++)
+{
+  threadInfo info;
+  info.numFile = numFile;
+  info.threadID = i;
+  pthread_create(&pt[i], NULL, work, (void*)info);
+}
+for(i = 0; i < 8; i++)
+{
+  pthread_join(pt[i], NULL);
+}
+struct Elem ** fileTable = checkRef(threadArrTable);
+arrTable[numFile] = fileTable;
+else
+create a pthread with seperate work function to process the entire file
+wait;
+(//have thread signal master within bowels of the work function)
+}
+
+void createHash(beginning, end, buffer, id, threadArrTable)
+{
+  create the hash table;
+  threadArrTable[id] = created hash table;
+}
+instead of checkRef adding things to final table, malloc memory to a hash table and create it within the function. Then return it. The main program can then add whatever hash table it created into the main arrTable

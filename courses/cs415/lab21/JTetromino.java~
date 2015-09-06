@@ -1,0 +1,167 @@
+/**
+ * This class models a Tetromino for tetris. 
+ */ 
+
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.util.*;
+import java.awt.Point;
+
+public  class JTetromino 
+{
+   
+   /******************************************************************/
+   //  instance variables
+   
+   // the four tiles for this shape
+   protected Vector< Rectangle > tiles; 
+   
+   // the current board row and column for this shape
+   protected int row, col;
+   
+   // Four configurations for the tile rotations
+   protected Vector< Configuration > config;
+   
+   // the index of the current configuration
+   protected int currentConfigIndex;
+   
+   // the current configuration
+   protected Configuration currentConfig ;
+   
+   
+   /******************************************************************/
+   /**
+    * Constructor: 
+    */ 
+   public JTetromino( int r,  int c )
+   {     
+      
+      
+      
+      
+      
+
+   }
+   
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   //  call drawTile for each tile
+   public void draw(  )
+   {
+    
+      
+      
+   }
+   
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   // Draw the i'th tile
+   public void drawTile( int i )
+   {
+  
+      
+      
+      
+   }
+   
+   
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   /**
+    *  set the board row and column
+    */ 
+   public void setRC(int r, int c )
+   {
+        row = r;
+        col = c;
+   }
+   
+   /******************************************************************/
+   /**
+    * Fall: make  the shape fall one row
+    */ 
+   public void fall()
+   {
+    
+      
+      
+      
+      
+   }
+   
+   /******************************************************************/
+   /**
+    *  get the current configuration
+    */ 
+   public Configuration getConfiguration( )
+   {
+      return currentConfig;
+   }
+   
+   //******************************************************************/
+   /**
+    *  get the current board row
+    */ 
+   public int getRow( )
+   {
+      return row;
+   }
+   
+   // ******************************************************************/
+   /**
+    *   get the current board column 
+    */ 
+   public int getCol( )
+   {
+      return col;
+   }
+   
+   
+   /******************************************************************/
+   /**
+    *   get the maximum row index for this shape
+    */ 
+   public int getMaxRow( )
+   {
+      int max = -1;
+      
+      // calculate and return the maximum row coordinate
+       //for the current configuration
+     
+      
+      
+      return max;
+   }
+   
+   
+   /******************************************************************/
+   /**
+    *  Rotate the shape
+    */ 
+   public void rotate()
+   {
+
+      
+      
+      
+      
+   }
+   
+   
+   /******************************************************************/
+   /**
+    *   Get the tiles from this shape
+    */ 
+   public Vector<Rectangle> getTiles()
+   {
+      return tiles;
+   }
+   
+
+   
+   
+   //---------------------- testing  main ------------------------------------
+   public static void main( String[] args )
+   {     
+      new Frame();
+      new TetrisLab1( );
+      
+   }
+}// end of JTetromino

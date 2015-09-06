@@ -1,0 +1,106 @@
+/*Stephen Chambers
+This program is designed to take in UTF-8 and convert it to 16-bit unicode
+*/
+#include <stdio.h>
+int main()
+{
+  //Ensure the file is set up correctly
+  unsigned int b1, offset;
+  b1 = getchar();
+  if(b1 == EOF)
+  {
+    fprintf(stderr, "Empty file at offset %d. Exiting program", offset);
+    return 0;
+  }
+  else
+  {
+    offset++;
+  }
+  
+  //Loop until EOF
+  while(b1 != EOF)
+  {
+    
+    if(b1 >> 7 == 0x00)
+    {
+      //case 1
+      putchar(0x00);
+      putchar(b1);
+	
+    }
+    else if(b1 >> 5 == 0x06)
+    {
+      //case 2
+      unsigned int  b2, putchar1, putchar2;
+      b2 = getchar();
+      if(b2 == EOF)
+      {
+        fprintf(stderr, "Early EOF detected at offset %d. Exiting program\n", offset);
+        return 0;
+      }
+      else if(b2 >> 6 != 0x02)
+      {
+        fprintf(stderr, "Invalid UTF-8 formatat offset%d. Skipping byte.\n");
+        offset++;
+      }
+      else
+      {
+        offset++;
+        putchar1 = (b1 & 0x1C) >> 2;
+        putchar2 = (b2 & 0x3F) | ((b1 & 0x03) << 6);
+
+        putchar(putchar1);
+        putchar(putchar2);
+      } 
+    }
+
+    else if(b1 >> 4 == 0x0E)
+    {
+      //case 3
+      unsigned int b2, b3, putchar1, putchar2;
+
+      b2 = getchar();
+      if(b2 == EOF)
+      {
+        fprintf(stderr, "Early EOF detected at offset %d. Exiting program.\n", offset);
+        return 0;
+      }
+      else if(b2 >> 6 != 0x02)
+      {
+        fprintf(stderr, "Invalid UTF-8 formatat offset%d. Skipping next 2 bytes.\n");
+        b3 = getchar();
+        offset++;
+        offset++;
+      }
+      else
+      {
+        offset++;
+        b3 = getchar();
+      if(b3 == EOF)
+      {
+        fprintf(stderr, "Early EOF detected at offset %d. Exiting program.\n", offset);
+        return 0;
+      }
+      else
+      {
+        offset++;
+        putchar1 = ((b1 & 0x0F) << 4)|((b2 & 0x3C) >> 2);
+        putchar2 = (b3 & 0x3F) | ((b2 & 0x03) << 6);
+      
+        putchar(putchar1);
+        putchar(putchar2);
+      }
+      }
+      
+      
+    }
+    else
+    {
+       fprintf(stderr, "Invalid UTF-8 format at offset %d. Skipping byte.\n", offset);
+       offset++;
+    }
+    b1 = getchar();
+    offset++;
+  }
+  
+}

@@ -1,0 +1,3 @@
+\project_{Lname, Address}(
+    \select_{Plocation='Houston'}((EMPLOYEE \join_{Ssn=Essn} WORKS_ON) \join_{Pno=Pnumber} PROJECT) \join_{Dno=Dnumber} 
+        (\project_{Dnumber}DEPT_LOCATIONS \diff \project_{Dnumber} (\select_{Dlocation='Houston'} DEPT_LOCATIONS)));

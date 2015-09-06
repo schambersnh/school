@@ -1,0 +1,430 @@
+/**
+ * Game.java - skeleton  for the Golf solitaire game
+ * 
+ * @author rdb
+ * Modified by Stephen Chambers for Program 7
+ * March 2011
+ */
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.util.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+public class Game extends JPanel
+{
+  //------------------------- class variables --------------------------------
+  public static int     numPlayPiles = 3;     // real game uses 7
+  public static int     cardsPerPile = 3;  // real game uses 5
+  public static int     seed = 0;
+  public static boolean pauseAtLeaf;
+  //----------------------- instance variables -------------------------------
+  private ArrayList<Card> _baseDeck = null;
+  private CardStack _drawPile = null;
+  private ArrayList<CardStack> _playPiles = null;
+  private CardStack _discardPile = null;
+  private JPanel _parent;
+  private Card _curCard;
+  private JLabel drawPileSize = new JLabel();
+  private Node _root;
+  
+  //--------------------- position/size variables ---------------------------   
+  private int drawPileX = 80;
+  private int drawPileY = 230;
+  private int playPileX = 140;
+  private int playPileY = 10;
+  private int curOffset = 150;
+  //++++++++++++++++++++++++++++ constructors ++++++++++++++++++++++++++++++
+  
+  //---------------------- Game() ------------------------------------
+  /**
+   * Starts the game in the specified JPanel
+   */
+  public Game()
+  {
+    
+    _baseDeck = new ArrayList<Card>();
+    _drawPile = new CardStack(this);
+    _playPiles = new ArrayList<CardStack>();
+    _discardPile = new CardStack(this);
+    _discardPile.clear();
+    createDeck();
+    this.add(drawPileSize);
+    
+    ///////////////////////////////////////////////////////////
+    // Add code to create and show a JLabel with count of cards left
+    //   in drawPile
+    //////////////////////////////////////////////////////////////
+    
+    initialize();
+  }  
+  //--------------------------deal()--------------------------------------
+  public void deal()
+  {
+    for(int i = 0; i < _baseDeck.size(); i++)
+    {
+      _drawPile.push(_baseDeck.get(i));
+    }
+    for(int i = 0; i < numPlayPiles; i++)
+    {
+      for(int j = 0; j < cardsPerPile; j++)
+      {
+        _playPiles.get(i).push(_drawPile.get(j));
+        _drawPile.remove(_drawPile.get(j));
+      }
+      _playPiles.get(i).displayCards(-1, true);
+      _playPiles.get(i).setLocation(playPileX + (80*i), playPileY);
+      _playPiles.get(i).setYOffset(20);
+    }
+    
+    
+    //System.err.println("Base Deck Size: " + _baseDeck.size());
+    _drawPile.setLocation(drawPileX, drawPileY);
+    
+    
+    getFirstCard();
+    _discardPile.setLocation(drawPileX + 80, drawPileY);
+    update();
+    
+  }
+  
+  //------------------------ initialize() --------------------------------
+  /**
+   * Intializes the piles at the start of the program
+   * Create them and set the location
+   */
+  public void initialize()
+  {
+
+    for(int i = 0; i < _playPiles.size(); i++)
+    {
+      _playPiles.get(i).clear();
+      _playPiles.get(i).show(false);
+    }
+    _playPiles.clear();
+    for(int i = 0; i < numPlayPiles; i++)
+    {
+      _playPiles.add(new CardStack(this));
+    }
+    makeNewDeck();
+    update();
+  }
+  //++++++++++++++++++++++++++++ public methods ++++++++++++++++++++++++++++
+  //----------------- showDrawPile( boolean ) ------------------------
+  /**
+   * toggle display of top card of Draw Pile
+   */
+  public void showDrawPile( boolean onOff )
+  {
+    if(onOff)
+    {
+      _drawPile.top().setFaceUp(true);
+    }
+    
+  }
+  //------------------------getFirstCard--------------------------------
+  /* Puts the first card of the drawPile to the Discard pile
+   * */
+  public void getFirstCard()
+  {
+    Card temp = _drawPile.pop();
+    temp.setFaceUp(true);
+    _curCard = temp;
+    _discardPile.push(temp);
+  }
+  //-------------------- pauseAtLeaf( boolean ) -------------------------
+  /**
+   * toggle display of top card of Draw Pile
+   */
+  public void pauseAtLeaf( boolean onOff )
+  {
+    if(onOff)
+    {
+      pauseAtLeaf = true;
+      if(_root != null)
+      {
+        JOptionPane.showMessageDialog(null, "Node Count: " + Node.nodeCount +
+                                      "\nCurrent leaf Score: " + _root.score);
+       
+        System.err.println("Please select a debugging option." + 
+                           "\n-: Turn off pauseAtLeaf mode." +
+                           "\n+ n: Skip Pause interaction for next n leaves." +
+                           "\np: Report parent information");
+        Scanner scan = new Scanner(System.in);
+        String input = scan.next();
+        if(input.equals("-"))
+        {
+          pauseAtLeaf = false;
+        }
+        else if(input.equals("p"))
+        {
+          
+        }
+      }
+     
+    }
+  }
+  //----------------------hasMatch-------------------------------------
+  public Card hasMatch()
+  {
+    Card cardFound = null;
+    for(int i = 0; i < numPlayPiles; i++)
+    {
+      if(_playPiles.get(i).top() != null)
+      {
+        Card topCard = _playPiles.get(i).top();
+        
+        int topCardOrdinal = topCard.getRank().ordinal();
+        int curCardOrdinal = _curCard.getRank().ordinal();
+        
+        if(topCardOrdinal == curCardOrdinal + 1 ||
+           topCardOrdinal == curCardOrdinal - 1)
+        {
+          cardFound = topCard;
+          _curCard = cardFound;
+          _playPiles.get(i).remove(topCard);
+          break;
+        }
+      }
+    }
+    if(cardFound != null)
+    {
+      return cardFound;
+    }
+    else
+    {
+      return null;
+    }
+  }
+  //------------- playCard() -------------------------------------------
+  /**
+   * Does a play.
+   * If no tree is built, it does the first legal move it finds
+   * If a tree is built, it does the best move from the given state
+   * Returns a string with an error if no moves possible; else
+   *  it returns null.
+   */
+  public String playCard()
+  {
+    /////////////////////////Winning Checks///////////////////////////////////
+    if(_drawPile.size() == 0)
+    {
+      int score = getResults();
+      return "Sorry, you lost with a score of " + score;
+    }
+    else if(winner())
+    {
+      JOptionPane.showMessageDialog(null, "You scored: " + _drawPile.size());
+      return "You won!";
+    }
+    /////////////////////////////IF TREE EXITS////////////////////////////////
+    if(_root != null)
+    {
+        play(_root.bestScore);
+        _root = _root.bestScore;
+        return null;
+  }
+  /////////////////////////////IF TREE DOES NOT EXIST///////////////////////
+  else
+  {
+    Card temp = hasMatch();
+    
+    if(temp != null)
+    {
+      _discardPile.push(temp);
+      update();
+      return null;
+    }
+    else
+    {
+      getFirstCard();
+      update();
+      return null;
+    }
+  }
+  
+}
+
+//------------------------ makeNewDeck() -----------------------------------
+/**
+ * Makes a new deck, ie a new game.
+ * Resets all the piles
+ * Does not shuffle
+ */
+public void makeNewDeck()
+{
+  _discardPile.clear();
+  for(int i = 0; i < numPlayPiles; i++)
+  {
+    _playPiles.get(i).clear();
+  }
+  _drawPile.clear();
+  deal();
+}
+//--------------------------winner()---------------------------------------
+public boolean winner()
+{
+  boolean won = true;
+  for(int i = 0; i < _playPiles.size(); i++)
+  {
+    if(_playPiles.get(i).size() > 0)
+    {
+      return false;
+    }
+  }
+  return won;
+}
+//------------------------getResults()--------------------------------------
+public int getResults()
+{
+  int count = 0;
+  int score = 0;
+  for(int i = 0; i < _playPiles.size(); i++)
+  {
+    count += _playPiles.get(i).size();
+  }
+  score = _drawPile.size() - count;
+  return score;
+}
+//------------------------ shuffle( ) --------------------------------------
+/**
+ * Shuffles the current base deck according to the seed in the game
+ */
+public void shuffle()
+{
+  Collections.shuffle( _baseDeck, new Random( seed ) );
+  makeNewDeck();
+  update();
+}
+//-------------- undo() --------------------------------------------
+/**
+ * Undo a move
+ * Only works if the tree is built
+ * Returns a string if a problem occurs
+ * "Undoes" the move be setting the game state
+ */
+public String undo()
+{
+  return null;
+}
+/**************************************************************************/       
+//++++++++++++++++++++++++++  private methods ++++++++++++++++++++++++++++++
+//----------------------------- update() -----------------------------------
+/**
+ * Update the display components as needed.
+ */
+private void update()
+{      
+  drawPileSize.setLocation(drawPileX + 20, drawPileY - 30);
+  drawPileSize.setSize(20, 20);
+  drawPileSize.setText("" + _drawPile.size());
+  drawPileSize.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+  
+  for(int i = 0; i < numPlayPiles; i++)
+  {
+    _playPiles.get(i).displayCards(-1, true);
+  }
+  _drawPile.displayCards(-1, false);
+  _discardPile.setXOffset(10);
+  _discardPile.displayCards(-1, true);
+  
+  /////////////////////////////////////////////////////////
+  // This method needs to invoke the "displayCards" method of
+  // CardStack for all the card piles. The parameters to 
+  // "displayCards" may be different for different piles.
+  ////////////////////////////////////////////////////////
+  // W A R N I N G
+  //    Surround whatever code you put here in a big "if" !!!!
+  //    where you do NOT do any of this while you are tree 
+  //    building.
+  ///////////////////////////////////////////////////////
+}
+//------------------------ makeTree() ------------------------------------
+/**
+ * Make the tree by simulating recursion in the TreeNode class
+ */
+public void makeTree()
+{
+
+  if(!pauseAtLeaf)
+  {
+  State s = new State(_drawPile, _playPiles, _discardPile);
+  Node rootNode = new Node(-1, s);
+  _root = rootNode;
+  rootNode.makeChildren();
+  rootNode.makeChildren();
+  }
+  else
+  {
+    pauseAtLeaf(true);
+  }
+  System.out.println("Best Score possible: " + _root.score);
+  System.out.println("Node Count: " + Node.nodeCount);
+}
+//-------------------------play(Node n)---------------------------------
+public void play(Node n)
+{
+ 
+  if(n.data < _playPiles.size() && n.data > -1)
+  {
+    //play from pile
+    Card temp = _playPiles.get(n.data).pop();
+    
+    if(temp != null)
+    {
+      _discardPile.push(temp);
+      update();
+    }
+  }
+  else
+  {
+    //play from draw
+    getFirstCard();
+    update();
+  }
+}
+//------------------------ toInt( String, int ) ----------------
+/**
+ * Convert the string to an int if possible; if fail, print error ot
+ * Standard error and return the default value.
+ */
+private static int toInt( String in, int defaultVal )
+{
+  try 
+  {
+    return new Integer( in.trim() ).intValue();
+  }
+  catch ( Exception ex )
+  {
+    System.err.println( "toInt conversion error: " + ex.getMessage() );
+  }
+  return defaultVal;
+}
+//------------------------ createDeck() ------------------------------------
+/**
+ * Creates the first basedeck at game start.
+ */
+private void createDeck()
+{
+  int  cardIndex = 0;
+  
+  for ( Card.Suit suit: Card.Suit.values() )
+  {
+    for ( Card.Rank rank: Card.Rank.values() )
+    {
+      Card card = new Card(this,  rank, suit );
+      _baseDeck.add( 0, card );
+      this.add( card );
+    }
+  }
+}
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//--------------------------- main -----------------------------------------
+public static void main( String[] args )
+{
+  // Invoke main class's main
+  Golf.main( args );
+}
+}

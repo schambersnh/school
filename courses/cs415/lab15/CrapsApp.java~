@@ -1,0 +1,21 @@
+/**
+ * CrapsApp.java
+ * Combines all Classes into a Craps Game
+ * 
+ * @Author Stephen Chambers
+ * 10/27/10
+ * */
+import java.awt.Color;
+import wheelsunh.users.*;
+
+public class CrapsApp
+{
+  public static void main(String [] args)
+  {
+    Frame f = new Frame();
+    RollButton myRollButton = new RollButton(100, 200);
+    
+
+  }
+  
+}

@@ -1,0 +1,89 @@
+Open fileOut: 
+ORF header: >twoStops-in-frame0|orf-0@12-47
+ORF header: >twoStops-in-frame0|orf-1@1-59
+ORF header: >twoStops-in-frame0|orf-2@2-59
+orfs: 3
+Adding: twoStops-in-frame0|orf-0@12-47
+Adding: twoStops-in-frame0|orf-1@1-59
+Adding: twoStops-in-frame0|orf-2@2-59
+-------- Longest ORFs for twoStops-in-frame0 + strand-----------------
+twoStops-in-frame0: frame: 0 @ 12 -> 47
+twoStops-in-frame0: frame: 1 @ 1 -> 59
+twoStops-in-frame0: frame: 2 @ 2 -> 59
+ORF header: >twoStops-in-frame0-rc|orf-0@0-59
+ORF header: >twoStops-in-frame0-rc|orf-1@1-48
+ORF header: >twoStops-in-frame0-rc|orf-2@2-59
+orfs: 3
+Adding: twoStops-in-frame0-rc|orf-0@0-59
+Adding: twoStops-in-frame0-rc|orf-1@1-48
+Adding: twoStops-in-frame0-rc|orf-2@2-59
+-------- Longest ORFs for twoStops-in-frame0 - strand-----------------
+twoStops-in-frame0-rc: frame: 0 @ 0 -> 59
+twoStops-in-frame0-rc: frame: 1 @ 1 -> 48
+twoStops-in-frame0-rc: frame: 2 @ 2 -> 59
+ORF header: >twoStops-in-frame1-rc-rc|orf-0@0-60
+ORF header: >twoStops-in-frame1-rc-rc|orf-1@13-48
+ORF header: >twoStops-in-frame1-rc-rc|orf-2@2-60
+orfs: 3
+Adding: twoStops-in-frame1-rc-rc|orf-0@0-60
+Adding: twoStops-in-frame1-rc-rc|orf-1@13-48
+Adding: twoStops-in-frame1-rc-rc|orf-2@2-60
+-------- Longest ORFs for twoStops-in-frame1-rc-rc + strand-----------------
+twoStops-in-frame1-rc-rc: frame: 0 @ 0 -> 60
+twoStops-in-frame1-rc-rc: frame: 1 @ 13 -> 48
+twoStops-in-frame1-rc-rc: frame: 2 @ 2 -> 60
+ORF header: >twoStops-in-frame1-rc-rc-rc|orf-0@0-60
+ORF header: >twoStops-in-frame1-rc-rc-rc|orf-1@1-48
+ORF header: >twoStops-in-frame1-rc-rc-rc|orf-2@2-60
+orfs: 3
+Adding: twoStops-in-frame1-rc-rc-rc|orf-0@0-60
+Adding: twoStops-in-frame1-rc-rc-rc|orf-1@1-48
+Adding: twoStops-in-frame1-rc-rc-rc|orf-2@2-60
+-------- Longest ORFs for twoStops-in-frame1-rc-rc - strand-----------------
+twoStops-in-frame1-rc-rc-rc: frame: 0 @ 0 -> 60
+twoStops-in-frame1-rc-rc-rc: frame: 1 @ 1 -> 48
+twoStops-in-frame1-rc-rc-rc: frame: 2 @ 2 -> 60
+ORF header: >twoStops-in-frame2|orf-0@0-61
+ORF header: >twoStops-in-frame2|orf-1@1-61
+ORF header: >twoStops-in-frame2|orf-2@14-49
+orfs: 3
+Adding: twoStops-in-frame2|orf-0@0-61
+Adding: twoStops-in-frame2|orf-1@1-61
+Adding: twoStops-in-frame2|orf-2@14-49
+-------- Longest ORFs for twoStops-in-frame2 + strand-----------------
+twoStops-in-frame2: frame: 0 @ 0 -> 61
+twoStops-in-frame2: frame: 1 @ 1 -> 61
+twoStops-in-frame2: frame: 2 @ 14 -> 49
+ORF header: >twoStops-in-frame2-rc|orf-0@0-61
+ORF header: >twoStops-in-frame2-rc|orf-1@1-48
+ORF header: >twoStops-in-frame2-rc|orf-2@2-61
+orfs: 3
+Adding: twoStops-in-frame2-rc|orf-0@0-61
+Adding: twoStops-in-frame2-rc|orf-1@1-48
+Adding: twoStops-in-frame2-rc|orf-2@2-61
+-------- Longest ORFs for twoStops-in-frame2 - strand-----------------
+twoStops-in-frame2-rc: frame: 0 @ 0 -> 61
+twoStops-in-frame2-rc: frame: 1 @ 1 -> 48
+twoStops-in-frame2-rc: frame: 2 @ 2 -> 61
+ORF header: >noStops|orf-0@0-17
+ORF header: >noStops|orf-1@1-17
+ORF header: >noStops|orf-2@2-17
+orfs: 3
+Adding: noStops|orf-0@0-17
+Adding: noStops|orf-1@1-17
+Adding: noStops|orf-2@2-17
+-------- Longest ORFs for noStops + strand-----------------
+noStops: frame: 0 @ 0 -> 17
+noStops: frame: 1 @ 1 -> 17
+noStops: frame: 2 @ 2 -> 17
+ORF header: >noStops-rc|orf-0@0-17
+ORF header: >noStops-rc|orf-1@1-17
+ORF header: >noStops-rc|orf-2@2-17
+orfs: 3
+Adding: noStops-rc|orf-0@0-17
+Adding: noStops-rc|orf-1@1-17
+Adding: noStops-rc|orf-2@2-17
+-------- Longest ORFs for noStops - strand-----------------
+noStops-rc: frame: 0 @ 0 -> 17
+noStops-rc: frame: 1 @ 1 -> 17
+noStops-rc: frame: 2 @ 2 -> 17

@@ -1,0 +1,12 @@
+/*Stephen Chambers
+Writing file for testing
+*/
+
+int main()
+{
+  putchar(0xC0);
+  putchar(0xFF);
+  putchar(0xC0);
+  putchar(0x80);
+	
+}

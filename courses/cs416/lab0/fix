@@ -1,0 +1,19 @@
+         if ( line.length() > 0 )
+         {
+            if ( line.charAt( 0 ) != '#' )  // if it's not a comment, parse it
+               parseLine( line );
+            else   // check for a special comment that specifies trace commands
+            {
+               if ( line.startsWith( "#trace" ))
+               {
+                  String[] tokens = line.split( " " );
+                  if ( tokens.length > 2 )
+                  {
+                     if ( tokens[ 1 ].equals( "on" ))
+                        Log.traceOn( tokens[ 2 ] );
+                     else if ( tokens[ 1 ].equals( "off" ))
+                        Log.traceOff( tokens[ 2 ] );
+                  }
+               }
+            }
+         }

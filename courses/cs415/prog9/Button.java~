@@ -1,0 +1,25 @@
+/**
+ * Button.java
+ * Creates a Button 
+ * 
+ * @Author Stephen Chambers
+ * 10/27/10
+ * */
+import java.awt.Color;
+import wheelsunh.users.*;
+
+public class Button extends TextBox
+{
+  public static int numDie1, numDie2;
+
+  //------------------------Constructor-------------------------------------
+  public Button( int x, int y)
+  {
+    setLocation( x, y );
+    setFillColor( Color.RED );
+    setSize( 40, 40 );
+ 
+      
+  }
+
+} //End of Class
