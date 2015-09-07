@@ -1,0 +1,41 @@
+*** tiny-1.vw ***
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 3 MB of memory
+Plan Cost:       4
+Plan Length:     4
+Nodes Generated: 10
+Nodes Expanded:  4
+
+*** tiny-2.vw ***
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 3 MB of memory
+Plan Cost:       11
+Plan Length:     11
+Nodes Generated: 29
+Nodes Expanded:  12
+
+*** small-1.vw ***
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 3 MB of memory
+Plan Cost:       77
+Plan Length:     77
+Nodes Generated: 241
+Nodes Expanded:  82
+
+*** hard-1.vw ***
+Program exited with status 0
+Solver used 1.00 Seconds
+Solver used approximately 3 MB of memory
+Plan Cost:       525
+Plan Length:     525
+Nodes Generated: 13994
+Nodes Expanded:  5383
+
+*** hard-2.vw ***
+Time limit reached
+Solver used 5.00 Seconds
+Solver used approximately 3 MB of memory
+Plan was invalid
