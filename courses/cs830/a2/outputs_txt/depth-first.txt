@@ -1,0 +1,92 @@
+
+./vw-validator -time 10 -- ./run.sh depth-first < worlds/tiny-1.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 988 KB of memory
+Plan Cost:       4
+Plan Length:     4
+Nodes Generated: 10
+Nodes Expanded:  4
+
+____
+___*
+__12
+
+
+./vw-validator -time 10 -- ./run.sh depth-first < worlds/tiny-2.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 1.00 Seconds
+Solver used approximately 988 KB of memory
+Plan Cost:       11
+Plan Length:     11
+Nodes Generated: 29
+Nodes Expanded:  12
+
+_*9_
+__8*
+__*6
+
+
+./vw-validator -time 10 -- ./run.sh depth-first < worlds/small-1.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 988 KB of memory
+Plan Cost:       77
+Plan Length:     77
+Nodes Generated: 241
+Nodes Expanded:  82
+
+_#_____*76
+_____#_7*6
+___*#_#76#
+___9_99766
+___9999756
+__#998875#
+___9988855
+#__9988##5
+__#_#_4455
+___#_*4##_
+
+
+./vw-validator -time 10 -- ./run.sh depth-first < worlds/hard-1.vw 
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 340 KB of memory
+Plan Cost:       525
+Plan Length:     525
+Nodes Generated: 13994
+Nodes Expanded:  5383
+
+_#99_#_____7777#____##__#_#___#__#__#_44
+_*9999__#__7777#_#_#___#_#___#_#_44__444
+_#9999#___#7777_###_#___##__5444444#_4#4
+_#99999#__77777#____#___#__55#44444_#444
+#999##99#777777##_##55_55#_5#_##4##4444#
+_999_##9#7#7#777777#55555_55____4444#44_
+_99#___977_77777777#55555#5#____4444_4##
+99999#997##_6777#77#5555555_##__444444_#
+9##_999#7#_#6##777#555555333#44442222#00
+9#_####_78#_66#__#_5##_553#444#_#2#02222
+9#_##88#_8#_66#_66#55_#553_#_#_2*2#00222
+9__#8888_88#666#66665#_55333332*##__02##
+9#998#_8888866666#_655_##33333##____022_
+99998_#8888866#_#666_5#__0#_#3_##_#_332#
+#_998#_#_888666#_6###5##_0#__3#____#3333
+_9988#__8888666_#66665##__##_33##0033303
+#9#8###88#8#66#__66#655_###_#_3330#3#3#3
+_9_888#8888#_#__#666665#______#33#_33333
+_9#_#8#8888###___66666#_____##_3#3333#33
+_98888####___##__#_#_#____#____333#_###_
+
+
+./vw-validator -time 10 -- ./run.sh depth-first < worlds/hard-2.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Time limit reached
+Solver used 10.00 Seconds
+Solver used approximately 340 KB of memory
+Plan was invalid
+Failed to clean up all the dirt

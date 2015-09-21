@@ -1,0 +1,68 @@
+
+./vw-validator -time 10 -- ./run.sh ida-star h1 < worlds/tiny-1.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 988 KB of memory
+Plan Cost:       4
+Plan Length:     4
+Nodes Generated: 115
+Nodes Expanded:  41
+
+____
+___*
+__12
+
+
+./vw-validator -time 10 -- ./run.sh ida-star h1 < worlds/tiny-2.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 0.000 Seconds
+Solver used approximately 988 KB of memory
+Plan Cost:       9
+Plan Length:     9
+Nodes Generated: 705
+Nodes Expanded:  266
+
+_*76
+___*
+__*3
+
+
+./vw-validator -time 10 -- ./run.sh ida-star h1 < worlds/small-1.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Program exited with status 0
+Solver used 10.00 Seconds
+Solver used approximately 988 KB of memory
+Plan Cost:       24
+Plan Length:     24
+Nodes Generated: 40355184
+Nodes Expanded:  12084272
+
+_#__544*2_
+___65#__*_
+___*#_#_1#
+___788__0_
+_____9____
+__#__9___#
+_____9____
+#____9_##_
+__#_#9____
+___#_*_##_
+
+
+./vw-validator -time 10 -- ./run.sh ida-star h1 < worlds/hard-1.vw 
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Time limit reached
+Solver used 10.00 Seconds
+Solver used approximately 340 KB of memory
+Plan was invalid
+Failed to clean up all the dirt
+
+./vw-validator -time 10 -- ./run.sh ida-star h1 < worlds/hard-2.vw
+Picked up JAVA_TOOL_OPTIONS: -Xmx256m
+Time limit reached
+Solver used 10.00 Seconds
+Solver used approximately 988 KB of memory
+Plan was invalid
+Failed to clean up all the dirt
