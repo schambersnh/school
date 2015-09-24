@@ -1,0 +1,610 @@
+007310874X: Applied Linear Statistical Models
+007310938X: Hole's Essentials Of Human Anatomy And Physiology
+007310941X: Human Anatomy
+0073109444: Design of Machinery: An Introduction to the Synthesis and Analysis of Mechanisms and Machines
+0073109630: Organizational Behavior And Management
+0073121657: Basic Statistics For Business And Economics
+0073121665: Operations Management
+0073122580: Service Management: Operations, Strategy, and Information Technology
+0073122866: Vander's Human Physiology
+0073126993: Project Management: The Managerial Process
+0073128929: Organizational Behavior
+0073130826: Principles Of Corporate Finance
+0073131946: Human Resource Management: Gaining A Competitive Advantage With Olc Card
+0073134287: Fundamentals Of Corporate Finance
+0073134295: Fundamentals Of Corporate Finance: With S&p Card, Student Cd
+0073134937: Fundamentals Of Investment Management + Pass Card
+0073135690: Contemporary Advertising
+0073135852: International Management: Culture, Strategy And Behavior W/ Olc Card Mp
+0073135941: Essentials Of Econometrics
+0073136905: Selling: Building Partnerships
+0073137537: Auditing & Assurance Services: A Systematic Approach
+0073138339: Organizational Behavior: Key Concepts, Skills & Best Practices
+0073138967: Management: A Practical Introduction With Online Learning Center With Premium Content Card
+0073191752: Global Business Today
+0073191817: Theories of Personality
+0073191833: Social Psychology
+0073192635: Fundamentals Of Selling: Customers For Life Through Service
+0073194174: Life Span Development
+0073203130: Strategy:Winning In The Marketplace: Core Concepts, Analytical Tools, Cases With Online Learning Center Wit
+0073205346: Engineering Economy
+0073211141: Introduction To Operations Research
+0073214876: Business Research Methods
+0073215775: 73215775
+0073219460: 73219460
+0073220337: Principles And Applications of Electrical Engineering
+0073221074: 73221074
+0073224359: Organizational Behavior
+0073229784: Calculus for Business, Economics, And the Social And Life Sciences With Mathzone
+0073250325: Data Communications and Networking
+0073256439: Fundamentals of Electric Circuits
+0073660094: Electric Machinery
+0073660558: Experimental Methods for Engineers
+0125980558: Introduction to Probability Models
+0125980574: Introduction to Probablility and Statistics for Engineers and Scientists
+0130082058: Accounting Information Systems
+0130083690: Statistics: The Art And Science of Learning from Data
+0130084611: Microeconomics
+0130085073: Introduction to Mathematical Statistics
+0130085197: Digital Image Processing Using Matlab
+0130088471: Management
+0130167630: The Nature and Properties of Soils
+0130175986: Management of Organizational Behavior: Leading Human Resources
+0130281271: Statics and Mechanics of Materials
+0130307912: Fundamentals of Engineering Economics
+0130313580: Modern Operating Systems
+0130332712: Global Marketing Management
+013034074X: Computer Systems: A Programmer's Perspective
+0130342815: Discrete-Time Control Systems
+0130352802: Contemporary Logistics
+0130354716: Inorganic Chemistry
+0130384712: Corporate Computer and Network Security
+0130404675: Principles of Service Marketing and Management
+0130408719: Manufacturing Processes for Engineering Materials
+0130411507: Strategic Brand Management: Building, Measuring, and Managing Brand Equity
+013041977X: Strategic Marketing for Nonprofit Organizations
+0130460192: Network Security: Private Communication in a Public World
+0130461067: Decision Support Systems and Intelligent Systems
+0130466417: Statistics for Business and Economics
+0130471100: Object-Oriented Software Engineering: Using Uml, Patterns and Java
+0130473944: Elements of Chemical Reaction Engineering
+0130489875: Mechanical Vibrations
+0130606200: Physics: Principles and Applications
+0130608998: Fluid Power With Applications
+0130609072: Modern Control Engineering
+0130618853: Machine Elements in Mechanical Design
+0130652458: Differential Equations and Boundary Valve Problems: Computing and Modeling
+0130661899: Econometric Analysis
+013066491X: Behavior in Organizations: Understanding and Managing the Human Side of Work
+013081542X: Biostatistical Analysis
+0130819085: Bioprocess Engineering: Basic Concepts
+0130868175: Along These Lines: Writing Paragraphs and Essays
+0130882399: Applied Hydrogeology
+0130889784: Automation, Production Systems, and Computer-Integrated Manufacturing
+0130909963: Digital Integrated Circuits: A Design Perspective
+0130925535: Applied Multivariate Statistical Analysis
+0130930857: Basic Environmental Technology: Water Supply, Waste Management, and Pollution Control
+0131013653: College Algebra
+013101367X: Transport Processes and Separation Process Principles (Includes Unit Operations: (Includes Unit Operations
+0131073893: Statistics for Managers Using Microsoft Excel
+0131095978: International Management: Managing Across Borders And Cultures
+0131096869: Chemistry: The Central Science
+0131108956: Practical Research: Planning and Design
+0131112023: Finite Element Analysis: Theory and Application With Ansys
+0131118927: Introduction to Quantum Mechanics
+0131131273: Quality Control
+0131137646: Occupational Safety and Health for Technologists, Engineers, and Managers
+0131146246: Invitation to Psychology
+0131148656: Earth: An Introduction to Physical Geology
+0131150863: Science Explorer: From Bacteria To Plants
+0131176862: Discrete Mathematics
+0131181114: Abnormal Psychology: The Problem of Maladaptive Behavior
+0131190768: Literacy For The 21st Century: Balanced Approach
+0131190873: Educational Psychology: Developing Learners
+0131216333: Mechatronics: Electronic Control Systems in Mechanical and Electrical Engineering
+0131402080: Chemistry
+0131404121: Kleppner's Advertising Procedure
+0131409417: Biological Science
+0131409700: Water Supply and Pollution Control
+0131424629: System Dynamics
+0131424718: Traffic Engineering
+0131427067: John E. Freund's Mathematical Statistics: With Applications
+0131430211: Financial Reporting And Analysis.
+0131432613: Calculus for Business, Economics, Life Sciences, and Social Sciences
+0131432753: International Business: The Challenges of Globalization
+0131433512: Computer Networks and Internets: With Internet Applications
+0131433725: Using Mis
+0131435825: Macroeconomics: Theories And Policies
+0131437453: Miller & Freund's Probability and Statistics for Engineers
+0131439944: Management
+0131440977: Human Resource Management
+0131442007: Environmental Science: Toward a Sustainable Future
+0131442341: Principles of Macroeconomics
+0131443291: Biology Of Microorganisms
+0131444476: Prealgebra
+0131445650: Environmental Law
+0131445715: Essentials of Organizational Behavior
+0131446797: Discrete-Event System Simulation
+0131447165: Human Resource Management
+0131449680: Marketing: Real People, Real Choices
+0131450654: Financial Management: Principles and Applications
+0131450913: Internet & World Wide Web: How to Program
+0131453068: Principles of Biochemistry
+0131453343: Linear Algebra With Applications
+013145353X: Strategic Management
+0131454242: Understanding and Managing Organizational Behavior
+0131454439: Managing Information Technology
+0131454617: Modern Systems Analysis and Design
+0131454870: Information Systems Today
+0131457330: Modern Control Systems
+0131457578: Marketing Management
+0131463241: Engineering Mechanics: Dynamics
+0131464132: Probability And Statistical Inference
+0131465600: Advertising Principles And Practice
+0131465929: Electric Circuits
+0131469185: Principles of Marketing
+0131469193: Global Marketing
+0131469568: Market-Based Management: Strategies For Growing Customer Value And Profitability
+0131469843: Effective Small Business Management: An Entrepreneurial Approach
+0131470469: Electrical Engineering: Principles and Applications
+0131470892: Structural Analysis
+0026515628: Health: A Guide to Wellness
+0030020786: Principles of Instrumental Analysis
+0030350840: Business Research Methods With Infotrac
+0070109109: Fundamental Methods of Mathematical Economics
+0070311366: Introduction to Manufacturing Processes
+0070350485: An Introduction to Mechanics
+0070393605: Project Management for Engineering and Construction
+0070418780: Wastewater Engineering: Treatment and Reuse
+0072294337: Financial Markets and Corporate Strategy
+0072299908: Manufacturing Planning and Control for Supply Chain Management
+0072321113: Digital Communications
+0072339705: Risk Management and Insurance
+0072345535: Environmental Biotechnology: Principles and Applications
+0072348984: Gerald D. Schmidt & Larry S. Roberts' Foundations of Parasitology
+0072350539: Principles of Environmental Engineering and Science
+0072380322: Design of Analog Cmos Integrated Circuits
+0072385790: An Introduction to Biological Evolution
+0072392665: Plant Design and Economics for Chemical Engineers
+0072398876: Management of a Sales Force
+0072402318: Viscious Fluid Flow
+0072406550: Heat Transfer
+0072431881: Introduction to Transportation Engineering
+0072432020: Fluid Mechanics With Engineering Applications
+0072437316: Biology
+0072448482: Concepts of Modern Physics
+0072452692: Money, Banking And Financial Markets
+0072460539: Cmos Digital Integrated Circuits: Analysis and Design
+007246352X: Communication Networks: Fundamental Concepts and Key Architectures
+007246464X: Biology
+0072465239: Electric Machinery Fundamentals
+0072465638: Database Management Systems
+0072466855: Introduction To The Finite Element Method
+0072467509: Introduction to Computing Systems: From Bits and Gates to C and Beyond
+0072468246: Methods, Standards, and Work Design
+007246836X: Introduction to Probability and Statistics: Principles and Applications for Engineering and the Computing S
+0072471468: Product Design and Development
+0072478527: Basic Econometrics
+0072492953: Music: An Appreciation
+0072499389: Fundamentals of Digital Logic with VHDL Design
+0072505036: Microelectronic Circuit Design
+0072525231: Basic Marketing: A Global-Managerial Approach
+0072528303: Vertebrates: Comparative Anatomy, Function, Evolution
+0072534958: Physical Chemistry
+0072819359: Economics: Principles, Problems, and Policies
+0072823402: Macroeconomics
+0072827416: Vander's Human Physiology: The Mechanisms of Body Function
+0072828803: Marketing
+0072829206: Corporate Finance
+0072830085: Cost Management: Strategies for Business Decisions
+0072830875: Marketing Research: Within A Changing Information Environment
+0072831561: World Class Supply Management: Key to Supply Chain Management
+0072834943: Managerial Accounting
+0072838787: Fundamentals of Digital Logic With Verilog Design
+0072846119: Molecular Biology
+0072848235: Unit Operations of Chemical Engineering
+0072859342: Gilbert's Living with Art
+0072864478: Design of Machinery: An Introduction to the Synthesis and Analysis of Mechanisms and Machines
+0072864877: Consumer Behavior and Marketing Strategy: By J. Paul Peter, Jerry C. Olson
+0072865784: Business Marketing: Connecting Strategy,relationships, And Learning
+0072865989: Product Management
+0072871776: Labor Economics
+0072872527: Complex Variables and Applications
+0072873795: Purchasing and Supply Management: With 50 Supply Chain Cases
+0072875062: Anatomy & Physiology: The Unity Of Form And Function
+0072876484: Public Finance
+0072881208: Leadership: Enhancing The Lessons Of Experience
+0072887605: Perception
+0072918993: Matching Supply With Demand: An Introduction To Operations Management
+0072919817: Simulation With Arena
+0072921641: Biology
+0072921935: Mechanical Engineering Design
+0072922184: Understanding Business
+0072922427: Introduction to Matlab 7 for Engineers
+007293414X: Investments
+007293588X: Management Information Systems
+0072936932: Managerial Accounting
+0072947756: Corporate Information Strategy And Management: Text And Cases
+0072947888: Supply Chain Logistics Management
+0072951753: Microbiology With Password for Online Learning Center
+0072864478: Design of Machinery: An Introduction to the Synthesis and Analysis of Mechanisms and Machines
+0072864877: Consumer Behavior and Marketing Strategy: By J. Paul Peter, Jerry C. Olson
+0072865784: Business Marketing: Connecting Strategy,relationships, And Learning
+0072865989: Product Management
+0072871776: Labor Economics
+0072872527: Complex Variables and Applications
+0072873795: Purchasing and Supply Management: With 50 Supply Chain Cases
+0072875062: Anatomy & Physiology: The Unity Of Form And Function
+0072876484: Public Finance
+0072881208: Leadership: Enhancing The Lessons Of Experience
+0072887605: Perception
+0072918993: Matching Supply With Demand: An Introduction To Operations Management
+0072919817: Simulation With Arena
+0072921641: Biology
+0072921935: Mechanical Engineering Design
+0072922184: Understanding Business
+0072922427: Introduction to Matlab 7 for Engineers
+007293414X: Investments
+007293588X: Management Information Systems
+0072936932: Managerial Accounting
+0072947756: Corporate Information Strategy And Management: Text And Cases
+0072947888: Supply Chain Logistics Management
+0072951753: Microbiology With Password for Online Learning Center
+0131471988: Financial Management For Public, Health And Not-For-Profit Organizations
+0131475916: Accounting Information Systems
+0131477323: Marketing Research With Spss 13.0 Student Version For Windows
+0131478451: Business Communication Today
+0131479547: Operating Systems: Internals and Design Principles
+0131479725: Introduction to Financial Accounting
+0131481908: Machine Design
+0131483161: Elementary Statistics: Picturing The World
+0131483986: Java: How To Program
+0131485199: E-marketing
+0131485210: Structured Computer Organization
+0131486497: Engineering Economy
+0131487361: Fundamentals of Management: Essential Concepts and Applications
+0131489658: Manufacturing, Engineering and Technology
+0131491784: Essentials Of Entrepreneurship And Small Business Management
+0131494597: Strategic Management
+0131494708: Modern Management
+0131494848: Leadership In Organizations
+0131495380: Cost Accounting: A Managerial Emphasis
+0131495798: College Physics
+013149726X: Solid State Electronic Devices
+0131497456: Laboratory In Physical Geology
+0131497499: Essentials Of Geology
+0131497510: Earth Science
+0131497553: Statistics
+0131499084: Options, Futures And Other Derivatives
+0131499300: Feedback Control Of Dynamic Systems
+0131499459: Financial Accounting
+0131534351: Literature: An Introduction To Reading And Writing
+0131538411: Management Information Systems: Managing The Digital Firm
+0131542745: Strategic Management And Competitive Advantage: Concepts And Cases
+0131547143: Business Statistics: A First Course
+0131548654: Basic Marketing Research With Spss 13.0: Student
+0131554441: 131554441
+013155445X: Principles of Operations Management
+0131602586: Human Resource Management
+0131672673: Database Processing: Fundamentals, Design, And Implementation
+0131676865: Managing Business Process Flows: Principles Of Operations Management
+0131678310: Basic Business Statistics: Concepts And Applications
+0131679813: Business Communication Essentials
+0131697390: Operations Management
+013169944X: Concepts Of Genetics
+0131699571: Organic Chemistry
+0131708694: Exceptional Lives: Special Education in Today's Schools
+0131730428: Supply Chain Management
+0131733494: 131733494
+0131786865: Social Psychology
+0131816292: Topology
+0131837362: An Introduction to Human Factors Engineering
+013184069X: History of Modern Art: Painting Sculpture Architecture Photography
+0131851225: Advanced Accounting
+0131854615: Electronic Commerce 2006: A Managerial Perspective
+0131854712: Information Systems Management In Practice
+0131856057: Foundations Of Finance: The Logic And Practice Of Finance Management
+0131856405: Prentice Hall Reference Guide
+0131856626: A 'first Course In Probability
+0131857029: Quantitative Analysis For Management
+013185755X: Operation Management / Jay Heizer, Barry Render
+0131857576: C++ How To Program
+0131857851: Linear Algebra With Applications
+0131860151: Managerial Economics: Economic Tools for Today's Decision Makers
+0131860267: Macroeconomics
+0131862391: Introduction To Cryptography: With Coding Theory
+0131866222: Integrated Advertising, Promotion, & Marketing Communications
+0131867121: Auditing And Assurance Services: An Integrated Approach With Coverage Of Sarbane-oxley And Section 404 Audi
+0131867938: 131867938
+0131868772: Strategic Compensation
+0131869426: International Business: Environments And Operations
+0131870165: Retail Management: A Strategic Approach
+0131870769: Excellence in Business Communication
+0131873644: Finite Math And Its Application
+0131873741: 131873741
+0131878824: Technology in Action Introductory
+0131888099: Introduction to Management Science: Student
+0131891022: Literature and the Writing Process
+0131892622: A World of Art
+013191345X: Mechanics Of Materials
+0131918222: The Prentice Hall Guide For College Writers
+0131918338: Concepts Of Genetics
+0131919636: Calculus And Its Applications
+0131922440: Society: The Basics
+0131925385: Development Across The Life Span
+0131930079: Business Ethics: Concepts & Cases
+0131930818: Prebels' Artforms: An Introduction To The Visual Arts
+0131931989: The World Is A Text: Writing, Reading, and Thinking About Culture and Its Contexts
+0131931997: Understanding Psychology: Book And Study Guide
+0131933159: Living Religions
+0131950851: Corrections in America
+0131963163: Organic Chemistry
+0132184745: Sociology
+0132186942: Consumer Behavior
+0132187469: Biological Science
+0132192268: Brock Biology Of Microorganisms And Student Companion Website Access Card
+0132203847: Statistics for Business And Economics: Student
+0132277816: Essentials of Management Informaton Systems
+0132431564: Organizational Behavior
+0133214311: Advanced Engineering Mathematics
+0135265266: Statistical Methods for the Social Sciences
+0135763800: Geotechnical Engineering: Principles and Practices
+013651068X: Theory of Vibrations With Applications
+013726142X: Finite Element Analysis: Theory and Application with ANSYS
+0137549202: Discrete-Time Signal Processing
+0137903952: Artificial Intelligence: A Modern Approach
+013805326X: Introduction to Electrodynamics
+0138147574: Signals & Systems
+0139078746: Fundamentals of Complex Analysis: With Applications to Engineering and Science
+0195073401: Microeconomic Theory
+0195108094: Investment Science
+0195110099: Modern Digital and Analog Communications Systems
+0195116445: Cmos Analog Circuit Design
+0195136055: The Science and Engineering of Microelectronic Fabrication
+0195142519: Microelectronic Circuits
+0195158334: Linear Systems and Signals
+0201128195: Field and Wave Electromagnetics
+0201146592: Mechanics and Thermodynamics of Propulsion
+0201180758: Digital Image Processing
+0201543931: Semiconductor Device Fundamentals
+0201763907: A First Course in Abstract Algebra
+0201770253: Law and Economics
+0201771314: Elementary Statistics
+0205376061: An Introduction to Group Work Practice
+0205426514: Biopsychology
+0205439675: Lifespan Development
+020544444X: Essentials of Sociology: A Down-To-Earth Approach
+0205449131: Child Development
+0205449441: Public Relations: Strategies and Tactics
+0205457959: Mastering The World Of Psychology
+0205459382: Multivariate Statistics
+0205473059: Sociology: A Down to Earth Approach
+0205477534: The Media Of Mass Communication
+0205478093: Family Therapy: Concepts And Methods
+0205483925: Elementary And Middle School Mathematics: Teaching Developmentally
+0256136874: Strategic Logistics Management
+0256247951: Factory Physics: Foundations of Manufacturing Management
+0262032937: Introduction to Algorithms
+0312406843: A Pocket Style Manual
+0312406851: Rules for Writers
+0312407246: Everything's An Argument With Readings
+0312412622: Writers Reference
+0312419333: The Bedford Handbook
+0312434456: Compact Bedford Introduction to Literature: Reading, Thinking,
+0321149017: Cmos Vlsi Design: A Circuits and Systems Perspective
+0321159349: College Algebra
+0321162080: Exploring Literature: Writing and Thinking About Fiction, Poetry, Drama, and the Essay
+0321166396: Calculus and Its Applications
+0321185587: Thomas' Calculus
+032119800X: Thomas' Calculus: Early Transcendentals
+0321227352: Computer Networking: A Top-Down Approach Featuring the Internet
+0321227573: College Algebra
+0321228170: Basic Mathematics Through Applications
+0321236858: Fundamentals Of Investing & Otis Access Kit Package
+0321236874: Principles Of Risk Management And Insurance
+0321267613: Principles of Managerial Finance
+0321270762: Technical Communication
+0321278801: Macroeconomics
+0321278844: International Economics: Theory And Policy
+0321280296: Financial Markets and Institutions
+032128030X: Derivatives Markets
+0321287134: Linear Algebra And It's Applications
+0321293835: International Economics: Theory And Policy
+0321295358: Algorithm Design
+0321305035: Modern Labor Economics
+0321305043: Environmental and Natural Resource Economics
+0321322134: Data Structures & Problem Solving Using Java
+0321330234: Absolute C++
+0321330250: Concepts of Programming Languages
+0321357965: Multinational Business Finance
+0321369572: Fundamentals of Database Systems
+0321389514: The Little, Brown Handbook
+0321409493: Java Software Solutions: Foundations of Program Design
+0323018874: Contemporary Oral and Maxillofacial Surgery
+0323024491: Handbook Of Local Anesthesia: Local Anesthesia Administration DVD Package
+0323025862: Fundamentals Of Nursing
+0323025935: Wong's Essentials Of Pediatric Nursing
+0324007515: The Management of Business Logistics: A Supply Chain Perspective
+0324066856: Operations Management
+0324171889: Principles of Microeconomics
+0324174616: Principles of Microeconomics
+0324188005: Accounting
+0324200145: The Labor Relations Process
+0324201605: Marketing Research with Infortrac: Methodological Foundations
+0324202237: Management and Control of Quality: with Infotrac
+032420485X: Legal Environment of Business
+0324204884: Business: Its Legal, Ethical And Global Environment
+0324205643: Economics: Private and Public Choice
+0324221134: Economics: Principles And Policy
+032422155X: Marketing with Infotrac
+0324223048: Business Communication: Process and Product
+0324223102: Auditing: Concepts for a Changing Environment
+0324224702: Organizational Behavior with Infotrac: Foundations, Reality & Challenges
+0324225814: Business and Society: Ethics and Stakeholder Management
+0324226128: Small Business Management with Infotrac: An Entrepreneurial Emphasis
+0324226292: Auditing and Assurance Services
+0324233108: Cost Management: Accounting And Control
+0324233434: Small Business: An Entrepreneur's Business Plan
+0324235011: Cost Accounting: Foundations and Evolutions
+032423662X: Economics
+0324236700: Microeconomics
+0324236735: Contemporary Marketing with Infotrac
+0324258755: Essentials of Managerial Finance with Infotrac
+0324259131: Management: Meeting and Exceeding Customer Expectations
+0324259689: Financial Management/infotrac: Theory and Practice
+0324259913: International Business With Infotrac
+0324260601: Organization Development and Change/with infotrac
+0324260768: Practical Financial Management With Infotrac
+0324261276: The Leadership Experience With Infotrac
+0324270860: Microeconomic Theory with Infotrac: Basic Principles and Extensions
+0324288417: International Financial Management
+032428845X: Financial Markets And Institutions
+0324288522: Global Strategy with Infotrac
+0324288603: Economics: A Contemporary Introduction
+032428893X: Managerial Economics
+0324289030: Investment Analysis And Portfolio Management
+0324289081: Contemporary Financial Management
+0324289235: Entrepreneurial Finance
+0324289278: Bank Management
+0324289561: Advertising And Integrated Brand Promotion with Infotrac
+0324289588: Human Resource Management
+0324289782: 324289782
+032428991X: Managing Human Resources Through Strategic Partnerships
+032430160X: Fraud Examination
+0324302592: Management: Changes for Tomorrow's Leaders
+0324303904: West's Business Law: With Online Legal Research Guide
+0324314639: Managing Human Resources- With Infotrac
+0324316240: Supervision: Concepts And Practices of Management
+0324316593: Management With Infotrac
+0324316941: Strategic Managemnt: Concepts And Cases- With Infotrac
+0324317980: Management with Infotrac
+0324319789: Human Resource Development
+0324319835: Fundamentals of Financial Management, Concise Edition + Thomson One - Business School Edition And Tvm Card
+0324320892: Contemporary Business 2006
+0324321430: 324321430
+0324323638: Organizational Behavior
+0324376332: Statistics for Management And Economics, Abbreviated Edition: With Student And Infotrac
+0324400829: Data Analysis & Decision Making With Infotrac: With Microsoft Excel
+0324405421: Organization Theory And Design
+0393924092: 393924092
+0393924963: Managerial Economics
+0393925536: Introduction to Sociology
+0393927024: Intermediate Microeconomics: A Modern Approach
+0393970833: Statistics
+0393975150: Macroeconomics
+0393977765: The Norton Field Guide To Writing
+0393978796: The Enjoyment of Music: An Introduction to Perceptive Listening
+0393979059: The Norton Anthology of American Literature, 1820-1865: American Literature 1820-1865
+0393979962: The Personality Puzzle
+0395977274: Geometry
+0443100349: Biochemistry Illustrated: Biochemistry And Molecular Biology In The Post-genomic Era
+0471000779: Process Dynamics and Control
+0471120626: Stochastic Processes
+0471134767: Automatic Control Systems
+0471144487: 471144487
+0471152323: Fundamentals of Thermodynamics
+0471153680: Medical Instrumentation: Application and Design
+0471198269: Mathematical Methods in the Physical Sciences
+0471202312: Introduction to Fluid Mechanics
+047123009X: Government and Not-For-Profit Accounting: Concepts and Practices
+0471232319: Fundamentals of Physics: Extended
+0471272140: Probability and Stochastic Processes: A Friendly Introduction for Electrical and Computer Engineers
+0471274712: Fundamentals of Engineering Thermodynamics
+0471321680: Analysis and Design of Analog Integrated Circuits
+0471348066: Systems Analysis and Design With Uml Version 2.0: An Object-Oriented Approach
+0471393622: Spectrometric Identification of Organic Compounds
+0471410772: Transport Phenomena
+0471413895: Facilities Planning
+047141526X: Introduction To Solid State Physics
+0471417998: Organic Chemistry
+0471420840: Microbiology: Principles and Explorations
+0471433373: Elementary Numerical Analysis
+0471433381: Elementary Differential Equations and Boundary Value Problems
+047143339X: Elementary Differential Equations
+0471445770: Control Systems Engineering
+0471445932: Theory And Design For Mechanical Measurements
+0471450073: Cognition
+0471465801: Cell and Molecular Biology: Concepts and Experiments
+0471470155: Heating, Ventilating, and Air Conditioning: Analysis and Design
+0471487287: Basic Engineering Circuit Analysis
+047148735X: Design And Analysis Of Experiments
+0471488852: Advanced Engineering Mathematics
+0471563374: Foundations of Multinational Financial Management
+0471655279: Financial Accounting
+0471656313: Introduction to Statistical Quality Control
+0471661775: Fundamentals Of Machine Component Design
+0471661783: Managerial Accounting: Tools For Business Decision Making
+0471662933: Mathematics for Elementary Teachers: A Contemporary Approach
+0471663158: Physics
+0471675822: Fundamentals of Fluid Mechanics
+0471681709: Organizational Behavior
+0471684767: Marketing Research Essentials
+0471689343: Principles Of Anatomy And Physiology
+0471692093: Operations Management
+0471692387: Abnormal Psychology
+0471694665: Operating System Concepts
+0471705225: Information Technology For Management: Transforming Organizations In The Digital Economy
+0471715379: Project Management: A Managerial Approach
+0471730424: Introduction to Electric Circuits
+0471730513: Financial Accounting: Tools For Business Decision Making
+0471736368: Introduction to Information Systems
+0471736961: Materials Science and Engineering: An Introduction
+0471737690: Multinational Financial Management
+0471749559: Intermediate Accounting
+0471755303: Introductory Statistics: Using Technolygy
+0495005614: Sociology: A Global Perspective
+0495011622: Meteorology Today
+0495012033: Fundamentals of Organic Chemistry
+0495015997: 495015997
+0495031283: Essentials of Abnormal Psychology
+0495093254: The Practice of Social Research
+0495187062: World Politics: Trend And Transformation
+0521370957: The Art of Electronics
+0534209106: Applied Regression Analysis and Other Multivariable Methods
+0534229026: Principles of Biostatistics
+0534359450: Discrete Mathematics With Applications With Infotrac
+0534378048: Fundamentals of Logic Design
+0534380581: Operations Research With Infotrac: Applications and Algorithms
+0534387438: Traffic and Highway Engineering
+0534389996: Organic Chemistry With Infotrac
+0534392008: Numerical Analysis with ILRN
+053439339X: Calculus
+0534399339: Probability and Statistics for Engineering and the Sciences With Infotrac
+0534405215: Biochemistry
+0534408427: Physics for Scientists and Engineers With Infotrac
+0534408966: Classical Dynamics of Particles and Systems
+0534417930: Mechanics of Materials With Infotrac
+0534418058: Elementary Survey Sampling
+0534418783: A First Course In Differential Equations With Modeling Applications
+0534491243: Statistics For Management And Economics With Infotrac
+053449143X: Principles Of Physics: A Calculus-based Text
+0534492142: Finite Mathematics For The Managerial, Life, And Social Sciences With Ilrn Tutorial
+0534536050: Theory and Practice of Counseling and Psychotherapy
+0534553818: Life-span Human Development
+0534554016: An Introduction To The History Of Psychology With Infotrac
+0534558100: Perception
+0534559867: Advanced Nutrition and Human Metabolism
+0534585051: A Concise Introduction to Logic
+0534589626: Introduction to Psychology: With Infotrac
+0534589898: Nutrition Through The Life Cycle With Infotrac
+0534590535: Comparative Politics: Domestic Responses To Global Challenges
+0534600085: Western Civilization With Infotrac: Since 1500 Chapters 13-29
+053460725X: Development through Life: A Psychosocial Approach
+0534607950: Groups With Infotrac: Process And Practice
+0534608590: Psychology Applied To Modern Life: Adjustment In The 21st Century
+0534618596: Marriages And Families: Making Choices In A Diverse Soceity With Infotrac
+0534621678: Foundations: A Reader For New College Students With Infotrac
+0534948847: Unit Operations and Processes in Environmental Engineering
+0534950973: Introduction To The Theory Of Computation
+0534997236: College Physics
+053499766X: Chemistry And Chemical Reactivity
+0618400508: Elementary Linear Algebra
+0619215267: Information Technology Project Management
+061921743X: Network+ Guide To Networks
+0619255749: Microsoft Office 2003: Introductory Concepts And Techniques Word 2003, Excel 2003, Access 2003, Powerpoint
+0716715449: Exploring Psychology
+0716743396: Lehninger Principles of Biochemistry
+0716743663: Molecular Cell Biology
+0716752298: Microeconomics
+0716752379: Macroeconomics
+0716757060: The Developing Person Through the Life Span
