@@ -1,0 +1,169 @@
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e1.cnf >> a6-transcript
+P(F(renamec1x), G(G(B)))
+-P(F(renamec1x), G(G(B)))
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e2.cnf >> a6-transcript
+G(F(T), R(T), T)
+-G(F(T), R(T), T)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e3.cnf >> a6-transcript
+Bar(Val(renamec1x, BB), Val(renamec1x, BB))
+-Bar(Val(renamec1x, BB), Val(renamec1x, BB))
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e4.cnf >> a6-transcript
+P(renamec2e, C, A, B, A)
+-P(renamec2e, C, A, B, A)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e5.cnf >> a6-transcript
+P(renamec2f, renamec2f, renamec2f)
+-P(renamec2f, renamec2f, renamec2f)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e6.cnf >> a6-transcript
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/e7.cnf >> a6-transcript
+P(C(A, renamec2t1), C(B, C(renamec1b0, renamec1l0)), C(A, C(B, C(B, C(A, Emp)))))
+-P(C(A, renamec2t1), C(B, C(renamec1b0, renamec1l0)), C(A, C(B, C(B, C(A, Emp)))))
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/p1.cnf >> a6-transcript
+-Human(Socrates) | Mortal(Socrates)
+Human(Socrates)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/p2.cnf >> a6-transcript
+-Human(Socrates) | Mortal(Socrates)
+Human(Socrates) | -Mortal(F(renamec2y))
+
+-Human(F(renamec2y)) | Mortal(F(renamec2y))
+Human(Socrates) | -Mortal(F(renamec2y))
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/p3.cnf >> a6-transcript
+-Human(Socrates, Socrates) | Mortal(Socrates)
+Human(Socrates, Socrates) | -Mortal(Socrates)
+
+-Human(renamec2y, Socrates) | Mortal(renamec2y)
+Human(renamec2y, renamec2y) | -Mortal(renamec2y)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/p4.cnf >> a6-transcript
+A(F(B), F(B))
+-A(F(B), F(B))
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/p5.cnf >> a6-transcript
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/s1.cnf >> a6-transcript
+-A(C, C) | B(C)
+A(C, C) | -B(C)
+
+-A(renamec2y, C) | B(renamec2y)
+A(renamec2y, renamec2y) | -B(renamec2y)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/s2.cnf >> a6-transcript
+-A(F(renamec2x), F(F(renamec2x))) | B(F(renamec2x), F(renamec2x))
+A(F(renamec2x), renamec2x) | -B(F(renamec2x), F(renamec2x))
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/s3.cnf >> a6-transcript
+A(A, A, renamec2b) | B(C(A, A, renamec2b)) | C(renamec2b)
+-A(A, A, renamec2b) | -C(D)
+
+A(renamec1a, renamec1b, D) | B(C(renamec1a, renamec1b, D)) | C(D)
+-A(A, A, renamec2b) | -C(D)
+
+All match!
+************************************************************************************
+
+
+
+************************************************************************************
+./unify-validator ./run.sh < cnfs/test.cnf >> a6-transcript
+A(A, A, renamec2b) | B(C(A, A, renamec2b)) | C(renamec2b)
+-A(A, A, renamec2b) | -C(D)
+
+A(renamec1a, renamec1b, D) | B(C(renamec1a, renamec1b, D)) | C(D)
+-A(A, A, renamec2b) | -C(D)
+
+All match!
+************************************************************************************

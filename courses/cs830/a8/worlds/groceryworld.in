@@ -1,0 +1,28 @@
+#
+# Grocery World:
+#
+#     Shop for milk, bananas, and a drill and return home.
+#
+
+
+predicates: At(x) Sells(store, x) Have(x)
+constants: Home HWS Drill SM Milk Bananas
+2 actions
+
+Go here there
+pre: At(here)
+preneg:
+del: At(here)
+add: At(there)
+
+Buy store x
+pre: At(store) Sells(store, x)
+preneg:
+del:
+add: Have(x)
+
+constants:
+
+initial: At(Home) Sells(HWS, Drill) Sells(SM, Milk) Sells(SM, Bananas)
+goal: At(Home) Have(Drill) Have(Milk) Have(Bananas)
+goalneg: 

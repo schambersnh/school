@@ -1,0 +1,2 @@
+A(a, b, c) | B(C(a, b, c)) | C(c)
+-A(A, A, b) | -C(D)

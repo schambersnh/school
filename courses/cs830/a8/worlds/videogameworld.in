@@ -1,0 +1,35 @@
+#
+# Video Game World:
+#
+#     Shop for chips, salsa, soda, and battlefront. Then invite
+#     a friend to play online and return home.
+#
+
+
+predicates: At(x) Sells(store, x) Have(x) Playing(x,y)
+constants: Home Chips Salsa Soda Battlefront SM Gamestop
+3 actions
+
+Go here there
+pre: At(here)
+preneg:
+del: At(here)
+add: At(there)
+
+Buy store x
+pre: At(store) Sells(store, x)
+preneg:
+del:
+add: Have(x)
+
+Invite person game
+pre: Have(game)
+preneg:
+del:
+add: Playing(person,game)
+
+constants: Brian
+
+initial: At(Home) Sells(SM, Chips) Sells(SM, Salsa) Sells(SM, Soda) Sells(Gamestop, Battlefront)
+goal: At(Home)  Have(Battlefront) Playing(Brian,Battlefront)
+goalneg: 

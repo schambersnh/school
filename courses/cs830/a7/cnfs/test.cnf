@@ -1,0 +1,5 @@
+-X(a) | -Y(b)
+X(a) | Y(b)
+X(SOCRATES) | -Y(CLAMS)
+--- negated query ---
+-X(SOCRATES)

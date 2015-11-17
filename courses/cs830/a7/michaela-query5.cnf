@@ -1,0 +1,13 @@
+-State(x1) | NorthAmerica(x1)
+Visited(C1, Michaela)
+-NorthAmerica(C1)
+NorthAmerica(x1) | Europe(x1) | -Visited(x1, Michaela)
+-NorthAmerica(Greece)
+-Europe(Peru)
+Visited(Greece, Stephen)
+-Visited(x1, Stephen) | Visited(x1, Michaela)
+Visited(Peru, Briana)
+-NorthAmerica(Peru)
+-Visited(x1, Michaela) | -Europe(x1) | Likes(x1, Michaela)
+--- negated query ---
+-Likes(Greece, Michaela)

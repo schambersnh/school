@@ -1,0 +1,27 @@
+#All people that can read are intelligent
+all x (CanRead(x) -> Intelligent(x))
+#Some football players can't read
+exists x (FootballPlayer(x) -> -CanRead(x))
+#Tom brady is a football player
+FootballPlayer(TomBrady)
+#All quarterbacks are football players
+forall x (Quarterback(x) -> FootballPlayer(x))
+#Andy Dalton is a quarterback
+Quarterback(AndyDalton)
+#Bill Belichek is a coach
+Coach(BillBelichek)
+#All coaches can read
+forall x (Coach(x) -> CanRead(x))
+#All football players are rich
+forall x (FootballPlayer(x) -> Rich(x))
+#All rich people are happy
+forall x (Rich(x) -> Happy(x))
+--- query ---
+#Bill belichek is intelligent
+#Intelligent(BillBelichek)
+#Andy Dalton is a football player
+#FootballPlayer(AndyDalton)
+#NOT PROVABLE: Andy dalton can read
+#CanRead(AndyDalton)
+#Tom brady is happy
+Happy(TomBrady)

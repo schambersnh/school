@@ -35,6 +35,7 @@ public class State {
 	 * Whether or not the "battery" flag is on, requiring the robot to keep track
 	 * of power.
 	 */
+	@SuppressWarnings("unchecked")
 	public State(String actionList, ArrayList<Point> blockedCells, ArrayList<Point> dirtyCells, 
 				Point curLocation, Point bounds, boolean useBattery, ArrayList<Point> chargingStations)
 	{

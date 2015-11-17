@@ -1,0 +1,11 @@
+#!/usr/local/bin/perl -w
+
+use strict;
+
+print "\nUsage: $0 from to\n" unless @ARGV == 2;
+
+my ($from, $to) = @ARGV;
+my $diff = (($to - $from) / $from) * 100;
+my $label = $diff < 0 ? 'greater' : 'less';
+printf "$from is %.2f%% $label than $to\n", abs $diff;
+

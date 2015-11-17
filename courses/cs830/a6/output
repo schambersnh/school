@@ -1,0 +1,11 @@
+-CanRead(x1) | Intelligent(x1)
+-FootballPlayer(C1) | -CanRead(C1)
+FootballPlayer(TomBrady)
+-Quarterback(x1) | FootballPlayer(x1)
+Quarterback(AndyDalton)
+Coach(BillBelichek)
+-Coach(x1) | CanRead(x1)
+-FootballPlayer(x1) | Rich(x1)
+-Rich(x1) | Happy(x1)
+--- negated query ---
+-Happy(TomBrady)

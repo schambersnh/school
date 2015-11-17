@@ -1,0 +1,5 @@
+P(f0, C(B, C(b0, l0)), C(A, C(B, C(B, C(A, Emp)))))
+-P(C(h1, t1), l1, C(h1, r1))
+
+P(C(h1, t1), C(B, C(b0, l0)), C(A, C(B, C(B, C(A, Emp)))))
+-P(C(h1, t1), C(B, C(b0, l0)), C(A, C(B, C(B, C(A, Emp)))))

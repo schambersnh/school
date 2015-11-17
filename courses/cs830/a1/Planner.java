@@ -1,8 +1,6 @@
-import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Stack;
