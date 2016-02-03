@@ -99,6 +99,9 @@ static unsigned int do_radix_sort(unsigned long ary[],
     memset(counts, 0, sizeof(unsigned long) * key_len);
     counter = 0;
   }
+  free(counts);
+  free(positions);
+  free(new_arr);
   return 0;   
 }
 
@@ -139,6 +142,7 @@ static unsigned int do_counting_sort(unsigned long ary[],
            index++;    
        } 
     }
+    free(buckets);
     return 0;
 }
 
